@@ -169,9 +169,9 @@ describe('03: Home Experience, VinylShelf & 3D Bookshelf', () => {
 
       // Career timeline checks
       expect(container.textContent).toContain('芯火知识库 & AI 全栈工作流')
-      expect(container.textContent).toContain('主理人 & 开源工具矩阵构建者')
-      expect(container.textContent).toContain('江西工业工程职业技术学院')
-      expect(container.textContent).toContain('创办「来自07年的芯火」· 网安探索与实践')
+      expect(container.textContent).toContain('主理人 & 实用开源工具构建者')
+      expect(container.textContent).toContain('大专自学与成长实践')
+      expect(container.textContent).toContain('创办「来自07年的芯火」· 聚焦 AI 赋能与专科生自学成长')
 
       // Coordinate card checks
       expect(container.textContent).toContain('30.2741° N')

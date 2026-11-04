@@ -158,11 +158,11 @@ python scripts/xh_blog_cli.py snapshot --tag v1.0.0-my-brand
 
 This repository serves as the actual production release for **「芯火」 (Xinhuo)**:
 
-- **Brand Identity**: Cybersecurity freshman · AI fullstack & design workflow practitioner;
+- **Brand Identity**: College sophomore born in 2007 · Practical "AI + Self-Learning" practitioner · Personal growth journey;
 - **Full-Spectrum Assets**: Integrated 8 comprehensive long-form articles from WeChat official account `来自07年的芯火`;
 - **Dual-Track Brand Avatars**: Bottom dock Favicon, WeChat modal, and email stamp utilize the high-resolution childhood IP circular avatar (`/images/avatar.png`); hero portrait supports halftone print toggle;
 - **Project Matrix**: Features 7 real GitHub repositories with dedicated vector brand icons;
-- **Experience Timeline**: Chronicles 2025–2026 milestones across cybersecurity, AI agents, and frontend engineering.
+- **Experience Timeline**: Chronicles 2025–2026 milestones in leveraging AI for authentic self-learning, frontend engineering, and personal media.
 
 ---
 

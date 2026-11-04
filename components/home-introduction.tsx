@@ -180,8 +180,8 @@ export function HomeIntroduction({
         <T
           zh={
             <>
-              我是芯火，保持独立思考，致力于
-              <span className="font-medium text-[var(--foreground)]"> AI 敏捷生产力</span>与个人知识沉淀系统的探索构建。也是一名
+              我是芯火，一个 07 年的大专大二学生。在这里真实记录通过
+              <span className="font-medium text-[var(--foreground)]"> AI 敏捷生产力</span>与知识沉淀改变自己的过程。也是一名
               <DesignEngineerPhrase>AI 全栈构建者</DesignEngineerPhrase>。热爱把细节做到
               <DetailsPhrase>
                 <span className="home-detail-units">
@@ -195,8 +195,8 @@ export function HomeIntroduction({
           }
           en={
             <>
-              I am Xinhuo, an independent thinker committed to{' '}
-              <span className="font-medium text-[var(--foreground)]">AI agile productivity</span> and personal knowledge architecture. Also an{' '}
+              I am Xinhuo, a college sophomore born in 2007, documenting real self-growth through{' '}
+              <span className="font-medium text-[var(--foreground)]">practical AI and learning</span>. Also an{' '}
               <DesignEngineerPhrase>AI Full-Stack Builder</DesignEngineerPhrase>, dedicated to getting the{' '}
               <DetailsPhrase>
                 <span className="home-detail-units home-detail-words">
@@ -215,8 +215,8 @@ export function HomeIntroduction({
 
       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
         <T
-          zh="在日新月异的技术浪潮中，专注于构建确定性认知资产与可落地的全栈工作流，在意好点子、好细节，也在意玩得开心。"
-          en="Navigating technological evolution by cultivating deterministic cognitive assets and pragmatic workflows, with care for craft, details, and fun."
+          zh="不讲虚的大词，专注于个人成长赛道与自学实用主义。希望能用实实在在的经验，陪伴和帮助更多专科同学，用 AI 赋能自己的学业与生活。"
+          en="Focused on real personal growth and self-learning without fluff. Empowering peers and fellow college students to leverage AI pragmatically in learning and daily life."
         />
       </p>
 
