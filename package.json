@@ -9,6 +9,7 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
+    "test:run": "vitest run",
     "test:unit": "vitest run",
     "verify:public-discovery": "node scripts/verify-public-discovery.mjs",
     "test:browser": "playwright test"

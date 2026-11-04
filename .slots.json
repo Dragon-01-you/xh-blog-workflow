@@ -1,0 +1,55 @@
+[
+  {
+    "slot_id": "slot_1_identity_and_location",
+    "name": "Identity & Location",
+    "target_files": ["lib/personal.ts"],
+    "description": "Full name, English handle, timezone, city, title, bio and personal brand declaration."
+  },
+  {
+    "slot_id": "slot_2_dual_track_avatars",
+    "name": "Dual-Track Brand Avatars",
+    "target_files": [
+      "public/images/avatar.png",
+      "public/images/headshot.jpg",
+      "public/images/portrait-square.jpg",
+      "public/images/wechat-qr.jpg"
+    ],
+    "description": "True-color childhood IP avatar, halftone print photo, and dark mode square portrait."
+  },
+  {
+    "slot_id": "slot_3_home_intro_phrases",
+    "name": "Homepage Intro Phrases",
+    "target_files": ["lib/personal.ts"],
+    "description": "Hero section identity declarations, roles, tech stacks, and philosophical positioning."
+  },
+  {
+    "slot_id": "slot_4_social_cards_elastic",
+    "name": "Social Networks & Links",
+    "target_files": ["lib/personal.ts"],
+    "description": "WeChat official account, Xiaohongshu, GitHub, and email contact coordinates."
+  },
+  {
+    "slot_id": "slot_5_experience_timeline",
+    "name": "Career & Experience Timeline",
+    "target_files": ["lib/personal.ts"],
+    "description": "Chronological milestones, education, projects, and personal achievements."
+  },
+  {
+    "slot_id": "slot_6_original_articles",
+    "name": "Original MDX Blog Articles",
+    "target_files": ["content/blog"],
+    "description": "Markdown/MDX posts with frontmatter metadata, reading time, tags, and 1200x675 covers."
+  },
+  {
+    "slot_id": "slot_7_projects_and_photos",
+    "name": "Projects Showcase & Photo Grid",
+    "target_files": ["lib/projects.ts", "lib/photos.ts"],
+    "description": "Featured projects, GitHub repository metadata, and high-resolution personal photography."
+  },
+  {
+    "slot_id": "slot_8_bookshelf_and_vinyl_records",
+    "name": "Bookshelf & Vinyl Records",
+    "target_files": ["lib/content.ts", "public/images/books", "public/images/records"],
+    "description": "Curated reading lists, favorite albums, and aesthetic culture artifacts."
+  }
+]

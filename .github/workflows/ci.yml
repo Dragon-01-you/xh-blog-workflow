@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  verify:
+    name: Verify Codebase, Tests & Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install pnpm Dependencies
+        run: pnpm install
+
+      - name: Python CLI Smoke Tests & Kernel Lock Verification
+        run: python tests/test_smoke.py
+
+      - name: TypeScript Typecheck
+        run: pnpm exec tsc --noEmit
+
+      - name: Run Vitest Unit Tests (68/68)
+        run: pnpm test:run
+
+      - name: Next.js Static Site Build (22 SSG Routes)
+        run: pnpm build

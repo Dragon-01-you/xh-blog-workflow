@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use xh-blog-workflow in your research or project, please cite it as below."
+authors:
+  - family-names: "You"
+    given-names: "Dragon"
+    alias: "芯火 (Xinhuo)"
+title: "xh-blog-workflow: Deterministic 1:1 Swiss Paper-and-Ink Personal Brand Blog Production System"
+version: 1.0.0
+date-released: 2026-11-04
+url: "https://github.com/Dragon-01-you/xh-blog-workflow"
+repository-code: "https://github.com/Dragon-01-you/xh-blog-workflow"
+keywords:
+  - nextjs
+  - react19
+  - tailwind-v4
+  - swiss-design
+  - blog-template
+  - workflow
+  - personal-website

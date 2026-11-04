@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xh-blog-workflow"
+version = "1.0.0"
+description = "瑞士纸墨精工质感个人品牌博客工作流：1:1母版复刻 · 变量热插拔 · K代码哈希锁 | Swiss Paper & Ink personal blog workflow: 1:1 clone & hot-swap"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "Dragon-01-you", email = "240284676+Dragon-01-you@users.noreply.github.com" }
+]
+keywords = [
+    "nextjs",
+    "react19",
+    "tailwind-v4",
+    "blog-template",
+    "swiss-design",
+    "webgpu",
+    "personal-website",
+    "workflow",
+    "cali-so",
+    "xinhuo"
+]
+
+[project.scripts]
+xh-blog = "xh_blog.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/Dragon-01-you/xh-blog-workflow"
+Repository = "https://github.com/Dragon-01-you/xh-blog-workflow"
+Issues = "https://github.com/Dragon-01-you/xh-blog-workflow/issues"
+Changelog = "https://github.com/Dragon-01-you/xh-blog-workflow/blob/main/CHANGELOG.md"
+
+[tool.setuptools]
+packages = ["xh_blog"]

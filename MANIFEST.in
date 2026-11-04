@@ -1,0 +1,10 @@
+include README.md
+include README_EN.md
+include LICENSE
+include CITATION.cff
+include CHANGELOG.md
+include llms.txt
+include .kernel-lock.json
+include .slots.json
+recursive-include assets *
+recursive-include scripts *
