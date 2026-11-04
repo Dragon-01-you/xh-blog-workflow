@@ -10,3 +10,6 @@ shots/
 *.tsbuildinfo
 
 .scratch/
+
+# Raw browser recordings
+raw_recordings/

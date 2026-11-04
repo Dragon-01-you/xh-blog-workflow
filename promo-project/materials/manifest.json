@@ -1,0 +1,251 @@
+{
+  "sources": [
+    {
+      "kind": "web",
+      "from": "http://127.0.0.1:3000",
+      "at": "2026-11-04T16:06:18.088Z",
+      "title": "芯火 (Xinhuo)",
+      "description": "07 年大二学生 ·「AI + 自学」实用主义 · 公众号「来自07年的芯火」",
+      "files": [
+        {
+          "kind": "screen",
+          "file": "materials/web-127-0-0-1-3000/screen-01.png",
+          "from": "http://127.0.0.1:3000",
+          "note": "y=0px, 2x"
+        },
+        {
+          "kind": "screen",
+          "file": "materials/web-127-0-0-1-3000/screen-02.png",
+          "from": "http://127.0.0.1:3000",
+          "note": "y=900px, 2x"
+        },
+        {
+          "kind": "screen",
+          "file": "materials/web-127-0-0-1-3000/screen-03.png",
+          "from": "http://127.0.0.1:3000",
+          "note": "y=1800px, 2x"
+        },
+        {
+          "kind": "logo",
+          "file": "materials/web-127-0-0-1-3000/logo-01.png",
+          "from": "http://127.0.0.1:3000/images/avatar.png",
+          "note": "icon"
+        },
+        {
+          "kind": "logo",
+          "file": "materials/web-127-0-0-1-3000/logo-svg-1.svg",
+          "from": "http://127.0.0.1:3000",
+          "note": "inline SVG from the page"
+        },
+        {
+          "kind": "logo",
+          "file": "materials/web-127-0-0-1-3000/logo-svg-2.svg",
+          "from": "http://127.0.0.1:3000",
+          "note": "inline SVG from the page"
+        },
+        {
+          "kind": "logo",
+          "file": "materials/web-127-0-0-1-3000/logo-svg-3.svg",
+          "from": "http://127.0.0.1:3000",
+          "note": "inline SVG from the page"
+        },
+        {
+          "kind": "image",
+          "file": "materials/web-127-0-0-1-3000/image-01.png",
+          "from": "http://127.0.0.1:3000/images/photos/research-evidence.png",
+          "note": "1055×1491"
+        },
+        {
+          "kind": "image",
+          "file": "materials/web-127-0-0-1-3000/image-02.png",
+          "from": "http://127.0.0.1:3000/images/photos/space-as-data.png",
+          "note": "1055×1491"
+        },
+        {
+          "kind": "image",
+          "file": "materials/web-127-0-0-1-3000/image-03.png",
+          "from": "http://127.0.0.1:3000/images/photos/manifest-hand.png",
+          "note": "1791×878"
+        },
+        {
+          "kind": "image",
+          "file": "materials/web-127-0-0-1-3000/image-04.png",
+          "from": "http://127.0.0.1:3000/%23n",
+          "note": "1440×900 \"background\""
+        },
+        {
+          "kind": "image",
+          "file": "materials/web-127-0-0-1-3000/image-05.jpg",
+          "from": "http://127.0.0.1:3000/images/headshot.jpg",
+          "note": "600×600"
+        },
+        {
+          "kind": "image",
+          "file": "materials/web-127-0-0-1-3000/image-06.jpg",
+          "from": "http://127.0.0.1:3000/images/portrait-square.jpg",
+          "note": "600×600"
+        }
+      ],
+      "colours": [
+        {
+          "role": "ground",
+          "hex": "oklch(0.99 0.001 95)",
+          "w": 3032055
+        },
+        {
+          "role": "ground",
+          "hex": "oklch(0.98 0.004 95)",
+          "w": 122330.36606219411
+        },
+        {
+          "role": "ground",
+          "hex": "oklab(0.975 -0.000130734 0.00149429 / 0.6)",
+          "w": 25200
+        },
+        {
+          "role": "ground",
+          "hex": "oklab(0.99 -0.0000871558 0.000996195 / 0.68)",
+          "w": 22960
+        },
+        {
+          "role": "type",
+          "hex": "oklch(0.56 0.004 78)",
+          "w": 305
+        },
+        {
+          "role": "type",
+          "hex": "oklch(0.39 0.0045 74)",
+          "w": 200
+        },
+        {
+          "role": "type",
+          "hex": "oklch(0.23 0.0045 70)",
+          "w": 153
+        },
+        {
+          "role": "accent",
+          "hex": "oklch(0.23 0.0045 70)",
+          "w": 1710
+        },
+        {
+          "role": "accent",
+          "hex": "oklch(0.91 0.0025 92)",
+          "w": 500
+        },
+        {
+          "role": "accent",
+          "hex": "oklch(0.56 0.004 78)",
+          "w": 390
+        },
+        {
+          "role": "accent",
+          "hex": "oklch(0.39 0.0045 74)",
+          "w": 120
+        },
+        {
+          "role": "css --background",
+          "hex": "#08070a"
+        },
+        {
+          "role": "css --foreground",
+          "hex": "#f1eee5"
+        },
+        {
+          "role": "css --card",
+          "hex": "oklch(20.5% 0 0)"
+        },
+        {
+          "role": "css --card-foreground",
+          "hex": "oklch(98.5% 0 0)"
+        },
+        {
+          "role": "css --popover",
+          "hex": "oklch(20.5% 0 0)"
+        },
+        {
+          "role": "css --popover-foreground",
+          "hex": "oklch(98.5% 0 0)"
+        },
+        {
+          "role": "css --primary",
+          "hex": "oklch(92.2% 0 0)"
+        },
+        {
+          "role": "css --primary-foreground",
+          "hex": "oklch(20.5% 0 0)"
+        },
+        {
+          "role": "css --secondary",
+          "hex": "oklch(26.9% 0 0)"
+        },
+        {
+          "role": "css --secondary-foreground",
+          "hex": "oklch(98.5% 0 0)"
+        },
+        {
+          "role": "css --muted",
+          "hex": "#f1eee517"
+        },
+        {
+          "role": "css --muted-foreground",
+          "hex": "#f1eee5ad"
+        },
+        {
+          "role": "css --accent",
+          "hex": "oklch(26.9% 0 0)"
+        },
+        {
+          "role": "css --accent-foreground",
+          "hex": "oklch(98.5% 0 0)"
+        },
+        {
+          "role": "css --destructive",
+          "hex": "oklch(70.4% .191 22.216)"
+        },
+        {
+          "role": "css --border",
+          "hex": "#f1eee529"
+        },
+        {
+          "role": "css --input",
+          "hex": "oklch(100% 0 0/.15)"
+        },
+        {
+          "role": "css --ring",
+          "hex": "oklch(55.6% 0 0)"
+        },
+        {
+          "role": "css --chart-1",
+          "hex": "oklch(87% 0 0)"
+        },
+        {
+          "role": "css --chart-2",
+          "hex": "oklch(55.6% 0 0)"
+        },
+        {
+          "role": "css --chart-3",
+          "hex": "oklch(43.9% 0 0)"
+        },
+        {
+          "role": "css --chart-4",
+          "hex": "oklch(37.1% 0 0)"
+        },
+        {
+          "role": "css --chart-5",
+          "hex": "oklch(26.9% 0 0)"
+        },
+        {
+          "role": "css --sidebar",
+          "hex": "oklch(20.5% 0 0)"
+        }
+      ],
+      "fonts": [
+        {
+          "family": "Noto Sans SC",
+          "chars": 895
+        }
+      ],
+      "missing": []
+    }
+  ]
+}

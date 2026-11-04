@@ -12,6 +12,6 @@ export default defineConfig({
   },
   test: {
     environment: 'node',
-    exclude: [...configDefaults.exclude, 'tests/browser/**', '.claude/**'],
+    exclude: [...configDefaults.exclude, 'tests/browser/**', '.claude/**', '.agents/**', 'promo-project/**'],
   },
 })
