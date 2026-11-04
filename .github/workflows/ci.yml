@@ -34,6 +34,21 @@ jobs:
       - name: Install pnpm Dependencies
         run: pnpm install
 
+      - name: Generate Local Mock Environment (.env.local)
+        run: |
+          cat << 'EOF' > .env.local
+          PUBLIC_SITE_URL=http://127.0.0.1:3000
+          SITE_URL=http://127.0.0.1:3000
+          ADMIN_EMAIL=owner@xinhuo.local
+          AMA_ENCRYPTION_KEY=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+          RATE_LIMIT_HASH_KEY=AgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgI=
+          DATABASE_URL=postgresql://runtime:runtime@127.0.0.1:5432/xinhuo_local
+          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_local_sandbox_placeholder
+          CLERK_SECRET_KEY=sk_test_local_sandbox_placeholder
+          RESUME_PASSPHRASE=
+          RESUME_SESSION_SECRET=
+          EOF
+
       - name: Python CLI Smoke Tests & Kernel Lock Verification
         run: python tests/test_smoke.py
 
