@@ -1,0 +1,20 @@
+---
+title: "Finished VibeCoding but Stuck on Deployment? A Solo Developer's Complete Guide"
+date: "2026-10-17"
+publishedAt: "2026-10-17T12:00:00.000Z"
+description: "From static edge hosting (EdgeOne/Vercel) and Serverless full-stack (CloudBase) to VPS and graphical control panels."
+cover: "./cover.jpg"
+coverWidth: 1200
+coverHeight: 675
+coverCaption: "Deployment decision matrix and production pipeline for solo creators."
+---
+
+VibeCoding makes building functional software as effortless as conversing with an LLM. However, taking a project from `localhost:3000` to a globally accessible URL frequently stalls first-time builders.
+
+## 1. Classify the Runtime Requirements
+- **Static Frontend**: Static sites require no persistent server. Use edge platforms (EdgeOne Pages, Vercel, Cloudflare Pages).
+- **Lightweight Full-Stack**: Integrate Serverless backends and document stores (CloudBase, Supabase).
+- **Custom Daemons**: When deploying Docker containers, Python services, or relational DBs, provision a virtual private server (VPS).
+
+## 2. SSL, Domains, and Automated Continuous Delivery
+Never distribute bare IP addresses. Enforce HTTPS via automated Let's Encrypt certificates and link your repositories directly to deployment hooks.

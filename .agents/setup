@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+if [[ ! -f "$repo_root/.env.local" ]]; then
+  cp "$repo_root/.env.example" "$repo_root/.env.local"
+  sed -i "s|^DATABASE_URL=.*$|DATABASE_URL=postgresql://runtime:runtime@127.0.0.1:5432/xinhuo_local|" "$repo_root/.env.local"
+  sed -i "s|^AMA_ENCRYPTION_KEY=.*$|AMA_ENCRYPTION_KEY=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=|" "$repo_root/.env.local"
+  sed -i "s|^RATE_LIMIT_HASH_KEY=.*$|RATE_LIMIT_HASH_KEY=AgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgI=|" "$repo_root/.env.local"
+fi
+echo "Sandbox ready ($(node -v), pnpm $(pnpm -v))"

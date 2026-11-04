@@ -1,0 +1,32 @@
+---
+title: "Top Developers Design the Test; We Merely Fill in Answers"
+date: "2026-10-21"
+publishedAt: "2026-10-21T12:00:00.000Z"
+description: "Do you spend your engineering hours answering AI prompts, or designing verification tests? The mindset shift behind elite AI-driven engineering."
+cover: "./cover.jpg"
+coverWidth: 1200
+coverHeight: 675
+coverCaption: "Engineering pipeline vs. examination: Elite developers craft questions; amateurs fill in blanks."
+---
+
+When interacting with AI models, developers frequently fall into a passive trap: asking for snippets, copying outputs, and reacting to hallucinations.
+
+Observing world-class engineering workflows reveals the opposite paradigm: **Top developers design the examination; AI provides candidate answers.**
+
+## 1. Setup as a Guardrail: AGENTS.md & Pre-Commit
+
+Before writing code, establish a defensive envelope:
+- Clear architectural constraints codified in `AGENTS.md`.
+- Automated Git `pre-commit` hooks for linting, type-checking, and test runs.
+
+## 2. Test-Driven Development (TDD) as the Golden Contract
+
+By writing assertions before implementations, we create an objective verification harness:
+1. **Red**: Define the contract with an intentionally failing test.
+2. **Green**: Prompt the model to produce the minimal implementation that passes.
+3. **Refactor**: Improve elegance and efficiency under test coverage.
+
+## 3. Open Source Skill: xh-ai-fullstack-workflow
+
+I packaged this end-to-end framework into an open-source specification available on GitHub:
+[Dragon-01-you/xh-ai-fullstack-workflow](https://github.com/Dragon-01-you/xh-ai-fullstack-workflow).

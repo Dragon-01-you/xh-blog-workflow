@@ -1,0 +1,10 @@
+node_modules/
+.next/
+out/
+dist/
+.env*.local
+!.env.example
+test-results/
+playwright-report/
+shots/
+*.tsbuildinfo
