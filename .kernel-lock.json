@@ -3,7 +3,7 @@
   "template_source": "E:\\芯火知识库\\芯火知识库\\个人知识库\\01-当前任务\\网站设计工作流\\site-2",
   "kernel_file_count": 49,
   "files": {
-    "app/globals.css": "de588324c88973bc51bded0c73211606aeb0930cd2a2cb20148b086f12a7d06b",
+    "app/globals.css": "5774abd1a65b245cd198b5557f46fd945dac0d54966a1802bc7657ce7db5edba",
     "app/layout.tsx": "3501ee257e7cef3cfd54254e48eef6fef650f22a57f67da48519e3de311633af",
     "app/page.tsx": "843d25bd950ddd4ff4aaa9398a0e9d72c9ecb9b9c95668ee405bc87768e2bd99",
     "app/blog/page.tsx": "e3280b4e5d27c7f9e313ebb5091a89ff01b3c3bd215d32ad53084365745eb0a2",

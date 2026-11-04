@@ -63,11 +63,11 @@ EXCLUDE_COPY_DIRS = {
 
 
 def sha256_file(path: Path) -> str:
-    h = hashlib.sha256()
-    with path.open("rb") as f:
-        for chunk in iter(lambda: f.read(65536), b""):
-            h.update(chunk)
-    return h.hexdigest()
+    raw = path.read_bytes()
+    # Normalize CRLF -> LF for text source files to guarantee cross-platform deterministic hashing
+    if path.suffix.lower() in {".css", ".ts", ".tsx", ".js", ".mjs", ".json", ".md", ".txt", ".html"}:
+        raw = raw.replace(b"\r\n", b"\n")
+    return hashlib.sha256(raw).hexdigest()
 
 
 def collect_kernel_files(project_dir: Path) -> dict[str, str]:
