@@ -1,0 +1,23 @@
+{
+  "_note": "仓库元数据模板。description 上限 160 字符（About 栏不截断）；topics 上限 20 个。",
+  "description": "{中文：它是什么}：{三个核心能力，用顿号} | {English one-liner pitch}",
+  "homepage": "https://github.com/{owner}/{repo}",
+  "topics": {
+    "生态词": ["python", "cli-tool", "developer-tools"],
+    "领域大词": ["security", "ai-security", "observability"],
+    "竞品关联词": ["openai-api", "llm-api", "chatgpt"],
+    "功能词": ["forensics", "api-testing", "prompt-engineering"]
+  },
+  "social_preview": {
+    "size": "1280x640",
+    "format": "JPG",
+    "max_bytes": 1000000,
+    "upload": "Settings → Social preview → Edit → Upload（无公开 API，必须网页操作）"
+  },
+  "rules": [
+    "仓库名 = 包名 = 命令名；改名前先确认 GitHub 会给 301",
+    "description 前 80 字符必须能独立成句",
+    "topics 四类各 4-6 个，不要堆同义词",
+    "徽章 ≤ 8 枚：CI / license / runtime / version / stars / docs"
+  ]
+}

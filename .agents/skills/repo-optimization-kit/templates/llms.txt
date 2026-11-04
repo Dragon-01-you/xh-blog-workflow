@@ -1,0 +1,25 @@
+# {项目名}
+
+> {一句话定义：它是什么 + 给谁用 + 产出什么}。{第二句：最硬的差异化事实，带一个数字}。
+
+## 核心文档
+
+- [README]({REPO_URL}#readme): 完整介绍、安装、快速开始
+- [快速开始]({REPO_URL}#快速开始): 三步跑通
+- [工作原理]({REPO_URL}#工作原理): 流水线与模块边界
+- [常见问题]({REPO_URL}#faq): 高频疑问与误判边界
+
+## 数据与清单
+
+- [{数据文件1}]({RAW_URL}/data/xxx.json): {字段与用途}
+- [{数据文件2}]({RAW_URL}/data/yyy.csv): {字段与用途}
+
+## 引用与许可
+
+- [论文/技术报告]({PAPER_URL}): {标题与年份}
+- [LICENSE]({REPO_URL}/blob/main/LICENSE): {协议}
+
+## 可选
+
+- [更新日志]({REPO_URL}/blob/main/CHANGELOG.md)
+- [贡献指南]({REPO_URL}/blob/main/CONTRIBUTING.md)

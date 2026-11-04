@@ -51,7 +51,9 @@
 
 ![demo](assets/demo.gif)
 
-上图演示了 **xh-blog-workflow** 命令行工具在真实工程中的全流程：从动态槽位状态巡检（`inspect-slots`）、49 个 K 代码 SHA-256 完好性校验（`verify-kernel`）、68 项单元测试飞速通过，到全量静态发布快照自动标记（`snapshot`）。
+> 💡 **真实运行录屏**：上图为基于 **xh-blog-workflow** 交付的「瑞士纸墨精工质感」个人品牌站点真实交互录屏演示。完整呈现了 Swiss 级微交互动效：精工 Hero 排版、黑胶留声机唱片架流光、3D 立体抽书书架、全自适应底栏 Dock 与全真暗黑模式切换。
+> 
+> 📹 亦可查看全清录屏视频源文件：[`assets/demo.mp4`](assets/demo.mp4)。
 
 ---
 

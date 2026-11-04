@@ -51,7 +51,9 @@ Every creator dreams of owning a museum-grade personal blog with warm paper-and-
 
 ![demo](assets/demo.gif)
 
-The recording above demonstrates the **xh-blog-workflow** CLI tooling in action: inspecting slot variables (`inspect-slots`), validating 49 K-code SHA-256 hashes (`verify-kernel`), running 68 unit tests, and tagging release snapshots (`snapshot`).
+> 💡 **Live Screen Recording**: The screen recording above captures the live visual fidelity and micro-interactions of the personal brand site built with **xh-blog-workflow**: Swiss paper-and-ink typography, vinyl record turntable sheen, 3D interactive bookshelf, responsive bottom dock, and smooth dark mode switching.
+> 
+> 📹 You can also view the raw recording file: [`assets/demo.mp4`](assets/demo.mp4).
 
 ---
 
