@@ -1,0 +1,32 @@
+{
+  "status": "bootstrapped",
+  "target_dir": "E:\\芯火知识库\\芯火知识库\\个人知识库\\01-当前任务\\网站设计工作流\\site-2",
+  "template_dir": "E:\\芯火知识库\\芯火知识库\\个人知识库\\01-当前任务\\网站设计工作流\\site-2",
+  "environment": {
+    "node": {
+      "ok": true,
+      "version": "v24.14.0"
+    },
+    "pnpm": {
+      "ok": true,
+      "version": "10.32.1"
+    },
+    "git": {
+      "ok": true,
+      "version": "git version 2.54.0.windows.1"
+    }
+  },
+  "copied_top_level_items": 0,
+  "kernel_lock_file": "E:\\芯火知识库\\芯火知识库\\个人知识库\\01-当前任务\\网站设计工作流\\site-2\\.kernel-lock.json",
+  "kernel_file_count": 49,
+  "dynamic_slots": [
+    "lib/personal.ts",
+    "lib/projects.ts",
+    "lib/photos.ts",
+    "lib/content.ts",
+    "lib/view-transition-name.ts",
+    "content/github.json",
+    "content/blog",
+    "public/images"
+  ]
+}

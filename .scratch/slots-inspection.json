@@ -1,0 +1,138 @@
+{
+  "project_dir": "E:\\芯火知识库\\芯火知识库\\个人知识库\\01-当前任务\\网站设计工作流\\site-2",
+  "inspected_at": "2026-11-04T13:49:00.330893+00:00",
+  "customizable_v_slots": {
+    "slot_1_identity_and_location": {
+      "file": "lib/personal.ts (brandConfig)",
+      "fields": [
+        "name",
+        "enName",
+        "tagline",
+        "location",
+        "coordinates"
+      ],
+      "rule": "Required. Ask user for brand name, city, and coordinates."
+    },
+    "slot_2_dual_track_avatars": {
+      "files": [
+        "public/images/avatar.png (Dock 26px & Favicon & WeChat Modal & Stamp)",
+        "public/images/headshot.jpg (Hero Portrait Light)",
+        "public/images/portrait-square.jpg (Hero Portrait Dark)"
+      ],
+      "rule": "Required. Hero portrait supports halftone + click to reveal true-color photo. Dock uses IP avatar."
+    },
+    "slot_3_home_intro_phrases": {
+      "file": "components/home-introduction.tsx / lib/personal.ts",
+      "fields": [
+        "rolePhrase (with laptop/sparkle SVG)",
+        "craftPhrase (with spring wave jump)",
+        "introParagraphs"
+      ],
+      "rule": "Ask user for their role badge phrase, craftsmanship motto, and 3-4 bio paragraphs."
+    },
+    "slot_4_social_cards_elastic": {
+      "files": [
+        "lib/personal.ts",
+        "components/social-cards.tsx",
+        "content/github.json",
+        "public/images/wechat-qr.jpg"
+      ],
+      "supported_channels": [
+        "github (26-week live heatmap + stars)",
+        "email (physical stamped airmail envelope)",
+        "wechat_official (QR code popup modal, no external dead jump)",
+        "xiaohongshu (profile card + direct jump)",
+        "xiaobaotong / column (if no URL yet, render as pure text '筹备中' without '#' dead link; or hide if unused)",
+        "other platforms (hide completely if user does not have them)"
+      ]
+    },
+    "slot_5_experience_timeline": {
+      "file": "lib/personal.ts (experiences)",
+      "rule": "Elastic array. Must use user's 100% real years and roles. Never fabricate years."
+    },
+    "slot_6_original_articles": {
+      "directory": "content/blog/<slug>/index.mdx",
+      "current_count": 8,
+      "current_articles": [
+        {
+          "slug": "campus-data-card-for-alma-mater",
+          "title": "我花了3周，给母校做了套数据活名片：把枯燥数字变成招生王牌",
+          "date": "2025-10-26",
+          "has_cover": true
+        },
+        {
+          "slug": "concept-visualization",
+          "title": "一句话将任何概念可视化",
+          "date": "2026-10-25",
+          "has_cover": true
+        },
+        {
+          "slug": "five-legal-security-labs",
+          "title": "大一网安新生亲测｜小白零踩坑！5个100%合法本地练手靶场",
+          "date": "2026-04-08",
+          "has_cover": true
+        },
+        {
+          "slug": "kali-linux-penetration-testing-intro",
+          "title": "昨晚通宵搞定了Kali Linux，我用宿舍大白话把渗透测试讲透了",
+          "date": "2026-04-03",
+          "has_cover": true
+        },
+        {
+          "slug": "reflecting-after-two-months",
+          "title": "停更两个月后，我想明白了一件事",
+          "date": "2026-11-02",
+          "has_cover": true
+        },
+        {
+          "slug": "top-developers-make-questions",
+          "title": "顶尖的开发者在出题，而我们只是在答卷",
+          "date": "2026-10-21",
+          "has_cover": true
+        },
+        {
+          "slug": "vibecoding-deployment-guide",
+          "title": "vibecoding 做出来了，却卡在部署？个人开发者该怎么选，一次讲清",
+          "date": "2026-10-17",
+          "has_cover": true
+        },
+        {
+          "slug": "weekly-review-2026-06-15",
+          "title": "本周复盘：输入内化输出、专注力与认知资产",
+          "date": "2026-06-15",
+          "has_cover": true
+        }
+      ],
+      "rule": "Elastic count. Must only include user's genuine original articles with 1200x675 cover.jpg."
+    },
+    "slot_7_projects_and_photos": {
+      "files": [
+        "lib/projects.ts",
+        "lib/photos.ts"
+      ],
+      "rule": "Elastic count. Projects must be real repos/works. Photos defaults to empty [] (darkroom empty state) until user selects real achievement photos."
+    },
+    "slot_8_bookshelf_and_vinyl_records": {
+      "file": "lib/personal.ts (books, records)",
+      "current_book_covers": [
+        "benjamin-franklin.jpg",
+        "deliberate-practice.jpg",
+        "naval-almanack.jpg",
+        "poor-charlie.jpg",
+        "principles.jpg",
+        "steve-jobs.jpg",
+        "thinking-fast-and-slow.jpg",
+        "value-mindset.jpg"
+      ],
+      "current_record_covers": [
+        "duo-xing-yun.jpg",
+        "jie-yao.jpg",
+        "jiu-rang-zhe-da-yu.jpg",
+        "merry-christmas-mr-lawrence.jpg",
+        "shanye-zhushui.jpg",
+        "zhui-meng-chi-zi-xin.jpg"
+      ],
+      "rule": "Elastic count! User can add/remove achievement books (战绩书) or favorite books & songs by providing title, link, and cover image, or keep defaults as placeholder."
+    }
+  }
+}
