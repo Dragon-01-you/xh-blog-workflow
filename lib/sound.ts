@@ -1,4 +1,4 @@
-// Web Audio mechanical sound synthesis & toggle state for 芯火 site
+// Web Audio mechanical sound synthesis & toggle state for personal brand site
 // Zero external package dependency; pure native Web Audio API with SSR safety.
 
 let inMemorySoundEnabled = true

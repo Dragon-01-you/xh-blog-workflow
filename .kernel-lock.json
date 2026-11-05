@@ -4,7 +4,7 @@
   "kernel_file_count": 49,
   "files": {
     "app/globals.css": "5774abd1a65b245cd198b5557f46fd945dac0d54966a1802bc7657ce7db5edba",
-    "app/layout.tsx": "3501ee257e7cef3cfd54254e48eef6fef650f22a57f67da48519e3de311633af",
+    "app/layout.tsx": "df9b6be60da5ad5cc1619c5650d4f2c25337c4d1a3f6d2e595d47ddeef1bac43",
     "app/page.tsx": "831c33b34881ef8f65aeab55caa78c5d073836befa239e7e95ff56deeb57190a",
     "app/blog/page.tsx": "e3280b4e5d27c7f9e313ebb5091a89ff01b3c3bd215d32ad53084365745eb0a2",
     "app/projects/page.tsx": "cfc4362ef0cf68689861911fa8d5a790ae85b07d5a3569a0adc5a14003ce7bc6",
@@ -24,7 +24,7 @@
     "components/dock-icons.tsx": "5a35eaac6f186eef580ce03d51e8a417438a5884bdeaed4d474d3736cdf7a765",
     "components/experience.tsx": "f340c7071156c55f23073777f9c4ee31243837547e174ff177502923593e16da",
     "components/external-mark.tsx": "51262db6d4d33c7bcf9fba1b023817fa9fcea488bcd96d468eb27f2b3565992a",
-    "components/footer-clock.tsx": "622eaab9c247709bd6406644008135c2014382f77837311ce974b9dedd6d3881",
+    "components/footer-clock.tsx": "2fe00688920916ce652c7ae0365fd49864c211fdd0e0996373926c4879b3db4a",
     "components/footer.tsx": "5726d5a3ae4e7f2ce2b76d3ac6a11e207b261899b67bdacf1554d5836567ec59",
     "components/ghost-schematic.tsx": "6a09be60dab901d15b06ce3c5d685d8f4a08d5ba0685f2ca89b65290eaddec81",
     "components/halftone-portrait.tsx": "2bf9f4fa437647dbd47696ee9ff040f24667c5fbe6b04fdb0608ee3f251cc3a9",

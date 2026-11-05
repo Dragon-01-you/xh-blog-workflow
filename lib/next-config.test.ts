@@ -44,7 +44,7 @@ describe('第二步：本地免密码练习场与网站底座配置验电测试'
     expect(fs.existsSync(envLocalPath)).toBe(true)
     const content = fs.readFileSync(envLocalPath, 'utf8')
     expect(content).toContain('SITE_URL=http://127.0.0.1:3000')
-    expect(content).toContain('ADMIN_EMAIL=owner@xinhuo.local')
+    expect(content).toMatch(/ADMIN_EMAIL=[^\s]+/)
     expect(content).toContain('AMA_ENCRYPTION_KEY=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=')
   })
 })

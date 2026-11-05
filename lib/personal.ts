@@ -21,6 +21,9 @@ export interface BrandConfig {
   headshotDark: string
   poster: string
   location: string
+  timezone?: string
+  timezoneLabel?: string
+  city?: string
   locationCoordinates: {
     lat: string
     lng: string
@@ -41,6 +44,9 @@ export const brandConfig: BrandConfig = {
   headshotDark: '/images/portrait-square.jpg',
   poster: '/images/portrait-poster.png',
   location: 'Hangzhou, China (UTC+8)',
+  timezone: 'Asia/Shanghai',
+  timezoneLabel: 'UTC+8',
+  city: 'Hangzhou',
   locationCoordinates: {
     lat: '30.2741° N',
     lng: '120.1551° E',

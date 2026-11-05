@@ -1,8 +1,8 @@
 {
-  "name": "xinhuo-site-2",
+  "name": "xh-blog-workflow",
   "version": "0.1.0",
   "private": true,
-  "description": "芯火个人品牌博客（1:1 对标 cali.so v3 工程架构）",
+  "description": "Deterministic 1:1 Swiss Paper-and-Ink Personal Brand Blog Production System",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

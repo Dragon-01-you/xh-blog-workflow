@@ -1,17 +1,25 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
+import { brandConfig } from '~/lib/personal'
 
-const beijingClockTime = new Intl.DateTimeFormat('en-GB', {
-  timeZone: 'Asia/Shanghai',
+// Dynamic timezone and city resolution based on creator's brandConfig
+const timeZone = brandConfig.timezone || 'Asia/Shanghai'
+const timezoneLabel = brandConfig.timezoneLabel || 'UTC+8'
+const cityName =
+  brandConfig.city ||
+  (brandConfig.location ? brandConfig.location.split(',')[0].trim() : 'Local')
+
+const targetClockTime = new Intl.DateTimeFormat('en-GB', {
+  timeZone,
   hourCycle: 'h23',
   hour: '2-digit',
   minute: '2-digit',
   second: '2-digit',
 })
 
-const beijingTimeLabel = new Intl.DateTimeFormat('en-US', {
-  timeZone: 'Asia/Shanghai',
+const targetTimeLabel = new Intl.DateTimeFormat('en-US', {
+  timeZone,
   hour12: true,
   hour: 'numeric',
   minute: '2-digit',
@@ -23,7 +31,7 @@ function timeParts(date: Date | null) {
 
   try {
     const parts = Object.fromEntries(
-      beijingClockTime
+      targetClockTime
         .formatToParts(date)
         .filter((part) => part.type !== 'literal')
         .map((part) => [part.type, part.value])
@@ -36,7 +44,7 @@ function timeParts(date: Date | null) {
       hour,
       minute,
       second,
-      label: beijingTimeLabel.format(date),
+      label: targetTimeLabel.format(date),
     }
   } catch {
     return {
@@ -119,10 +127,14 @@ export function FooterClock() {
         <circle className="footer-clock-pin" cx="16" cy="16" r="1" />
       </svg>
       <div className="footer-time-readout">
-        <span>UTC+8</span>
+        <span>{timezoneLabel}</span>
         <time
           dateTime={now ? now.toISOString() : undefined}
-          aria-label={now ? `Current time in Hangzhou, UTC+8: ${label}` : 'Hangzhou time UTC+8'}
+          aria-label={
+            now
+              ? `Current time in ${cityName}, ${timezoneLabel}: ${label}`
+              : `${cityName} time ${timezoneLabel}`
+          }
         >
           {label}
         </time>

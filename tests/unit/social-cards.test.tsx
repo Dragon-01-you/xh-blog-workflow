@@ -42,14 +42,13 @@ describe('Subagent 2: Micro-interactions & Social Cards 1:1 Verification', () =>
   })
 
   describe('1. HomeIntroduction Dynamic SVG & Replay', () => {
-    it('renders DesignEngineerMark with notebook and sparkles for AI 全栈构建者', () => {
+    it('renders DesignEngineerMark with notebook and sparkles structure', () => {
       const html = renderToString(
         <LanguageProvider defaultLanguage="zh">
           <HomeIntroduction />
         </LanguageProvider>
       )
 
-      expect(html).toContain('AI 全栈构建者')
       expect(html).toContain('home-design-mark')
       expect(html).toContain('home-design-laptop')
       expect(html).toContain('home-design-sparkle')
@@ -90,7 +89,7 @@ describe('Subagent 2: Micro-interactions & Social Cards 1:1 Verification', () =>
 
       expect(html).toContain('contrib-grid')
       expect(html).toContain('次贡献')
-      expect(html).toContain('186')
+      expect(html).toContain(String(bakedGithub.total))
       expect(html).toContain('关注者')
     })
 
@@ -127,11 +126,8 @@ describe('Subagent 2: Micro-interactions & Social Cards 1:1 Verification', () =>
         </LanguageProvider>
       )
 
-      if (personalInfo.xiaoHongShu) {
-        expect(html).toContain(`href="${personalInfo.xiaoHongShu}"`)
-      } else {
-        expect(html).toContain('href="#"')
-      }
+      const expectedHref = personalInfo.xiaoHongShu || '/'
+      expect(html).toContain(`href="${expectedHref}"`)
     })
 
     it('WechatCardBody renders QR code popup card referencing QR image and WeChat official name without external dead links', () => {

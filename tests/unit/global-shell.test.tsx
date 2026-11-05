@@ -194,13 +194,13 @@ describe('01: Global Shell, Bottom Dock & Swiss Colophon (Public Seams)', () => 
       )
       expect(footerHtml).toContain(brandConfig.name)
       expect(footerHtml).not.toContain('星火')
-      expect(footerHtml).toContain('UTC+8')
+      expect(footerHtml).toContain(brandConfig.timezoneLabel || 'UTC+8')
     })
 
     it('FooterClock renders without error', () => {
       const clockHtml = renderToString(<FooterClock />)
       expect(clockHtml).toContain('footer-local-clock')
-      expect(clockHtml).toContain('UTC+8')
+      expect(clockHtml).toContain(brandConfig.timezoneLabel || 'UTC+8')
     })
   })
 })

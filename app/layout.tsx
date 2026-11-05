@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   },
   description: brandConfig.tagline,
   icons: {
-    icon: '/images/avatar.png',
+    icon: brandConfig.avatar || '/images/avatar.png',
   },
 }
 
@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN" suppressHydrationWarning className="public-site font-sans">
-      <body className="antialiased min-h-screen flex flex-col selection:bg-[var(--signal)] selection:text-white">
+      <body suppressHydrationWarning className="antialiased min-h-screen flex flex-col selection:bg-[var(--signal)] selection:text-white">
         <ThemeProvider>
           <LanguageProvider>
             <PreviewCardTimingProvider>
