@@ -125,6 +125,7 @@ export interface Record_ {
   moodEn: string
   comment: string
   commentEn: string
+  audioSrc?: string
 }
 
 // 芯火 6 首定番音乐原版封面与外链

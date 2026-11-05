@@ -47,7 +47,7 @@
     "components/site-footer.tsx": "d184e51cae3474f55cba2967c1c7875571cd17d87638114c640fe1e25d64e416",
     "components/social-cards.tsx": "626d8dea518d3d497bb811ec7de97f8cc2dfe7236c4ff488967ab2ba134e8f52",
     "components/social-preview-card.tsx": "bf729811c71e48aec6e689e40fd5b855e31a58ae47285ff157407fa54baf8ccc",
-    "components/vinyl-shelf.tsx": "851d3742969ff48fdd3fc4eebd8d575078b4192dcea86ca14814d01d7e9d1ef6",
+    "components/vinyl-shelf.tsx": "7711cd6be95197ad644418cec5ea511f60b4a6d82cec35461a01e0cf08e28b0b",
     "components/writing-ink-field.tsx": "13268ddb677dfa8160393bddf10d1c9a6700160c4748e103fed66278e4406ec0",
     "components/zoom-image.tsx": "88245ce8e4cf0e89e0d27b1c823f93d00ebd7141bae717fdb3c4897106b2569e",
     "components/use-hidden-shader-field.ts": "4e43b262d03409fdfc49bff4fe2fab308f26c22d20b6b1bc9c52039f1a111cb4",
