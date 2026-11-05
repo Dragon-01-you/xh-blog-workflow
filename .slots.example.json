@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "description": "xh-blog-workflow 多人物预置槽位范例库 (Multi-Persona Presets)",
+  "presets": {
+    "xinhuo": {
+      "name": "芯火",
+      "enName": "Xinhuo",
+      "tagline": "07 年大专生 · AI 自学与个人成长探索者",
+      "taglineEn": "AI Practitioner & Lifelong Learner",
+      "bio": "不讲虚名大词，通过 AI 与自学真实改变自己；沉淀实战方法论，帮助专科同学与普通人精进。",
+      "bioEn": "An independent learner using AI to drive personal growth and practical engineering.",
+      "heroIntroZh": "我是芯火，一个 07 年的大专大二学生，正在尝试通过 AI 自学并建立自己的个人品牌。",
+      "heroIntroEn": "I am Xinhuo, a college student exploring personal growth, self-learning, and modern AI development.",
+      "location": "Shenzhen, China",
+      "locationCoordinates": { "lat": "22.5431° N", "lng": "114.0579° E" },
+      "channels": ["wechat", "email", "github", "xiaohongshu", "xiaobaotong"]
+    },
+    "franklin": {
+      "name": "富兰克林",
+      "enName": "Benjamin Franklin",
+      "tagline": "印刷匠 · 著述者 · 公共事务的仆人（1706—1790 · 费城）",
+      "taglineEn": "Printer, author, and humble servant of public affairs (1706–1790, Philadelphia)",
+      "bio": "我十岁离开学堂，进兄长的印刷所做学徒；十七岁口袋里剩不到一便士，赤脚走进费城。此后一生以排字为业、以写作为业、以公共事业为业。",
+      "bioEn": "I spent my life setting type, writing, and minding public business. All my life I trusted two things: time is the material, habit is the machine.",
+      "heroIntroZh": "一个从波士顿印刷所跑出来的学徒。这里放着我一生排过的版、试过的验、以及用省下来的时间做完的公共事业。",
+      "heroIntroEn": "An apprentice who ran away from a Boston print shop. Here are the forms I set and the experiments I tried.",
+      "location": "Philadelphia, Pennsylvania (UTC−5)",
+      "locationCoordinates": { "lat": "39.9526° N", "lng": "75.1652° W" },
+      "channels": ["gazette-print", "parchment-mail"]
+    },
+    "jobs": {
+      "name": "史蒂夫·乔布斯",
+      "enName": "Steve Jobs",
+      "tagline": "极简主义先驱 · 站在科技与人文的十字路口",
+      "taglineEn": "Co-founder of Apple · Minimalist Pioneer",
+      "bio": "你的时间有限，所以不要为别人而活。不要被教条所限，不要活在别人的观念里。要有勇气追随你的内心与直觉。",
+      "bioEn": "Your time is limited, so don't waste it living someone else's life. Stay hungry, stay foolish.",
+      "heroIntroZh": "在车库里用焊枪与硅晶片开创个人电脑时代，追求极致简约与像素级完美。",
+      "heroIntroEn": "Pioneering personal computers at the intersection of technology and liberal arts.",
+      "location": "Cupertino, California (UTC−8)",
+      "locationCoordinates": { "lat": "37.3318° N", "lng": "122.0312° W" },
+      "channels": ["apple-archive", "personal-email"]
+    },
+    "shiguang": {
+      "name": "陈拾光",
+      "enName": "Shiguang Chen",
+      "tagline": "95 后分布式系统工程师 · 开源信徒",
+      "taglineEn": "Distributed Systems Engineer & Open Source Enthusiast",
+      "bio": "专注于云原生网关、分布式协调与底层存储引擎。相信整洁代码与透明架构的力量。",
+      "bioEn": "Focusing on cloud-native gateways, distributed coordination, and clean architecture.",
+      "heroIntroZh": "一名在杭州写代码的系统工程师。这里记录我踩过的分布式大坑与开源项目实战。",
+      "heroIntroEn": "A software engineer from Hangzhou building distributed infra and open-source tools.",
+      "location": "Hangzhou, China",
+      "locationCoordinates": { "lat": "30.2741° N", "lng": "120.1551° E" },
+      "channels": ["github", "email", "rss", "jike"]
+    }
+  }
+}

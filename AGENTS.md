@@ -23,3 +23,17 @@
 ### Domain docs（内部黑话词典与技术拍板记录）
 
 采用单项目结构：根目录下的 [`GLOSSARY.md`](./GLOSSARY.md) 是本项目的**「内部黑话与统一用词词典」**，[`docs/adr/`](./docs/adr/) 文件夹存放所有的**「技术选型拍板备忘录（ADR）」**。详见 [`docs/agents/domain.md`](./docs/agents/domain.md)。
+
+---
+
+## 0 提示词全自主盲测协议 (Autonomous Zero-Prompt Protocol)
+
+当作为独立智能体接收到一个全新的创作者资料包且**没有任何人类指导或提示**时，你必须严格遵循以下规约：
+
+1. **先读指南**：阅读 [`docs/AUTONOMOUS_EXECUTION_GUIDE.md`](./docs/AUTONOMOUS_EXECUTION_GUIDE.md) 与 [`docs/SHOWCASE.md`](./docs/SHOWCASE.md)；
+2. **守住红线**：绝不篡改 `.kernel-lock.json` 中的 49 个 K-code 文件；
+3. **只改 V 槽位**：更新 `lib/personal.ts`、`lib/projects.ts`、`lib/photos.ts` 与 `content/blog/`；
+4. **弹性渠道**：在 `lib/channels.ts` 中只保留真实存在的渠道，绝不产生 `#` 死链；
+5. **门禁自愈**：构建前必须执行 `pnpm run doctor`，若有红灯依据体检字典立即自愈；
+6. **全量闭环**：确保 `python tests/test_smoke.py`、`pnpm test` (68/68)、`pnpm verify:public-discovery` 与 `pnpm build` (22/22 SSG) 100% 绿灯。
+

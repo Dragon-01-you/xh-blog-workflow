@@ -188,15 +188,59 @@ Media assets are organized across `public/images/` and `content/blog/`. When cus
 
 ---
 
-## Real-World Case: Xinhuo Personal Brand Blog
+## Real-World Case Studies: Visual Persona Showcase
 
-This repository serves as the actual production release for **「芯火」 (Xinhuo)**:
+> 🖼️ **Visual Proof over Plain Text**: This project rejects empty claims. Below are real screenshots capturing the live visual fidelity of the master baseline (Xinhuo) and a historical polymath (Benjamin Franklin). For the full screenshot gallery, see [**`docs/SHOWCASE.md`**](docs/SHOWCASE.md).
 
-- **Brand Identity**: College sophomore born in 2007 · Practical "AI + Self-Learning" practitioner · Personal growth journey;
-- **Full-Spectrum Assets**: Integrated 8 comprehensive long-form articles from WeChat official account `来自07年的芯火`;
-- **Dual-Track Brand Avatars**: Bottom dock Favicon, WeChat modal, and email stamp utilize the high-resolution childhood IP circular avatar (`/images/avatar.png`); hero portrait supports halftone print toggle;
-- **Project Matrix**: Features 7 real GitHub repositories with dedicated vector brand icons;
-- **Experience Timeline**: Chronicles 2025–2026 milestones in leveraging AI for authentic self-learning, frontend engineering, and personal media.
+### Case 1: Polymath & Public Servant · Benjamin Franklin
+> **Verification Context**: 18th-century historic figure without modern social media (no WeChat, no Xiaohongshu, no GitHub). 49 K-code files 100% intact, 68/68 unit tests passing, 22 SSG routes generated.
+
+<div align="center">
+  <img src="assets/cases/franklin/02-home-channels.png" alt="Franklin Hero Channels" width="48%"/>
+  <img src="assets/cases/franklin/03-dock-stamp-modal.png" alt="Dock Stamp Modal" width="48%"/>
+</div>
+<div align="center">
+  <p><em>Left: Hero section channels dynamically composed by universal channel matrix; Right: Bottom dock opens 1729 Pennsylvania Gazette woodcut stamp modal</em></p>
+</div>
+
+<div align="center">
+  <img src="assets/cases/franklin/04-channel-matrix-flex.png" alt="Channel Matrix Adaptation" width="48%"/>
+  <img src="assets/cases/franklin/06-footer-no-deadlinks.png" alt="Footer Decoupled Zero Deadlinks" width="48%"/>
+</div>
+<div align="center">
+  <p><em>Left: Elastic channel matrix supports external links & modal stamps; Right: Footer completely decoupled with zero dead # links</em></p>
+</div>
+
+---
+
+### Case 2: Modern Tech Creator · Xinhuo (Master Baseline)
+> **Verification Context**: College sophomore born in 2007 · AI self-learning and personal growth. Swiss typography, halftone portrait shader, and fluid spring physics.
+
+<div align="center">
+  <img src="assets/cases/xinhuo/01-home-light.png" alt="Xinhuo Home Light" width="48%"/>
+  <img src="assets/cases/xinhuo/02-home-dark.png" alt="Xinhuo Home Dark" width="48%"/>
+</div>
+<div align="center">
+  <p><em>Left: Swiss paper-and-ink daytime aesthetic; Right: OLED-grade true black WebGPU halftone nighttime mode</em></p>
+</div>
+
+<div align="center">
+  <img src="assets/cases/xinhuo/03-blog-list.png" alt="Blog List" width="48%"/>
+  <img src="assets/cases/xinhuo/05-projects-grid.png" alt="Projects Grid" width="48%"/>
+</div>
+<div align="center">
+  <p><em>Left: 8 long-form articles dynamically grouped by year with reading times; Right: Curated project cards with GitHub metrics</em></p>
+</div>
+
+---
+
+### Cases 3 & 4: Steve Jobs (1984) & Systems Engineer Shiguang Chen
+- **Steve Jobs (1984)**: Cupertino coordinates, 1984 Macintosh monochrome portrait, official archive links, zero WeChat / Xiaohongshu residue.
+- **Shiguang Chen**: Hangzhou coordinates, live 26-week GitHub contribution heatmap, distributed systems essays, darkroom photo empty-state resilience.
+
+> 📖 **Ready for autonomous testing?**  
+> Check out the [**Autonomous Zero-Prompt Testing Guide (`docs/AUTONOMOUS_EXECUTION_GUIDE.md`)**](docs/AUTONOMOUS_EXECUTION_GUIDE.md) and [**Multi-Persona Presets (`.slots.example.json`)**](.slots.example.json).
+
 
 ---
 

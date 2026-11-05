@@ -238,27 +238,60 @@ python scripts/xh_blog_cli.py snapshot --tag v1.0.0-my-brand
 
 ---
 
-## 真实实战对标：三大典型人群落地范例 (Three Personas)
+## 真实实战对标：多人物落地视觉图鉴 (Visual Persona Showcase)
 
-本项目不仅是一套纯理论方案，更是通过了三种截然不同的真实人群全流程落地验证的通用生产系统：
+> 🖼️ **真实截图视觉呈现**：本项目拒绝“纯文本自吹”，以下呈现母版（芯火）与公版历史人物（本杰明·富兰克林）在实际换血中生成的真实全屏/局部视觉截图。完整实测图集与更多人物请参阅专用图鉴文档：👉 [**`docs/SHOWCASE.md`**](docs/SHOWCASE.md)。
 
-### 范例 1：现代青年技术博主（「芯火」母版基线）
-- **创作者定位**：07 年大专大二学生 ·「AI + 自学」实用主义探索者 · 个人成长赛道；
-- **渠道与交互**：微信公众号「来自07年的芯火」弹窗、GitHub 26 周热力图与 Star 矩阵、小红书跳转卡片、实体邮戳信封；
-- **核心资产**：8 篇公众号原创长文、7 个真实 GitHub 仓库、童年红帽蓝袋 IP 圆形标与网点肖像双轨切换；
-- **履历与书架**：2025–2026 专科阶段 AI 自学与工程化实践时间轴、8 本商业思考与刻意练习书籍。
+### 案例 1：公版历史学者与博学家 · 本杰明·富兰克林 (Benjamin Franklin)
+> **测试环境与规格**：18 世纪历史人物，无微信/小红书/GitHub，仅有出版物与手信信箱。49 个 K-code 文件零篡改，68 项单测全绿，SSG 22 路由静态编译通过。
 
-### 范例 2：公版人文历史学者（「本杰明·富兰克林」测试基准）
-- **创作者定位**：印刷匠 · 著述者 · 公共事务的仆人（1706—1790 · 费城）；
-- **渠道与交互**：无现代自媒体平台，通过 `lib/channels.ts` 将微信弹窗转为《宾夕法尼亚公报》邮局订阅印记；关闭 GitHub 热力图；版权年份锁定为 1790；
-- **核心资产**：基于古登堡公版（Project Gutenberg #20203）杜普莱西铜版肖像制作高对比网点图版；6 篇 MDX 文章（美德周历表/时间就是金钱等，每篇文末附严格底本考据段落）；
-- **履历与声音档案**：1718–1789 真实政务与科学时间轴；6 张「声音档案」黑胶封套（父亲小提琴诗篇、水手歌与野外布道录音）。
+<div align="center">
+  <img src="assets/cases/franklin/02-home-channels.png" alt="富兰克林首屏联系方式由渠道矩阵拼接" width="48%"/>
+  <img src="assets/cases/franklin/03-dock-stamp-modal.png" alt="底栏《公报》印记浮层弹出" width="48%"/>
+</div>
+<div align="center">
+  <p><em>左：首屏联系方式由通用渠道矩阵自动拼接，无任何失真；右：底栏点击呼出 1729 年《公报》订阅印记半调网点浮层</em></p>
+</div>
 
-### 范例 3：自由职业顾问 / 独立创作者（「陈拾光」泛化验证）
-- **创作者定位**：独立数字产品设计师 · 敏捷流程咨询顾问；
-- **渠道与交互**：抖音企业号二维码弹窗 + 播客订阅链接 + Substack Newsletter；
-- **核心资产**：商务写真肖像、设计方法论与独立交付案例展示、暗房影廊精选胶片；
-- **履历与服务**：客户咨询预约邮箱卡片、精选设计与艺术专著 3D 书架。
+<div align="center">
+  <img src="assets/cases/franklin/04-channel-matrix-flex.png" alt="渠道矩阵多形态弹性适配" width="48%"/>
+  <img src="assets/cases/franklin/06-footer-no-deadlinks.png" alt="页脚彻底解耦零死链" width="48%"/>
+</div>
+<div align="center">
+  <p><em>左：渠道矩阵支持外链直跳与二维码印记弹窗双形态；右：页脚彻底解耦，无写死小报童，无 # 死链</em></p>
+</div>
+
+---
+
+### 案例 2：现代青年技术博主 · 芯火 (Xinhuo · 母版基线)
+> **测试环境与规格**：07 年大专大二学生 · AI 自学与个人成长赛道。经典瑞士报纸排版、半调网点肖像、实时物理弹簧微交互。
+
+<div align="center">
+  <img src="assets/cases/xinhuo/01-home-light.png" alt="芯火首页瑞士纸墨亮色质感" width="48%"/>
+  <img src="assets/cases/xinhuo/02-home-dark.png" alt="芯火首页沉浸暗黑极客模式" width="48%"/>
+</div>
+<div align="center">
+  <p><em>左：瑞士纸墨微交互日间模式；右：OLED 级真黑 WebGPU 半色调网点夜间模式</em></p>
+</div>
+
+<div align="center">
+  <img src="assets/cases/xinhuo/03-blog-list.png" alt="长文博客矩阵与动态年份归档" width="48%"/>
+  <img src="assets/cases/xinhuo/05-projects-grid.png" alt="精选代表作项目网格" width="48%"/>
+</div>
+<div align="center">
+  <p><em>左：8 篇原创长文按年份动态归档与阅读时长计算；右：精选代表作项目卡片与 GitHub 热度矩阵</em></p>
+</div>
+
+---
+
+### 案例 3 & 4：极简先驱 史蒂夫·乔布斯 & 系统工程师 陈拾光
+- **乔布斯 (Steve Jobs · 1984)**：以 Cupertino 为坐标印章，1984 Macintosh 黑白写真，禁用微信与小红书，启用官方档案馆与个人邮件，极简无死链。
+- **陈拾光 (Shiguang Chen)**：以杭州为坐标，启用 GitHub 26 周实时绿格 Contribution Graph，极客架构长文，相册空数组时优雅呈现暗房整理中。
+
+> 📖 **盲测准备就绪？** 如果你是准备进行全自主测试的独立智能体或测试者，请直接阅读：  
+> 👉 [**`docs/AUTONOMOUS_EXECUTION_GUIDE.md`（0 提示词盲测标准规约）**](docs/AUTONOMOUS_EXECUTION_GUIDE.md)  
+> 👉 [**`.slots.example.json`（多人物预置配置字典）**](.slots.example.json)
+
 
 ---
 

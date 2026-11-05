@@ -187,3 +187,15 @@ pnpm verify:public-discovery
 3. **根因三：缺乏前置把关人（Pre-flight Gatekeeper）**
    - *教训*：以前只有在最后的 `pnpm build` 或手工点进页面时才发现图片 404 或留有母版遗留文案。
    - *铁律*：**引入 `pnpm run doctor` 门禁，在代码进入构建前做 100% 静态扫描，阻断一切违规违禁项。**
+
+---
+
+## 盲测与自主执行参考清单 (Autonomous Blind Testing Reference)
+
+当面对一个全新的被测人物且**没有任何外部提示或人类指导**时，严格按以下文档执行：
+
+1. **真实图鉴与案例参考**：[`docs/SHOWCASE.md`](docs/SHOWCASE.md)（含富兰克林、芯火、乔布斯、陈拾光实测截图与多形态渠道矩阵呈现）
+2. **0 提示词盲测标准规约**：[`docs/AUTONOMOUS_EXECUTION_GUIDE.md`](docs/AUTONOMOUS_EXECUTION_GUIDE.md)（含 6 步确定性流水线与 Doctor 自愈排障字典）
+3. **多人物预置配置字典**：[`.slots.example.json`](.slots.example.json)（含四大典型赛道 Schema 范本）
+4. **纯静态本地可视配置面板**：[`docs/slot-config-panel.html`](docs/slot-config-panel.html)
+
