@@ -31,10 +31,10 @@ describe('01: Global Shell, Bottom Dock & Swiss Colophon (Public Seams)', () => 
   })
 
   describe('1. Personal Profile & Brand Integrity (lib/personal.ts)', () => {
-    it('enforces brand name to strictly be "芯火" without typos', () => {
-      expect(brandConfig.name).toBe('芯火')
-      expect(brandConfig.enName).toBe('Xinhuo')
-      expect(personalInfo.name).toBe('芯火')
+    it('enforces brand name to strictly be defined without typos', () => {
+      expect(brandConfig.name).toBeTruthy()
+      expect(brandConfig.enName).toBeTruthy()
+      expect(personalInfo.name).toBe(brandConfig.name)
       expect(JSON.stringify(brandConfig)).not.toContain('星火')
       expect(JSON.stringify(personalInfo)).not.toContain('星火')
     })
@@ -47,11 +47,11 @@ describe('01: Global Shell, Bottom Dock & Swiss Colophon (Public Seams)', () => 
       expect(routes).toContain('/photos')
     })
 
-    it('contains verified 6 records and 8 books for 芯火', () => {
-      expect(records).toHaveLength(6)
-      expect(books).toHaveLength(8)
-      expect(records.map(r => r.album)).toContain('Merry Christmas Mr. Lawrence')
-      expect(books.map(b => b.title)).toContain('原则')
+    it('contains verified records and books for personal brand', () => {
+      expect(records.length).toBeGreaterThan(0)
+      expect(books.length).toBeGreaterThan(0)
+      expect(records[0].album).toBeTruthy()
+      expect(books[0].title).toBeTruthy()
     })
   })
 
@@ -177,7 +177,7 @@ describe('01: Global Shell, Bottom Dock & Swiss Colophon (Public Seams)', () => 
           </LanguageProvider>
         </ThemeProvider>
       )
-      expect(dockHtml).toContain('芯火')
+      expect(dockHtml).toContain(brandConfig.name)
       expect(dockHtml).not.toContain('星火')
       expect(dockHtml).toContain('href="/blog"')
       expect(dockHtml).toContain('href="/projects"')
@@ -186,13 +186,13 @@ describe('01: Global Shell, Bottom Dock & Swiss Colophon (Public Seams)', () => 
   })
 
   describe('6. Site Colophon & Footer Clock (components/site-footer.tsx)', () => {
-    it('renders Swiss colophon with "芯火" copyright and UTC+8 clock', () => {
+    it('renders Swiss colophon with brand copyright and UTC+8 clock', () => {
       const footerHtml = renderToString(
         <LanguageProvider>
           <SiteFooter />
         </LanguageProvider>
       )
-      expect(footerHtml).toContain('芯火')
+      expect(footerHtml).toContain(brandConfig.name)
       expect(footerHtml).not.toContain('星火')
       expect(footerHtml).toContain('UTC+8')
     })

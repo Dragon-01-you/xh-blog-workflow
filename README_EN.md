@@ -91,7 +91,13 @@ git clone https://github.com/Dragon-01-you/xh-blog-workflow.git
 cd xh-blog-workflow
 pnpm install
 
-# 2. Verify kernel integrity and inspect customizable slots
+# 2. Generate local sandbox environment variables (.env.local)
+# macOS / Linux:
+chmod +x .agents/setup.sh && .agents/setup.sh
+# Windows PowerShell:
+.\.agents\setup.ps1
+
+# Verify kernel integrity and inspect customizable slots
 python scripts/xh_blog_cli.py verify-kernel
 python scripts/xh_blog_cli.py inspect-slots
 
@@ -99,6 +105,14 @@ python scripts/xh_blog_cli.py inspect-slots
 pnpm dev
 # Open http://localhost:3000 to explore
 ```
+
+> [!CAUTION]
+> ### ⚠️ Common Commands & Build Cache Alert (Breaking Prevention)
+> Whenever you modify code or update slot variables (bio, articles, photos), if you want to preview using production mode (`pnpm start`), **you MUST re-run `pnpm build` first!**
+> ```bash
+> pnpm build && pnpm start --port 3000
+> ```
+> Running `pnpm start` directly on modified source files without re-building causes Next.js client chunk hash mismatches (404 Not Found errors). For local iterative development, always prefer `pnpm dev` with instant HMR.
 
 ### Advanced Slot Management & Snapshot Releases
 
@@ -198,6 +212,28 @@ Yes! **xh-blog-workflow** follows a 3-tier progressive capability model:
 <summary>Q4: Why are all Git commits attributed to Dragon-01-you?</summary>
 
 All architectural refactoring, Tailwind v4 Windows adaptations, SHA-256 locking mechanisms, and test suites were authored by maintainer **Dragon-01-you** with unified digital signatures, eliminating legacy usernames.
+</details>
+
+<details>
+<summary>Q5: If I legitimately need to customize a K-code file, how do I allow it?</summary>
+
+You can pass the `--allow-modified <file>` flag to explicitly bypass strict hash check during kernel verification:
+```bash
+python scripts/xh_blog_cli.py verify-kernel --allow-modified components/social-cards.tsx
+```
+If you intend your changes to establish a new baseline, recalculate the LF-normalized SHA-256 hashes and update `.kernel-lock.json`.
+</details>
+
+<details>
+<summary>Q6: How are photos displayed in the homepage doorway cards?</summary>
+
+The doorway photo preview (`components/nav-cards.tsx`) is dynamically bound to `lib/photos.ts`. It extracts the first 3 photos from your `photos` array and presents them as fanned polaroid snapshots, gracefully falling back if fewer photos are available.
+</details>
+
+<details>
+<summary>Q7: Does the pnpm warning regarding "ignored build scripts: sharp, esbuild" require attention?</summary>
+
+No, it is completely safe to ignore. Next.js 15 includes cross-platform WASM fallbacks for image optimization. Both local testing and CI/CD pipelines run cleanly without executing additional native build scripts.
 </details>
 
 ---

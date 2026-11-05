@@ -12,6 +12,7 @@ import {
   XiaohongshuCard,
 } from '~/components/social-cards'
 import { T } from '~/lib/i18n'
+import { brandConfig, personalInfo } from '~/lib/personal'
 import bakedGithub from '~/content/github.json'
 
 function DesignEngineerMark() {
@@ -149,7 +150,7 @@ function HomeContact({ github }: { github?: GitHubSnapshot }) {
             可以在 <XiaohongshuCard triggerClassName="home-contact-link" />、
             <GitHubCard data={ghData} triggerClassName="home-contact-link" /> 和
             <WechatCard triggerClassName="home-contact-link" />找到我，也可以发邮件到{' '}
-            <EmailCard address="you19827801947@qq.com" trigger="you19827801947@qq.com" triggerClassName="home-contact-link" />。
+            <EmailCard address={personalInfo.email} trigger={personalInfo.email} triggerClassName="home-contact-link" />。
           </>
         }
         en={
@@ -157,7 +158,7 @@ function HomeContact({ github }: { github?: GitHubSnapshot }) {
             Find me on <XiaohongshuCard trigger="RED" triggerClassName="home-contact-link" />,{' '}
             <GitHubCard data={ghData} triggerClassName="home-contact-link" /> and{' '}
             <WechatCard trigger="WeChat" triggerClassName="home-contact-link" />, or email{' '}
-            <EmailCard address="you19827801947@qq.com" trigger="you19827801947@qq.com" triggerClassName="home-contact-link" />.
+            <EmailCard address={personalInfo.email} trigger={personalInfo.email} triggerClassName="home-contact-link" />.
           </>
         }
       />
@@ -174,14 +175,16 @@ export function HomeIntroduction({
   github,
   className,
 }: HomeIntroductionProps = {}): React.JSX.Element {
+  const introZh = brandConfig.heroIntroZh || '一个 07 年的大专大二学生。在这里真实记录通过 AI 敏捷生产力与知识沉淀改变自己的过程。'
+  const introEn = brandConfig.heroIntroEn || 'a college sophomore born in 2007, documenting real self-growth through practical AI and learning.'
+
   return (
     <div className={clsx('home-introduction space-y-3', className)}>
       <p className="text-sm leading-relaxed text-muted-foreground">
         <T
           zh={
             <>
-              我是芯火，一个 07 年的大专大二学生。在这里真实记录通过
-              <span className="font-medium text-[var(--foreground)]"> AI 敏捷生产力</span>与知识沉淀改变自己的过程。也是一名
+              我是{brandConfig.name}，{introZh}也是一名
               <DesignEngineerPhrase>AI 全栈构建者</DesignEngineerPhrase>。热爱把细节做到
               <DetailsPhrase>
                 <span className="home-detail-units">
@@ -195,8 +198,7 @@ export function HomeIntroduction({
           }
           en={
             <>
-              I am Xinhuo, a college sophomore born in 2007, documenting real self-growth through{' '}
-              <span className="font-medium text-[var(--foreground)]">practical AI and learning</span>. Also an{' '}
+              I am {brandConfig.enName || brandConfig.name}, {introEn} Also an{' '}
               <DesignEngineerPhrase>AI Full-Stack Builder</DesignEngineerPhrase>, dedicated to getting the{' '}
               <DetailsPhrase>
                 <span className="home-detail-units home-detail-words">
@@ -215,8 +217,8 @@ export function HomeIntroduction({
 
       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
         <T
-          zh="不讲虚的大词，专注于个人成长赛道与自学实用主义。希望能用实实在在的经验，陪伴和帮助更多专科同学，用 AI 赋能自己的学业与生活。"
-          en="Focused on real personal growth and self-learning without fluff. Empowering peers and fellow college students to leverage AI pragmatically in learning and daily life."
+          zh={brandConfig.bio}
+          en={brandConfig.bioEn}
         />
       </p>
 

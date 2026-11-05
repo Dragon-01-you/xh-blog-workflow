@@ -14,6 +14,7 @@ import { brailleDate } from '~/lib/braille'
 import { postViewTransitionName } from '~/lib/view-transition-name'
 import { formatMonthDay, formatShortDate } from '~/lib/date'
 import { LanguageProvider } from '~/lib/i18n'
+import { brandConfig } from '~/lib/personal'
 
 import { PostRow } from '~/components/post-row'
 import { PolaroidCover } from '~/components/polaroid-cover'
@@ -128,22 +129,20 @@ describe('04: Blog 博客列表与文章详情流水线 (Issue 04)', () => {
   describe('2. 文章详情页 (/blog/[slug]/page.tsx) 与元数据', () => {
     it('generates static params for all published posts', async () => {
       const params = await generateStaticParams()
-      expect(params.length).toBe(8)
-      const slugs = params.map((p) => p.slug)
-      expect(slugs).toContain('reflecting-after-two-months')
-      expect(slugs).toContain('concept-visualization')
-      expect(slugs).toContain('top-developers-make-questions')
-      expect(slugs).toContain('campus-data-card-for-alma-mater')
+      expect(params.length).toBeGreaterThan(0)
     })
 
     it('generates accurate metadata including OpenGraph tags for a post', async () => {
+      const posts = getAllPosts()
+      expect(posts.length).toBeGreaterThan(0)
+      const targetSlug = posts[0].slug
       const metadata = await generateMetadata({
-        params: Promise.resolve({ slug: 'reflecting-after-two-months' }),
+        params: Promise.resolve({ slug: targetSlug }),
       })
 
-      expect(metadata.title).toContain('停更两个月后，我想明白了一件事')
-      expect(metadata.title).toContain('芯火')
-      expect(metadata.description).toContain('脱离 AI')
+      expect(metadata.title).toContain(posts[0].title)
+      expect(metadata.title).toContain(brandConfig.name)
+      expect(metadata.description).toBeTruthy()
       expect((metadata.openGraph as Record<string, unknown>)?.type).toBe('article')
     })
 

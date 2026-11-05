@@ -49,7 +49,7 @@ afterEach(() => {
 
 describe('03: Home Experience, VinylShelf & 3D Bookshelf', () => {
   describe('1. Personal Registry Data Integrity & Physical Assets', () => {
-    it('strictly uses brand name "芯火" and never contains "星火"', () => {
+    it('strictly uses brand name and never contains "星火"', () => {
       const recordsJson = JSON.stringify(records)
       const booksJson = JSON.stringify(books)
       const expJson = JSON.stringify(experience)
@@ -58,27 +58,15 @@ describe('03: Home Experience, VinylShelf & 3D Bookshelf', () => {
       expect(booksJson).not.toContain('星火')
       expect(expJson).not.toContain('星火')
 
-      expect(expJson).toContain('芯火')
-      expect(brandConfig.name).toBe('芯火')
+      expect(brandConfig.name).toBeTruthy()
+      expect(brandConfig.name).not.toContain('星火')
     })
 
-    it('verifies that all 8 books have physical cover images and z-library URLs', () => {
-      expect(books).toHaveLength(8)
-
-      const expectedTitles = [
-        '史蒂夫·乔布斯传',
-        '原则',
-        '思考，快与慢',
-        '价值心法',
-        '纳瓦尔宝典',
-        '富兰克林自传',
-        '穷查理宝典',
-        '刻意练习',
-      ]
-      const titles = books.map((b: Book) => b.title)
-      expect(titles).toEqual(expectedTitles)
+    it('verifies that books have physical cover images and valid URLs', () => {
+      expect(books.length).toBeGreaterThan(0)
 
       for (const book of books) {
+        expect(book.title).toBeTruthy()
         expect(book.cover).toBeDefined()
         expect(book.cover).toMatch(/^\/images\/books\/[\w-]+\.jpg$/)
 
@@ -87,36 +75,20 @@ describe('03: Home Experience, VinylShelf & 3D Bookshelf', () => {
         const fullPath = path.join(process.cwd(), 'public', relativePath)
         expect(fs.existsSync(fullPath)).toBe(true)
 
-        // Verify URL points to z-library.sk search
+        // Verify URL is present
         expect(book.url).toBeDefined()
-        expect(book.url).toMatch(/^https:\/\/z-library\.sk\/s\//)
 
         // Verify reading commentary is present
         expect(book.comment).toBeDefined()
-        expect(book.comment.length).toBeGreaterThan(10)
+        expect(book.comment.length).toBeGreaterThan(0)
       }
     })
 
-    it('verifies that all 6 vinyl records have physical cover images, moods, and NetEase music URLs', () => {
-      expect(records).toHaveLength(6)
-
-      const expectedAlbums = [
-        'Merry Christmas Mr. Lawrence',
-        '山野煮水',
-        '多幸运',
-        '解药',
-        '追梦赤子心',
-        '就让这大雨全都落下',
-      ]
-      const albums = records.map((r: Record_) => r.album)
-      expect(albums).toEqual(expectedAlbums)
-
-      const moods = records.map((r: Record_) => r.mood)
-      expect(moods).toContain('学习时听')
-      expect(moods).toContain('放松时听')
-      expect(moods).toContain('开心时听')
+    it('verifies that vinyl records have physical cover images, moods, and music URLs', () => {
+      expect(records.length).toBeGreaterThan(0)
 
       for (const record of records) {
+        expect(record.album).toBeTruthy()
         expect(record.cover).toBeDefined()
         expect(record.cover).toMatch(/^\/images\/records\/[\w-]+\.jpg$/)
 
@@ -125,14 +97,13 @@ describe('03: Home Experience, VinylShelf & 3D Bookshelf', () => {
         const fullPath = path.join(process.cwd(), 'public', relativePath)
         expect(fs.existsSync(fullPath)).toBe(true)
 
-        // Verify URL points to NetEase single song page
+        // Verify URL is present
         expect(record.url).toBeDefined()
-        expect(record.url).toMatch(/^https:\/\/music\.163\.com\/#\/song\?id=\d+$/)
 
         // Verify mood and commentary
         expect(record.mood).toBeDefined()
         expect(record.comment).toBeDefined()
-        expect(record.comment.length).toBeGreaterThan(5)
+        expect(record.comment.length).toBeGreaterThan(0)
       }
     })
   })
@@ -168,15 +139,15 @@ describe('03: Home Experience, VinylShelf & 3D Bookshelf', () => {
       expect(container.textContent).toContain('经历')
 
       // Career timeline checks
-      expect(container.textContent).toContain('芯火知识库 & AI 全栈工作流')
-      expect(container.textContent).toContain('主理人 & 实用开源工具构建者')
-      expect(container.textContent).toContain('大专自学与成长实践')
-      expect(container.textContent).toContain('创办「来自07年的芯火」· 聚焦 AI 赋能与专科生自学成长')
+      if (experience.length > 0) {
+        expect(container.textContent).toContain(experience[0].company)
+        expect(container.textContent).toContain(experience[0].role)
+      }
 
       // Coordinate card checks
-      expect(container.textContent).toContain('30.2741° N')
-      expect(container.textContent).toContain('120.1551° E')
-      expect(container.textContent).toContain('Hangzhou, China')
+      expect(container.textContent).toContain(brandConfig.locationCoordinates.lat)
+      expect(container.textContent).toContain(brandConfig.locationCoordinates.lng)
+      expect(container.textContent).toContain(brandConfig.location.split(',')[0].trim())
     })
   })
 

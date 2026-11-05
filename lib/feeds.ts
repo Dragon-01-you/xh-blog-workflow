@@ -10,8 +10,8 @@ export function buildFeedXml(): string {
     site_url: seo.url.href,
     feed_url: `${seo.url.href.replace(/\/$/, '')}/feed.xml`,
     language: 'zh-CN',
-    image_url: new URL('/images/avatar.png', seo.url).href,
-    generator: 'Xinhuo RSS Engine 1.0',
+    image_url: new URL(brandConfig.avatar, seo.url).href,
+    generator: `${brandConfig.enName} RSS Engine 1.0`,
     pubDate: new Date(),
   })
 

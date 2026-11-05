@@ -62,7 +62,7 @@ export function buildLlmsText(): string {
       markdownLink(
         post.title,
         absoluteUrl(`/blog/${post.slug}`),
-        post.summary || post.description || '芯火深度思考文章',
+        post.summary || post.description || `${brandConfig.name}深度思考文章`,
       ),
     ),
     '',

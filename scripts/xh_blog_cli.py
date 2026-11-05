@@ -260,6 +260,14 @@ def cmd_inspect_slots(args: argparse.Namespace) -> int:
                 "current_record_covers": record_covers,
                 "rule": "Elastic count! User can add/remove achievement books (战绩书) or favorite books & songs by providing title, link, and cover image, or keep defaults as placeholder.",
             },
+            "slot_9_site_metadata_and_seo": {
+                "files": ["lib/public-page-metadata.ts", "lib/feeds.ts", "lib/llms.ts", "lib/seo.ts"],
+                "rule": "Site metadata, OpenGraph titles, RSS branding, and LLM text specs automatically synced from brandConfig.",
+            },
+            "slot_10_social_and_github": {
+                "files": ["lib/social-live.ts", "lib/personal.ts"],
+                "rule": "GitHub handles and social media channels read dynamically from personalInfo.",
+            },
         },
     }
 

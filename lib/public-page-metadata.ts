@@ -1,45 +1,47 @@
+import { brandConfig } from '~/lib/personal'
+
 export const publicPageMetadata = {
   home: {
     zh: {
-      title: '芯火',
-      description: '保持独立思考，构建确定性认知资产。专注 AI 敏捷生产力、知识沉淀工程与极简全栈系统。',
-      ogDescription: '保持独立思考，构建确定性认知资产。专注 AI 敏捷生产力、知识沉淀工程与极简全栈系统。',
+      title: brandConfig.name,
+      description: brandConfig.tagline || '保持独立思考，构建确定性认知资产。专注 AI 敏捷生产力、知识沉淀工程与极简全栈系统。',
+      ogDescription: brandConfig.tagline || '保持独立思考，构建确定性认知资产。专注 AI 敏捷生产力、知识沉淀工程与极简全栈系统。',
     },
     en: {
-      title: 'Xinhuo',
-      description: 'Independent thinking, building tangible cognitive assets. Focusing on AI workflows, knowledge architecture, and minimalist design.',
-      ogDescription: 'Independent thinking, building tangible cognitive assets. Focusing on AI workflows, knowledge architecture, and minimalist design.',
+      title: brandConfig.enName,
+      description: brandConfig.taglineEn || 'Independent thinking, building tangible cognitive assets. Focusing on AI workflows, knowledge architecture, and minimalist design.',
+      ogDescription: brandConfig.taglineEn || 'Independent thinking, building tangible cognitive assets. Focusing on AI workflows, knowledge architecture, and minimalist design.',
     },
   },
   blog: {
     zh: {
       title: '写作',
       description: '深度思考与公开记录，关于 AI 工作流、知识沉淀工程与敏捷实践。',
-      ogDescription: '芯火关于设计、工程、AI 工作流与敏捷实践的深度思考。',
+      ogDescription: `${brandConfig.name}关于设计、工程、AI 工作流与敏捷实践的深度思考。`,
     },
     en: {
       title: 'Writing',
       description: 'Essays and reflections on AI workflows, knowledge architecture, and agile productivity.',
-      ogDescription: 'Essays by Xinhuo on AI workflows, knowledge architecture, and agile productivity.',
+      ogDescription: `Essays by ${brandConfig.enName} on AI workflows, knowledge architecture, and agile productivity.`,
     },
   },
   photos: {
     zh: {
       title: '相册',
       description: '在工作、生活与创作中留下的一些瞬间与影像记录。',
-      ogDescription: '芯火在工作、生活与创作中留下的一些瞬间与影像记录。',
+      ogDescription: `${brandConfig.name}在工作、生活与创作中留下的一些瞬间与影像记录。`,
     },
     en: {
       title: 'Photos',
       description: 'Captured moments and visual records across work, life, and creation.',
-      ogDescription: 'Moments Xinhuo has kept from work, life, and everywhere in between.',
+      ogDescription: `Moments ${brandConfig.enName} has kept from work, life, and everywhere in between.`,
     },
   },
   projects: {
     zh: {
       title: '项目',
       description: '这些年构建的 AI 工业管线、知识库系统与开源工程实践。有些实用，有些探索，每一个都认真做过。',
-      ogDescription: '芯火构建的 AI 工业管线、知识库系统与开源工程实践。',
+      ogDescription: `${brandConfig.name}构建的 AI 工业管线、知识库系统与开源工程实践。`,
     },
     en: {
       title: 'Projects',

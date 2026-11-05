@@ -4,6 +4,7 @@ import React from 'react'
 import Link from 'next/link'
 import clsx from 'clsx'
 import { T } from '~/lib/i18n'
+import { photos } from '~/lib/photos'
 
 export interface NavCardsProps {
   postCount?: number
@@ -12,11 +13,13 @@ export interface NavCardsProps {
   className?: string
 }
 
-const PREVIEW_PHOTOS = [
-  '/images/photos/manifest-hand.png',
-  '/images/photos/research-evidence.png',
-  '/images/photos/space-as-data.png',
-]
+const PREVIEW_PHOTOS = photos.length > 0
+  ? photos.slice(0, 3).map((p) => p.src)
+  : [
+      '/images/photos/manifest-hand.png',
+      '/images/photos/research-evidence.png',
+      '/images/photos/space-as-data.png',
+    ]
 
 /**
  * NavCards: The three doorways greeting visitors, 1:1 replicating cali.so.

@@ -12,6 +12,7 @@ import { PortraitHiddenStage } from '~/components/portrait-hidden-stage'
 import { HomeIntroduction } from '~/components/home-introduction'
 import { NavCards } from '~/components/nav-cards'
 import { LanguageProvider } from '~/lib/i18n'
+import { brandConfig, personalInfo } from '~/lib/personal'
 
 describe('02: Home Hero, HalftonePortrait & NavCards (Issue 02)', () => {
   beforeEach(() => {
@@ -225,7 +226,7 @@ describe('02: Home Hero, HalftonePortrait & NavCards (Issue 02)', () => {
   })
 
   describe('3. HomeIntroduction (components/home-introduction.tsx)', () => {
-    it('renders the brand title "芯火" strictly without "星火" or marketing buzzwords', () => {
+    it('renders the brand title strictly without "星火" or marketing buzzwords', () => {
       const html = renderToString(
         <LanguageProvider defaultLanguage="zh">
           <HomeIntroduction />
@@ -233,12 +234,13 @@ describe('02: Home Hero, HalftonePortrait & NavCards (Issue 02)', () => {
       )
 
       // Strict brand name enforcement
-      expect(html).toContain('芯火')
+      expect(html).toContain(brandConfig.name)
       expect(html).not.toContain('星火')
 
       // Sincere, restrained text verification
-      expect(html).toContain('AI 敏捷生产力')
-      expect(html).toContain('知识')
+      expect(html).toContain('AI 全栈构建者')
+      expect(html).toContain('刚')
+      expect(html).toContain('好')
 
       // Red line: NO marketing buzzwords
       expect(html).not.toContain('公域')
@@ -246,7 +248,7 @@ describe('02: Home Hero, HalftonePortrait & NavCards (Issue 02)', () => {
       expect(html).not.toContain('一人公司')
 
       // Contains contact / social links
-      expect(html).toMatch(/you19827801947@qq\.com|hi@xinhuo\.me/)
+      expect(html).toContain(personalInfo.email)
     })
   })
 

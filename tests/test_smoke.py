@@ -25,12 +25,14 @@ def test_slots_definition():
     assert slots_file.exists(), ".slots.json must exist"
     with open(slots_file, "r", encoding="utf-8") as f:
         slots = json.load(f)
-    assert len(slots) == 8
+    assert len(slots) >= 8
     slot_ids = [s["slot_id"] for s in slots]
     assert "slot_1_identity_and_location" in slot_ids
     assert "slot_2_dual_track_avatars" in slot_ids
     assert "slot_6_original_articles" in slot_ids
     assert "slot_7_projects_and_photos" in slot_ids
+    assert "slot_9_site_metadata_and_seo" in slot_ids
+    assert "slot_10_social_and_github" in slot_ids
 
 def test_kernel_verification():
     import argparse

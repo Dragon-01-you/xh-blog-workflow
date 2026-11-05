@@ -20,7 +20,7 @@ import {
   playMechanicalSound,
   playDockSound,
 } from '~/lib/sound'
-import { brandConfig } from '~/lib/personal'
+import { brandConfig, personalInfo } from '~/lib/personal'
 
 export interface DockNavItem {
   href: string
@@ -163,7 +163,7 @@ export function BottomDock() {
             setIsWeChatOpen((prev) => !prev)
             playMechanicalSound('click')
           }}
-          aria-label="查看来自07年的芯火微信公众号二维码"
+          aria-label={`查看${personalInfo.weChatOfficial || brandConfig.name}微信公众号二维码`}
         >
           <div className="flex items-center justify-center">
             <WechatDockIcon className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
@@ -263,22 +263,22 @@ export function BottomDock() {
 
               <div className="flex items-center gap-3 mb-3 text-left">
                 <Image
-                  src="/images/avatar.png"
-                  alt="来自07年的芯火"
+                  src={brandConfig.avatar}
+                  alt={personalInfo.weChatOfficial || brandConfig.name}
                   width={38}
                   height={38}
                   className="rounded-full border border-[var(--border)]"
                 />
                 <div>
-                  <h3 className="text-sm font-semibold text-[var(--foreground)]">来自07年的芯火</h3>
+                  <h3 className="text-sm font-semibold text-[var(--foreground)]">{personalInfo.weChatOfficial || brandConfig.name}</h3>
                   <p className="text-[11px] text-[var(--muted-foreground)]">微信公众号</p>
                 </div>
               </div>
 
               <div className="relative p-2 bg-white rounded-xl shadow-inner border border-[var(--border)] my-2 inline-block">
                 <Image
-                  src="/images/wechat-qr.jpg"
-                  alt="来自07年的芯火 微信公众号二维码"
+                  src={personalInfo.weChatOfficialQr || '/images/wechat-qr.jpg'}
+                  alt={`${personalInfo.weChatOfficial || brandConfig.name} 微信公众号二维码`}
                   width={180}
                   height={180}
                   className="rounded-lg block"

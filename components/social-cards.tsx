@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { ExternalLabel } from '~/components/external-mark'
 import { SitePreviewCard } from '~/components/preview-card-timing'
 import { T } from '~/lib/i18n'
+import { brandConfig, personalInfo } from '~/lib/personal'
 
 export interface SocialSnapshot {
   name: string
@@ -131,10 +132,13 @@ export function GitHubCard({
   trigger?: React.ReactNode
   triggerClassName?: string
 }) {
+  const user = personalInfo.githubUser || personalInfo.handle || 'Dragon-01-you'
+  const githubHref = personalInfo.github ? `${personalInfo.github}?tab=repositories` : `https://github.com/${user}?tab=repositories`
+
   return (
     <Card
       trigger={trigger}
-      href="https://github.com/Dragon-01-you?tab=repositories"
+      href={githubHref}
       className="link-card service-card"
       triggerClassName={triggerClassName}
     >
@@ -148,15 +152,15 @@ export function XiaohongshuCardBody() {
     <span className="xiaohongshu-card-content">
       <span className="service-card-head">
         <Image
-          src="/images/headshot.jpg"
+          src={brandConfig.headshotLight || '/images/headshot.jpg'}
           alt=""
           width={40}
           height={40}
           className="service-card-avatar"
         />
         <span className="service-card-names">
-          <span className="service-card-name">芯火</span>
-          <span className="service-card-sub">小红书号 xinhuo</span>
+          <span className="service-card-name">{brandConfig.name}</span>
+          <span className="service-card-sub">小红书号 {brandConfig.enName.toLowerCase()}</span>
         </span>
         <span className="service-card-glyph xiaohongshu-card-wordmark" aria-hidden>
           <Image
@@ -194,7 +198,7 @@ export function XiaohongshuCard({
   return (
     <Card
       trigger={trigger}
-      href="https://xhslink.cn/o/74Svva7m0kZ"
+      href={personalInfo.xiaoHongShu || '#'}
       className="link-card service-card xiaohongshu-card"
       triggerClassName={triggerClassName}
     >
@@ -206,7 +210,7 @@ export function XiaohongshuCard({
 // Email's card is the front of a mailed envelope: stamps, cancellation
 // marks, sender, recipient, and folded seams.
 export function EmailCard({
-  address = 'you19827801947@qq.com',
+  address = personalInfo.email,
   trigger = 'Email',
   triggerClassName = 'footer-tree-link',
 }: {
@@ -214,6 +218,8 @@ export function EmailCard({
   trigger?: React.ReactNode
   triggerClassName?: string
 }) {
+  const cityName = brandConfig.location.split(',')[0].trim().toUpperCase()
+
   return (
     <SitePreviewCard
       href={`mailto:${address}`}
@@ -226,14 +232,14 @@ export function EmailCard({
           <span className="email-envelope-flap" />
           <span className="email-envelope-return">
             <span>FROM</span>
-            XINHUO
+            {brandConfig.enName.toUpperCase()}
             <br />
-            HANGZHOU
+            {cityName}
           </span>
           <span className="email-envelope-stamps">
             <span className="email-envelope-stamp email-envelope-stamp-portrait">
-              <Image src="/images/avatar.png" alt="" width={32} height={32} />
-              <span>XINHUO</span>
+              <Image src={brandConfig.avatar} alt="" width={32} height={32} />
+              <span>{brandConfig.enName.toUpperCase()}</span>
             </span>
             <span className="email-envelope-stamp email-envelope-stamp-mark">
               <span className="email-envelope-stamp-star">✦</span>
@@ -255,25 +261,27 @@ export function EmailCard({
 
 // WeChat Official Account card: shows QR code directly, strictly NO dead external links
 export function WechatCardBody() {
+  const wechatName = personalInfo.weChatOfficial || brandConfig.name
+
   return (
     <span className="wechat-card-content flex flex-col items-center gap-2 p-2 text-center w-52">
       <span className="flex items-center gap-2.5 w-full justify-start border-b border-[var(--border)] pb-2">
         <Image
-          src="/images/avatar.png"
-          alt="来自07年的芯火"
+          src={brandConfig.avatar}
+          alt={wechatName}
           width={32}
           height={32}
           className="rounded-full border border-[var(--border)]"
         />
         <span className="flex flex-col text-left">
-          <span className="text-xs font-semibold text-[var(--foreground)]">来自07年的芯火</span>
+          <span className="text-xs font-semibold text-[var(--foreground)]">{wechatName}</span>
           <span className="text-[10px] text-[var(--muted-foreground)]">微信公众号</span>
         </span>
       </span>
       <span className="wechat-qr-wrapper relative p-1.5 bg-white rounded-lg shadow-sm border border-[var(--border)] my-0.5">
         <Image
-          src="/images/wechat-qr.jpg"
-          alt="来自07年的芯火 微信公众号二维码"
+          src={personalInfo.weChatOfficialQr || '/images/wechat-qr.jpg'}
+          alt={`${wechatName} 微信公众号二维码`}
           width={130}
           height={130}
           className="rounded block"

@@ -91,7 +91,13 @@ git clone https://github.com/Dragon-01-you/xh-blog-workflow.git
 cd xh-blog-workflow
 pnpm install
 
-# 2. 验证核心完整性并检查你的可定制槽位
+# 2. 生成本地沙盒环境变量（自动从 .env.example 生成安全的 .env.local）
+# macOS / Linux:
+chmod +x .agents/setup.sh && .agents/setup.sh
+# Windows PowerShell:
+.\.agents\setup.ps1
+
+# 验证核心完整性并检查你的可定制槽位
 python scripts/xh_blog_cli.py verify-kernel
 python scripts/xh_blog_cli.py inspect-slots
 
@@ -99,6 +105,14 @@ python scripts/xh_blog_cli.py inspect-slots
 pnpm dev
 # 浏览器打开 http://localhost:3000 即可探索
 ```
+
+> [!CAUTION]
+> ### ⚠️ 常用命令与生产构建防坑提示 (Breaking Prevention)
+> 每次修改代码、更换槽位变量（如个人介绍、相册、文章）后，若要使用生产预览模式（`pnpm start`），**必须先重新执行 `pnpm build`！**
+> ```bash
+> pnpm build && pnpm start --port 3000
+> ```
+> 若在修改代码后直接运行 `pnpm start`，Next.js 会继续读取旧的打包产物，导致客户端加载时 chunk 哈希不匹配报 404 错误。本地开发调试推荐直接使用 `pnpm dev`（自带实时 HMR 热更新）。
 
 ### 进阶槽位管理与快照归档
 
@@ -198,6 +212,28 @@ CLI 会明确指出被篡改的文件名称与当前哈希值。你可以直接�
 <summary>Q4: 为什么所有的提交作者都是 Dragon-01-you？</summary>
 
 本项目的所有工程流水线重构、Tailwind v4 适配、哈希锁系统、测试用例编写与品牌注入均由维护者 **Dragon-01-you** 独立完成并统一数字签名归属，杜绝任何历史遗留昵称干扰。
+</details>
+
+<details>
+<summary>Q5: 如果我确实需要微调某个 K 代码文件，如何允许校验通过？</summary>
+
+你可以通过 CLI 传入 `--allow-modified <file>` 参数来显式声明允许放行该文件：
+```bash
+python scripts/xh_blog_cli.py verify-kernel --allow-modified components/social-cards.tsx
+```
+如果确定你的修改应当成为新的基线，可以在修改后使用 Python 脚本重新计算 LF 标准化 SHA-256 并更新 `.kernel-lock.json`。
+</details>
+
+<details>
+<summary>Q6: 首页三扇门里的“相册”卡片小图是如何展示的？</summary>
+
+首页导航卡片 (`components/nav-cards.tsx`) 的预览小图已完全与 `lib/photos.ts` 动态打通。系统会自动提取 `photos` 数组中的前 3 张照片作为扇形展示；当相册为空或图片数量较少时，会自动平滑降级，无需手动改动组件代码。
+</details>
+
+<details>
+<summary>Q7: 运行 pnpm install 时提示 "ignored build scripts: sharp, esbuild" 或建议运行 pnpm approve-builds，需要处理吗？</summary>
+
+可以安全忽略。Next.js 15 内部自带跨平台 WASM 图像处理回退，本地开发与自动化测试均无需手动编译底层原生脚本；CI 与生产环境部署时 Next.js 也会自动处理 sharp 依赖。
 </details>
 
 ---

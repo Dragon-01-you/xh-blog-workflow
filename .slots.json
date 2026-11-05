@@ -51,5 +51,17 @@
     "name": "Bookshelf & Vinyl Records",
     "target_files": ["lib/content.ts", "public/images/books", "public/images/records"],
     "description": "Curated reading lists, favorite albums, and aesthetic culture artifacts."
+  },
+  {
+    "slot_id": "slot_9_site_metadata_and_seo",
+    "name": "Site Metadata & SEO OpenGraph",
+    "target_files": ["lib/public-page-metadata.ts", "lib/feeds.ts", "lib/llms.ts", "lib/seo.ts"],
+    "description": "Page titles, meta descriptions, OpenGraph text, RSS generator branding, and LLM discoverability index."
+  },
+  {
+    "slot_id": "slot_10_social_and_github",
+    "name": "Social Networks & GitHub Handles",
+    "target_files": ["lib/social-live.ts", "lib/personal.ts"],
+    "description": "Live GitHub contribution graph fetch handle, profile links, and platform configurations."
   }
 ]

@@ -8,6 +8,8 @@ export interface BrandConfig {
   taglineEn: string
   bio: string
   bioEn: string
+  heroIntroZh?: string
+  heroIntroEn?: string
   avatar: string
   headshotLight: string
   headshotDark: string
@@ -26,6 +28,8 @@ export const brandConfig: BrandConfig = {
   taglineEn: 'College sophomore born in 2007 · Practical "AI + Self-Learning" · Author of "来自07年的芯火"',
   bio: '07 年出生，大专大二在读。不玩虚的大词，专注于个人成长赛道与「AI + 自学」实用主义。公众号「来自07年的芯火」主笔，主理开源工具与实用工作流。希望能通过自己的真实行动，陪伴和帮助更多专科同学一起提升自己。',
   bioEn: 'College sophomore born in 2007. Focused on personal growth and practical "AI + self-learning" workflows. Author of "来自07年的芯火", creator of open-source tools. Dedicated to empowering peers and sharing authentic self-improvement journeys.',
+  heroIntroZh: '一个 07 年的大专大二学生。在这里真实记录通过 AI 敏捷生产力与知识沉淀改变自己的过程。',
+  heroIntroEn: 'a college sophomore born in 2007, documenting real self-growth through practical AI and learning.',
   avatar: '/images/avatar.png',
   headshotLight: '/images/headshot.jpg',
   headshotDark: '/images/portrait-square.jpg',
@@ -42,6 +46,7 @@ export const personalInfo = {
   enName: 'Xinhuo',
   email: 'you19827801947@qq.com',
   handle: 'Dragon-01-you',
+  githubUser: 'Dragon-01-you',
   github: 'https://github.com/Dragon-01-you',
   xiaoHongShu: 'https://xhslink.cn/o/74Svva7m0kZ',
   xiaoBaoTong: '', // 仅做字样展示，后续有真实专栏时再接入跳转

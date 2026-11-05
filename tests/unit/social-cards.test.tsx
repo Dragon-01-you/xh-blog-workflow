@@ -22,6 +22,7 @@ import { BottomDock } from '~/components/bottom-dock'
 import { SiteFooter } from '~/components/site-footer'
 import { LanguageProvider } from '~/lib/i18n'
 import { ThemeProvider } from '~/lib/theme'
+import { brandConfig, personalInfo } from '~/lib/personal'
 import bakedGithub from '~/content/github.json'
 
 describe('Subagent 2: Micro-interactions & Social Cards 1:1 Verification', () => {
@@ -93,17 +94,18 @@ describe('Subagent 2: Micro-interactions & Social Cards 1:1 Verification', () =>
       expect(html).toContain('关注者')
     })
 
-    it('GitHubCard links to Dragon-01-you tab=repositories', () => {
+    it('GitHubCard links to github repos tab', () => {
       const html = renderToString(
         <LanguageProvider defaultLanguage="zh">
           <GitHubCard data={bakedGithub} />
         </LanguageProvider>
       )
 
-      expect(html).toContain('href="https://github.com/Dragon-01-you?tab=repositories"')
+      const user = personalInfo.githubUser || personalInfo.handle || 'Dragon-01-you'
+      expect(html).toContain(`href="https://github.com/${user}?tab=repositories"`)
     })
 
-    it('XiaohongshuCardBody renders 芯火 and engagement statistics', () => {
+    it('XiaohongshuCardBody renders brand name and engagement statistics', () => {
       const html = renderToString(
         <LanguageProvider defaultLanguage="zh">
           <XiaohongshuCardBody />
@@ -111,29 +113,34 @@ describe('Subagent 2: Micro-interactions & Social Cards 1:1 Verification', () =>
       )
 
       expect(html).toContain('xiaohongshu-card-content')
-      expect(html).toContain('芯火')
+      expect(html).toContain(brandConfig.name)
       expect(html).toContain('获赞与收藏')
     })
 
-    it('XiaohongshuCard links to real rednote URL', () => {
+    it('XiaohongshuCard links to configured rednote URL', () => {
       const html = renderToString(
         <LanguageProvider defaultLanguage="zh">
           <XiaohongshuCard />
         </LanguageProvider>
       )
 
-      expect(html).toContain('href="https://xhslink.cn/o/74Svva7m0kZ"')
+      if (personalInfo.xiaoHongShu) {
+        expect(html).toContain(`href="${personalInfo.xiaoHongShu}"`)
+      } else {
+        expect(html).toContain('href="#"')
+      }
     })
 
-    it('WechatCardBody renders QR code popup card referencing /images/wechat-qr.jpg and title 来自07年的芯火 without external dead links', () => {
+    it('WechatCardBody renders QR code popup card referencing QR image and WeChat official name without external dead links', () => {
       const html = renderToString(
         <LanguageProvider defaultLanguage="zh">
           <WechatCardBody />
         </LanguageProvider>
       )
 
-      expect(html).toContain('来自07年的芯火')
-      expect(decodeURIComponent(html)).toContain('/images/wechat-qr.jpg')
+      const wechatName = personalInfo.weChatOfficial || brandConfig.name
+      expect(html).toContain(wechatName)
+      expect(decodeURIComponent(html)).toContain(personalInfo.weChatOfficialQr || '/images/wechat-qr.jpg')
       expect(html).toContain('微信扫一扫 · 关注公众号')
       expect(html).not.toContain('https://weixin.qq.com')
     })
@@ -141,11 +148,11 @@ describe('Subagent 2: Micro-interactions & Social Cards 1:1 Verification', () =>
     it('EmailCard renders mailto: href', () => {
       const html = renderToString(
         <LanguageProvider defaultLanguage="zh">
-          <EmailCard address="you19827801947@qq.com" />
+          <EmailCard address={personalInfo.email} />
         </LanguageProvider>
       )
 
-      expect(html).toContain('href="mailto:you19827801947@qq.com"')
+      expect(html).toContain(`href="mailto:${personalInfo.email}"`)
     })
   })
 
@@ -170,15 +177,16 @@ describe('Subagent 2: Micro-interactions & Social Cards 1:1 Verification', () =>
       expect(brandSlot).not.toBeNull()
 
       // Click WeChat button to open modal
-      const wechatBtn = container.querySelector('button[aria-label="查看来自07年的芯火微信公众号二维码"]') as HTMLButtonElement
+      const wechatName = personalInfo.weChatOfficial || brandConfig.name
+      const wechatBtn = container.querySelector(`button[aria-label="查看${wechatName}微信公众号二维码"]`) as HTMLButtonElement
       expect(wechatBtn).not.toBeNull()
 
       act(() => {
         wechatBtn.click()
       })
 
-      expect(container.innerHTML).toContain('来自07年的芯火')
-      expect(decodeURIComponent(container.innerHTML)).toContain('/images/wechat-qr.jpg')
+      expect(container.innerHTML).toContain(wechatName)
+      expect(decodeURIComponent(container.innerHTML)).toContain(personalInfo.weChatOfficialQr || '/images/wechat-qr.jpg')
 
       act(() => {
         root.unmount()
@@ -205,9 +213,11 @@ describe('Subagent 2: Micro-interactions & Social Cards 1:1 Verification', () =>
       expect(html).not.toContain('href=""')
 
       // Real targets are present
-      expect(html).toContain('https://github.com/Dragon-01-you?tab=repositories')
-      expect(html).toContain('https://xhslink.cn/o/74Svva7m0kZ')
-      expect(html).toContain('mailto:you19827801947@qq.com')
+      expect(html).toContain(personalInfo.github)
+      if (personalInfo.xiaoHongShu) {
+        expect(html).toContain(personalInfo.xiaoHongShu)
+      }
+      expect(html).toContain(`mailto:${personalInfo.email}`)
     })
   })
 })

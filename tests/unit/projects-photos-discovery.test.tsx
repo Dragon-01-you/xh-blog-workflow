@@ -16,7 +16,7 @@ import { ProjectsBlueprintStage } from '~/components/hidden-list-stage'
 // Lib & route imports
 import { projects } from '~/lib/projects'
 import { photos } from '~/lib/photos'
-import { books, records, personalInfo } from '~/lib/personal'
+import { books, records, personalInfo, brandConfig } from '~/lib/personal'
 import { getAllPosts } from '~/lib/content'
 import { tiltFromSlug } from '~/lib/polaroid'
 import { buildFeedXml } from '~/lib/feeds'
@@ -154,13 +154,13 @@ describe('Issue 05 & 06: Projects, Photos & Discovery Gateways', () => {
   })
 
   describe('4. Public Discovery Gateway: RSS 2.0 Feed (Issue 06)', () => {
-    it('generates valid RSS 2.0 XML with all 8 articles and 芯火 branding', () => {
+    it('generates valid RSS 2.0 XML with all articles and brand configuration', () => {
       const xml = buildFeedXml()
 
       expect(xml).toContain('<?xml version="1.0" encoding="UTF-8"?>')
       expect(xml).toContain('<rss')
       expect(xml).toContain('version="2.0"')
-      expect(xml).toContain('<title><![CDATA[芯火]]></title>')
+      expect(xml).toContain(`<title><![CDATA[${brandConfig.name}]]></title>`)
       expect(xml).not.toContain('星火')
 
       const posts = getAllPosts()
@@ -175,7 +175,7 @@ describe('Issue 05 & 06: Projects, Photos & Discovery Gateways', () => {
     it('generates structured Markdown specification for Cursor and AI search', () => {
       const text = buildLlmsText()
 
-      expect(text).toContain('# 芯火 (Xinhuo)')
+      expect(text).toContain(`# ${brandConfig.name} (${brandConfig.enName})`)
       expect(text).toContain('## 核心原则与站点架构')
       expect(text).toContain('## 深度思考与镇店文章 (Writing)')
       expect(text).toContain('## 代表工程与工作流项目 (Projects)')

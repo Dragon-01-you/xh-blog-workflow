@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { useWebGpuCapability } from '~/components/use-webgpu-capability'
+import { brandConfig } from '~/lib/personal'
 
 const PortraitShaderField = dynamic(
   () => import('./portrait-shader-field').then((module) => module.PortraitShaderField),
@@ -15,7 +16,7 @@ const TOUCH_REVEAL_MS = 2600
 
 export function PortraitHiddenStage({
   children,
-  label = '芯火的半色调网点肖像舞台',
+  label = `${brandConfig.name}的半色调网点肖像舞台`,
   className,
   onClick,
 }: Readonly<{

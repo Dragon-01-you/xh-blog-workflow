@@ -4,12 +4,12 @@ import Link from 'next/link'
 import { PixelCluster } from '~/components/pixel-cluster'
 import { T } from '~/lib/i18n'
 import { getAllPosts } from '~/lib/content'
-import { books, personalInfo, records } from '~/lib/personal'
+import { books, brandConfig, personalInfo, records } from '~/lib/personal'
 import { photos } from '~/lib/photos'
 import { projects } from '~/lib/projects'
 
 export const metadata: Metadata = {
-  title: '运营监控概览 | 芯火',
+  title: `运营监控概览 | ${brandConfig.name}`,
   description: '本地免密运营监控台与健康巡检概览。',
   robots: {
     index: false,
