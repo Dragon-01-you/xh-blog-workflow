@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>博客槽位配置面板 · xh-blog-workflow</title>
+<style>
+/* SECTION: base-tokens */
+:root{
+  --paper:#f7f4ed; --paper-2:#efeade; --card:#fffdf8; --ink:#171717; --ink-2:#3c3833;
+  --muted:#8a8172; --line:#d8d0be; --line-2:#c2b8a2; --red:#a2382c; --amber:#9a6b12; --green:#2f6b3a;
+  --serif:"Songti SC","Noto Serif CJK SC","Source Han Serif SC",Georgia,serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);line-height:1.6;
+  background-image:repeating-linear-gradient(0deg,rgba(0,0,0,.014) 0 1px,transparent 1px 4px)}
+button{font-family:inherit}
+input,select,textarea{font-family:inherit;font-size:14px;color:var(--ink);background:var(--card);
+  border:1px solid var(--line-2);border-radius:2px;padding:7px 9px;width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 2px rgba(23,23,23,.08)}
+label{display:block;font-size:12px;letter-spacing:.04em;color:var(--muted);margin:0 0 4px}
+/* SECTION: shell */
+header.masthead{border-bottom:2px solid var(--ink);padding:18px 20px 14px;background:var(--paper);position:sticky;top:0;z-index:30}
+.mast-row{max-width:1360px;margin:0 auto;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:flex-end;justify-content:space-between}
+h1{font-size:19px;margin:0;letter-spacing:.01em}
+h1 .no{font-family:var(--mono);font-size:12px;color:var(--muted);margin-right:8px}
+.tag{font-size:12px;color:var(--muted)}
+nav.tabs{max-width:1360px;margin:12px auto 0;display:flex;flex-wrap:wrap;gap:6px}
+nav.tabs button{border:1px solid var(--line-2);background:var(--card);padding:7px 13px;font-size:13px;cursor:pointer;border-radius:2px}
+nav.tabs button[aria-selected=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+main{max-width:1360px;margin:0 auto;padding:20px 20px 80px}
+.split{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:24px;align-items:start}
+@media(max-width:1040px){.split{grid-template-columns:1fr}.side{position:static!important}}
+section.panel{background:var(--card);border:1px solid var(--line);padding:16px 18px 18px;margin:0 0 16px}
+section.panel>h2{font-size:15px;margin:0 0 3px;padding-bottom:9px;border-bottom:1px solid var(--line);letter-spacing:.02em}
+section.panel>h2 .n{font-family:var(--mono);font-size:11px;color:var(--muted);margin-right:7px}
+.hint{font-size:12.5px;color:var(--muted);margin:6px 0 0}
+.grid{display:grid;gap:12px;margin-top:12px}
+.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr 1fr 1fr}
+@media(max-width:640px){.g2,.g3{grid-template-columns:1fr}}
+/* SECTION: tiers */
+.tier{border-left:3px solid var(--ink);padding:2px 0 2px 12px;margin:0 0 16px}
+.tier.locked{border-color:var(--ink)}.tier.neutral{border-color:var(--amber)}.tier.own{border-color:var(--green)}
+.tier h3{margin:0 0 4px;font-size:14px}
+.tier .who{font-family:var(--mono);font-size:11px;color:var(--muted)}
+table.matrix{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
+table.matrix th{text-align:left;font-weight:normal;font-size:11px;letter-spacing:.06em;color:var(--muted);border-bottom:1px solid var(--ink);padding:6px 8px 6px 0}
+table.matrix td{border-bottom:1px solid var(--line);padding:8px 8px 8px 0;vertical-align:top}
+table.matrix td .tagfix{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.pill{display:inline-block;font-family:var(--mono);font-size:10.5px;padding:2px 7px;border:1px solid var(--line-2);border-radius:99px;margin:0 4px 3px 0;color:var(--ink-2);cursor:pointer;background:var(--card)}
+.pill[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.pill.fix{cursor:default;background:var(--paper-2)}
+/* SECTION: cards */
+.card{border:1px solid var(--line-2);background:var(--paper);padding:12px 13px;margin:10px 0}
+.card .bar{display:flex;gap:8px;align-items:center;justify-content:space-between;margin:-2px 0 10px}
+.card .bar .ttl{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.card .acts{display:flex;gap:6px;flex-wrap:wrap}
+.btn{border:1px solid var(--line-2);background:var(--card);padding:6px 11px;font-size:12.5px;cursor:pointer;border-radius:2px}
+.btn:hover{border-color:var(--ink)}
+.btn.dark{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn.danger{color:var(--red);border-color:#dcc4bd}
+.addbar{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+/* SECTION: side */
+aside.side{position:sticky;top:132px}
+.dlg{border:2px solid var(--ink);background:var(--card);padding:14px 15px}
+.dlg h2{font-size:14px;margin:0 0 2px}
+.dlg .cnt{font-family:var(--mono);font-size:11px;color:var(--muted)}
+ul.issues{list-style:none;margin:12px 0 0;padding:0;font-size:13px}
+ul.issues li{padding:8px 0 8px 0;border-top:1px solid var(--line)}
+ul.issues li .code{font-family:var(--mono);font-size:10.5px;color:var(--red);letter-spacing:.04em}
+ul.issues li.warn .code{color:var(--amber)}
+ul.issues li.ok .code{color:var(--green)}
+ul.issues li .q{display:block;margin-top:2px}
+ul.issues li .why{font-size:11.5px;color:var(--muted)}
+.prev{margin-top:14px;border:1px solid var(--line-2);background:var(--paper);padding:12px 13px;font-size:13px}
+.prev .lbl{font-family:var(--mono);font-size:10.5px;color:var(--muted);letter-spacing:.06em;margin-bottom:6px}
+.prev a{color:var(--ink);border-bottom:1px solid var(--line-2);text-decoration:none}
+.sealselect{border:1px solid var(--ink);padding:10px;margin-top:8px;display:flex;gap:10px;align-items:center}
+.sealselect .qr{width:54px;height:54px;border:1px solid var(--line-2);flex:0 0 auto;display:grid;place-items:center;font-size:9px;font-family:var(--mono);color:var(--muted);background-image:repeating-conic-gradient(var(--ink) 0 25%,var(--card) 0 50%);background-size:8px 8px}
+/* SECTION: export */
+pre.code{font-family:var(--mono);font-size:11.5px;line-height:1.55;background:#1c1b19;color:#efeade;padding:13px 14px;overflow:auto;max-height:340px;border-radius:2px;margin:10px 0 0;white-space:pre}
+.exptabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+details.fold{border:1px solid var(--line);padding:9px 12px;margin:9px 0;background:var(--paper)}
+details.fold summary{cursor:pointer;font-size:13.5px}
+.note{font-size:12px;color:var(--muted);margin-top:9px;border-top:1px dashed var(--line-2);padding-top:8px}
+.err{border-color:var(--red)!important;background:#fdf3f1!important}
+.badge{font-family:var(--mono);font-size:10px;border:1px solid var(--line-2);padding:1px 6px;margin-left:6px;color:var(--muted)}
+</style>
+</head>
+<body>
+<!-- SECTION: masthead -->
+<header class="masthead">
+  <div class="mast-row">
+    <h1><span class="no">XH-BLOG / SLOT KIT</span>博客槽位配置面板</h1>
+    <div class="tag" id="stamp"></div>
+  </div>
+  <nav class="tabs" id="tabs" role="tablist">
+    <button role="tab" data-tab="tier" aria-selected="true">三档权责</button>
+    <button role="tab" data-tab="id">① 身份必填</button>
+    <button role="tab" data-tab="chan">② 渠道矩阵</button>
+    <button role="tab" data-tab="entry">③ 内容条目</button>
+    <button role="tab" data-tab="pref">④ 显示开关</button>
+    <button role="tab" data-tab="out">⑤ 体检与导出</button>
+  </nav>
+</header>
+
+<main>
+<div class="split">
+  <div id="work"></div>
+
+  <!-- SECTION: side-doctor -->
+  <aside class="side">
+    <div class="dlg">
+      <h2>实时体检（同 doctor 规则）</h2>
+      <div class="cnt" id="docnt"></div>
+      <ul class="issues" id="issues"></ul>
+      <div class="prev" id="prev"></div>
+    </div>
+    <p class="hint">本页只存在你浏览器本地（localStorage 草稿），不上传任何数据。导出物需人工放进仓库后由 <span style="font-family:var(--mono)">pnpm doctor</span> 复核。</p>
+  </aside>
+</div>
+</main>
+
+<script>
+/* SECTION: constants */
+var FIXED = [
+  {k:'app/globals.css（6,972 行瑞士纸墨样式表）', why:'质感本体，改一行全站塌'},
+  {k:'WebGPU 着色器 Ink / Portrait / Blueprint', why:'GPU 光影与优雅降级链路'},
+  {k:'半色调肖像组件 halftone-portrait', why:'网点印刷与原色写真双向切换'},
+  {k:'底栏 Dock 弹簧物理与磁吸', why:'阻尼参数是母版手感的一部分'},
+  {k:'路由结构与 SSG 预渲染', why:'22 条路由 / 静态编译是验收基线'},
+  {k:'禁止 href="#" 死链、外链 rel 安全', why:'这是卫生规则，不是内容'},
+  {k:'文章必须有可定位的引文出处', why:'防止换人后编造事实'}
+];
+var NEUTRAL = [
+  {k:'渠道默认图标包（17 个）', d:'lib/channel-icons.tsx', note:'不选就用模板自带图标；想换只改 icon 字段'},
+  {k:'栏目标题与浮标文案（公众号 / 小报童·筹备中 / 次贡献 / 关注者）', d:'lib/ui-labels.ts', note:'原为 K 代码内写死，已抽为可换'},
+  {k:'量化项开关（26 周热力图 / 贡献数 / 关注者 / Star）', d:'lib/channels.ts → channelPrefs', note:'历史人物、无 GitHub 的人可整块关掉'},
+  {k:'页脚版权年份', d:'channelPrefs.copyrightYear', note:'默认跟随系统年，可写死为 1790 等'},
+  {k:'书架 / 唱片架条目模板（字段与书脊配色）', d:'lib/personal.ts → books / records', note:'推荐"复制一条再改"，不要从零写'},
+  {k:'底栏按钮数量与位置', d:'channels.ts showIn', note:'没有二维码类渠道时该按钮自动消失'}
+];
+var OWN = [
+  {k:'名字 / 英文名 / 身份宣言 / 简介 / 城市与经纬度'},
+  {k:'每个平台的真实链接或二维码图'},
+  {k:'履历时间轴（必须真实年份，不得编造）'},
+  {k:'原创文章（含 1200×675 题图、≥2 个二级标题、出处段落）'},
+  {k:'项目 / 书 / 唱片的名称、年份、来源链接、封面图'},
+  {k:'联络邮箱（没有就明确留空，不要放占位邮箱）'}
+];
+var ICONS = ['wechat','xiaohongshu','github','xiaobaotong','newspaper','mail','rss','book','archive','podcast','video','microblog','forum','scholar','store','photography','writing','community','link'];
+var KINDS = {
+  'qr-image':'二维码 / 印记浮显（点击弹出图片）',
+  'external':'链接跳转（点文字直接外跳）',
+  'email':'邮箱（邮戳卡）',
+  'github-heatmap':'GitHub 贡献热力图'
+};
+var CHANNEL_PRESETS = [
+  {label:'微信公众号', key:'wechat', kind:'qr-image', icon:'wechat', tone:'text-emerald-600 dark:text-emerald-400', hint:'微信扫一扫 · 关注公众号', showIn:['home','footer','dock']},
+  {label:'抖音（主页链接）', key:'douyin-link', kind:'external', icon:'video', href:''},
+  {label:'抖音（二维码浮显）', key:'douyin-qr', kind:'qr-image', icon:'video', image:'', hint:'抖音扫码 · 看我的短视频', showIn:['home','footer','dock']},
+  {label:'哔哩哔哩', key:'bilibili', kind:'external', icon:'video'},
+  {label:'知乎', key:'zhihu', kind:'external', icon:'writing'},
+  {label:'小宇宙播客', key:'podcast', kind:'external', icon:'podcast'},
+  {label:'Substack / Newsletter', key:'newsletter', kind:'external', icon:'newspaper'},
+  {label:'X / 微博', key:'microblog', kind:'external', icon:'microblog'},
+  {label:'小红书', key:'xiaohongshu', kind:'external', icon:'xiaohongshu', tone:'text-rose-600 dark:text-rose-400'},
+  {label:'GitHub', key:'github', kind:'github-heatmap', icon:'github'},
+  {label:'RSS 订阅', key:'rss', kind:'external', icon:'rss', href:'/feed.xml'},
+  {label:'邮箱', key:'email', kind:'email', icon:'mail'},
+  {label:'个人网站', key:'site', kind:'external', icon:'link'}
+];
+var ENTRY_FIELDS = {
+  books:[['title','书名'],['author','作者'],['year','年份','num'],['category','分类'],['spineTitle','书脊短名'],['spineColor','书脊色','color'],['spineInk','书脊字色','color'],['cover','封面路径 /images/books/x.jpg'],['coverWidth','封面宽','num'],['coverHeight','封面高','num'],['url','来源链接'],['comment','一句话批注']],
+  records:[['album','曲名 / 专辑'],['artist','演奏者 / 作者'],['year','年份','num'],['genre','类型'],['spineColor','封套脊色','color'],['spineInk','封套脊字色','color'],['cover','封套路径 /images/records/x.jpg'],['url','来源链接'],['mood','何时听'],['comment','一句话批注']],
+  projects:[['name','项目名'],['nameEn','英文名'],['year','起始年','num'],['domain','领域标签'],['url','直达链接'],['icon','图标路径 /images/projects/x.png'],['description','一段说明']]
+};
+
+/* SECTION: state */
+var LS='xh-slot-kit-v1';
+var S = load() || {
+  name:'', enName:'', tagline:'', bio:'', city:'', lat:'', lng:'', email:'',
+  handle:'', wechatName:'', wechatQr:'',
+  channels:[], disabled:['xiaohongshu','xiaobaotong'],
+  prefs:{ graph:false, weeks:26, followers:false, yearMode:'inherit', year:1790 },
+  entries:{ books:[], records:[], projects:[] },
+  articles:[], allow:[], tab:'tier'
+};
+function save(){ try{ localStorage.setItem(LS, JSON.stringify(S)) }catch(e){} }
+function load(){ try{ var r=localStorage.getItem(LS); return r?JSON.parse(r):null }catch(e){ return null } }
+
+function uid(){ return 'x'+Math.random().toString(36).slice(2,8) }
+function mkChannel(p){
+  return { id:uid(), key:(p&&p.key)||'new-channel', label:(p&&p.label)||'', labelEn:(p&&p.labelEn)||((p&&p.label)||''),
+    kind:(p&&p.kind)||'external', href:(p&&p.href)||'', image:(p&&p.image)||'', icon:(p&&p.icon)||'link',
+    tone:(p&&p.tone)||'', hint:(p&&p.hint)||'', dockLabel:'', blurb:'', showIn:(p&&p.showIn)||['home','footer'] }
+}
+function mkEntry(list){
+  var o={ id:uid() }; ENTRY_FIELDS[list].forEach(function(f){ o[f[0]] = f[2]==='num'?'' : (f[2]==='color'?'#583e2e' : '') }); return o
+}
+function mkArticle(){ return { id:uid(), slug:'', title:'', headings:2, cover:true, source:true } }
+
+/* SECTION: helpers for DOM (防转义：只用 textContent / 属性赋值) */
+function el(tag, cls, txt){ var e=document.createElement(tag); if(cls) e.className=cls; if(txt!=null) e.textContent=txt; return e }
+function field(labelText, node, tip){
+  var w=el('div'); w.appendChild(el('label',null,labelText)); w.appendChild(node);
+  if(tip){ w.appendChild(el('div','hint',tip)) } return w
+}
+function inp(key, ph, val){
+  var i=el('input'); i.type='text'; i.value=val!=null?val:''; i.placeholder=ph||'';
+  i.addEventListener('input',function(){ setDeep(key, i.value); save(); refresh() }); return i
+}
+function setDeep(path, v){
+  var parts=path.split('.'), o=S; for(var i=0;i<parts.length-1;i++){ o=o[parts[i]] } o[parts[parts.length-1]]=v
+}
+function get(path){ var parts=path.split('.'), o=S; for(var i=0;i<parts.length;i++){ if(o==null) return ''; o=o[parts[i]] } return o==null?'':o }
+
+/* SECTION: render router */
+var work=document.getElementById('work');
+function show(tab){
+  S.tab=tab; save();
+  Array.prototype.forEach.call(document.querySelectorAll('#tabs button'), function(b){
+    b.setAttribute('aria-selected', b.dataset.tab===tab ? 'true':'false')
+  });
+  work.innerHTML='';
+  ({tier:renderTier, id:renderId, chan:renderChan, entry:renderEntry, pref:renderPref, out:renderOut}[tab]||renderTier)();
+  refresh();
+}
+function refresh(){ renderDoctor(); renderPreview() }
+
+/* SECTION: tab 三档 */
+function renderTier(){
+  var t1=el('section','panel'); t1.appendChild(el('h2',null,'三档权责总览'));
+  t1.appendChild(el('p','hint','先把责任分清：母版质感不动、中性默认可以换、真实内容必须本人给。面板里每一项都标了归属，改哪一档心里有数。'));
+  function blk(cls, no, title, who, arr, colTxt){
+    var d=el('div','tier '+cls);
+    d.appendChild(el('h3',null,title));
+    d.appendChild(el('div','who',who));
+    if(colTxt) d.appendChild(el('p','hint',colTxt));
+    var tb=el('table','matrix'); var trh=el('tr');
+    ['条目','所在文件 / 原因'].forEach(function(h,ix){ var th=el('th'); th.textContent=h; if(ix===0) th.style.width='48%'; trh.appendChild(th) });
+    tb.appendChild(trh);
+    arr.forEach(function(it){
+      var tr=el('tr'); var a=el('td'); a.textContent=it.k||it; tr.appendChild(a);
+      var b=el('td'); var s=el('span','tagfix'); s.textContent=it.d?it.d:(it.why||'—'); b.appendChild(s);
+      if(it.note){ b.appendChild(el('div','hint',it.note)) }
+      tr.appendChild(b); tb.appendChild(tr)
+    });
+    d.appendChild(tb); return d
+  }
+  t1.appendChild(blk('locked','A','第 ① 档 · 必须固定（动它 = 毁母版）','归属：K 代码内核 · 49 个哈希锁文件 · 不开放给面板',FIXED));
+  t1.appendChild(blk('neutral','B','第 ② 档 · 中性：默认用模板的，可换可不换','归属：V 槽位（本面板可直接改）',NEUTRAL));
+  t1.appendChild(blk('own','C','第 ③ 档 · 必须本人提供（缺了会被体检拦住）','归属：V 槽位 · doctor 硬门禁项',OWN,'这些不能替你编：年份、链接、封面、文章出处，都必须来自本人或其真实作品。'));
+  work.appendChild(t1);
+
+  var tip=el('section','panel'); tip.appendChild(el('h2',null,'复用优先：三条铁律'));
+  var ul=el('ul'); [
+    ['不要从 0 到 1 造条目','多一本书就用「复制一条」按钮把现有条目连字段带书脊配色一起带走，只改内容，字段顺序和必填项就不会漏。'],
+    ['新平台先判断形态','对方给的是链接还是二维码？链接 → kind:external（页脚多一行可跳转）；二维码 → kind:qr-image（像公众号那样点击浮显图片）。两者不要混填。'],
+    ['不写占位假数据','没有该平台就在渠道里删掉，并写进 disabledChannels 显式声明。留空字段会被体检判定为「声明了却没落地物」并拦住构建。']
+  ].forEach(function(p){ var li=el('li'); li.appendChild(el('strong',null,p[0])); li.appendChild(el('div','hint',p[1])); ul.appendChild(li) });
+  tip.appendChild(ul); work.appendChild(tip)
+}
+
+/* SECTION: tab 身份 */
+function renderId(){
+  var p=el('section','panel'); p.appendChild(el('h2',null,'①  身份与坐标（第 ③ 档 · 必填）'));
+  var g=el('div','grid g2');
+  g.appendChild(field('名字 / 站名 name', inp('name','例：张三')))
+  g.appendChild(field('英文名 / 拼音 enName', inp('enName','例：San Zhang')))
+  g.appendChild(field('一句话身份宣言 tagline', inp('tagline','印刷匠 · 公共事务的仆人')))
+  g.appendChild(field('社交 handle', inp('handle','用于卡片与署名')))
+  work.appendChild(p); p.appendChild(g)
+  var g2=el('div','grid g3')
+  var citySel=el('select'); citySel.innerHTML='<option value="">— 选城市自动填经纬度和时区 —</option>'+
+    [['北京','39.9042° N','116.4074° E','UTC+8'],['上海','31.2304° N','121.4737° E','UTC+8'],
+     ['广州','23.1291° N','113.2644° E','UTC+8'],['深圳','22.5431° N','114.0579° E','UTC+8'],
+     ['成都','30.5728° N','104.0668° E','UTC+8'],['杭州','30.2741° N','120.1551° E','UTC+8'],
+     ['西安','34.3416° N','108.9398° E','UTC+8'],['南京','32.0603° N','118.7969° E','UTC+8'],
+     ['武汉','30.5928° N','114.3055° E','UTC+8'],['长沙','28.2280° N','112.9388° E','UTC+8'],
+     ['重庆','29.4316° N','106.9123° E','UTC+8'],['台北','25.0330° N','121.5654° E','UTC+8'],
+     ['香港','22.3193° N','114.1694° E','UTC+8'],['东京','35.6762° N','139.6503° E','UTC+9'],
+     ['新加坡','1.3521° N','103.8198° E','UTC+8'],['纽约','40.7128° N','74.0060° W','UTC−5'],
+     ['洛杉矶','34.0522° N','118.2437° W','UTC−8'],['伦敦','51.5074° N','0.1278° W','UTC+0'],
+     ['巴黎','48.8566° N','2.3522° E','UTC+1'],['费城','39.9526° N','75.1652° W','UTC−5']
+    ].map(function(r){return '<option data-lat="'+r[1]+'" data-lng="'+r[2]+'" data-tz="'+r[3]+'">'+r[0]+'</option>'}).join('')
+  citySel.addEventListener('change',function(){
+    var o=citySel.options[citySel.selectedIndex]; if(o && o.dataset.lat){
+      S.lat=o.dataset.lat; S.lng=o.dataset.lng; S.city=o.textContent+' ('+o.dataset.tz+')'; save(); show('id')
+    }
+  })
+  g2.appendChild(field('城市 / 地区（选了就够，不必知道经纬度）', citySel, '不用精确到街道，知道在哪个城市就够。页脚坐标印章会用它和时区。'))
+  var cityI=el('input'); cityI.value=S.city; cityI.placeholder='Philadelphia (UTC−5)';
+  cityI.addEventListener('input',function(){ S.city=cityI.value; save(); refresh() });
+  g2.appendChild(field('或自己写（不在列表里就手填）', cityI));
+  p.appendChild(g2)
+  var g3=el('div','grid')
+  var bio=el('textarea'); bio.rows=4; bio.value=S.bio; bio.placeholder='3–4 段自我介绍，会出现在关于卡、页脚与 llms.txt';
+  bio.addEventListener('input',function(){ S.bio=bio.value; save(); refresh() });
+  g3.appendChild(field('个人简介 bio', bio));
+  var em=el('input'); em.type='email'; em.value=S.email; em.placeholder='没有就留空，别填占位邮箱';
+  em.addEventListener('input',function(){ S.email=em.value; save(); refresh() });
+  g3.appendChild(field('联络邮箱 email（第 ③ 档）', em));
+  p.appendChild(g3);
+  p.appendChild(el('p','hint','简介与邮箱属于「必须本人给」的内容层：面板不会替你生成，留空即视为待补，构建会被拦。'))
+}
+
+/* SECTION: tab 渠道 */
+function renderChan(){
+  var p=el('section','panel'); p.appendChild(el('h2',null,'②  渠道矩阵（第 ②③ 档混合）'));
+  p.appendChild(el('p','hint','一个人都可以有很多渠道；每个渠道声明它是什么形态、用什么默认图标、出现在首页 / 页脚 / 底栏哪几处。缺链接又缺图样的渠道会被标为阻塞项。'));
+  var ab=el('div','addbar');
+  ab.appendChild(el('span','badge','快捷添加：'));
+  CHANNEL_PRESETS.forEach(function(pre){
+    var b=el('button','pill', pre.label); b.type='button';
+    b.addEventListener('click',function(){ S.channels.push(mkChannel(pre)); save(); show('chan') }); ab.appendChild(b)
+  });
+  p.appendChild(ab);
+  var b2=el('div','addbar');
+  var add=el('button','btn','＋ 空白渠道'); add.addEventListener('click',function(){ S.channels.push(mkChannel()); save(); show('chan') }); b2.appendChild(add);
+  var clr=el('button','btn','收起全部'); clr.addEventListener('click',function(){ S.channels=[]; save(); show('chan') }); b2.appendChild(clr);
+  p.appendChild(b2);
+  S.channels.forEach(function(c, ix){ p.appendChild(chanCard(c, ix)) });
+  var pd=el('section','panel'); pd.appendChild(el('h2',null,'没有的平台（显式声明不要）'));
+  pd.appendChild(el('p','hint','本人确认没有这些平台就勾「不要」，体检不再追问。留着空着不勾 → 阻塞构建，强制问本人。'));
+  var box=el('div');
+  [['wechat','国内社交平台','微信公众号'],['xiaohongshu','国内社交平台','小红书'],['xiaobaotong','付费专栏','小报童'],['github','代码托管','GitHub'],['email','联络','邮箱']].forEach(function(g){
+    var wrap=el('span'); wrap.style.cssText='display:inline-block;margin:0 10px 6px 0';
+    wrap.appendChild(el('span','tagfix',g[1]));
+    var b=el('button','pill'); b.type='button'; b.style.marginLeft='4px';
+    var on=S.disabled.indexOf(g[0])>=0; b.setAttribute('aria-pressed', on?'true':'false');
+    b.textContent=g[2]+(on?' · 没有':'');
+    b.addEventListener('click',function(){
+      var i=S.disabled.indexOf(g[0]); if(i>=0) S.disabled.splice(i,1); else S.disabled.push(g[0]);
+      save(); show('chan')
+    }); wrap.appendChild(b); box.appendChild(wrap)
+  });
+  pd.appendChild(box);
+  work.appendChild(p); work.appendChild(pd)
+}
+function chanCard(c, ix){
+  var d=el('div','card');
+  var bar=el('div','bar'); bar.appendChild(el('span','ttl','CHANNEL #'+(ix+1)));
+  var acts=el('div','acts');
+  var cp=el('button','btn','复制此条'); cp.addEventListener('click',function(){ var n=JSON.parse(JSON.stringify(c)); n.id=uid(); S.channels.splice(ix+1,0,n); save(); show('chan') }); acts.appendChild(cp);
+  var del=el('button','btn danger','删除'); del.addEventListener('click',function(){ S.channels.splice(ix,1); save(); show('chan') }); acts.appendChild(del);
+  bar.appendChild(acts); d.appendChild(bar);
+
+  var g=el('div','grid g3');
+  function sel(labelText, value, options, onChange){
+    var s=el('select');
+    Object.keys(options).forEach(function(k){ var o=el('option'); o.value=k; o.textContent=options[k]; if(k===value) o.selected=true; s.appendChild(o) });
+    s.addEventListener('change',function(){ onChange(s.value); save(); show('chan') });
+    return field(labelText, s)
+  }
+  g.appendChild(sel('形态 kind', c.kind, KINDS, function(v){ c.kind=v; if(v==='external') c.image=''; if(v==='qr-image') c.href='' }));
+  g.appendChild(sel('图标 icon（默认来自模板图标包）', c.icon, ICONS.reduce(function(m,k){ m[k]=k; return m },{}), function(v){ c.icon=v }));
+  var keyI=el('input'); keyI.value=c.key; keyI.addEventListener('input',function(){ c.key=keyI.value.replace(/[^a-z0-9\-_]/gi,'-').toLowerCase(); save(); refresh() });
+  g.appendChild(field('key（英文小写标识）', keyI));
+  d.appendChild(g);
+
+  var g2=el('div','grid g3');
+  var l1=el('input'); l1.value=c.label; l1.addEventListener('input',function(){ c.label=l1.value; save(); refresh() });
+  g2.appendChild(field('显示名 label', l1));
+  var l2=el('input'); l2.value=c.labelEn; l2.addEventListener('input',function(){ c.labelEn=l2.value; save(); refresh() });
+  g2.appendChild(field('英文名 labelEn', l2));
+  var tone=el('input'); tone.value=c.tone; tone.placeholder='text-emerald-600 dark:text-emerald-400';
+  tone.addEventListener('input',function(){ c.tone=tone.value; save() });
+  g2.appendChild(field('色调 tone（可选 Tailwind class）', tone));
+  d.appendChild(g2);
+
+  var g3=el('div','grid g2');
+  if(c.kind==='qr-image'){
+    var im=el('input'); im.value=c.image; im.placeholder='/images/douyin-qr.jpg';
+    im.addEventListener('input',function(){ c.image=im.value; save(); refresh() });
+    g3.appendChild(field('图样路径 image（必填 · 上传到 public/images/）', im));
+    var hint=el('input'); hint.value=c.hint; hint.placeholder='抖音扫码 · 看我的短视频';
+    hint.addEventListener('input',function(){ c.hint=hint.value; save(); refresh() });
+    g3.appendChild(field('浮层提示语 hint', hint));
+  } else if(c.kind==='external'){
+    var hr=el('input'); hr.value=c.href; hr.placeholder='https:// 完整链接';
+    hr.addEventListener('input',function(){ c.href=hr.value; save(); refresh() });
+    g3.appendChild(field('跳转链接 href（必填 · 完整 https://）', hr));
+    var dm=el('input'); dm.value=c.dockLabel; dm.placeholder='底栏短标签（不填用显示名）';
+    dm.addEventListener('input',function(){ c.dockLabel=dm.value; save(); refresh() });
+    g3.appendChild(field('底栏短标签（可选）', dm));
+  } else {
+    g3.appendChild(el('div','hint','该形态由 personalInfo 字段驱动：邮箱取①里的 email，GitHub 取 github / githubUser。'))
+  }
+  d.appendChild(g3);
+
+  var sw=el('div','addbar'); sw.appendChild(el('span','badge','出现在：'));
+  ['home','footer','dock'].forEach(function(sl){
+    var b=el('button','pill'); b.type='button';
+    b.setAttribute('aria-pressed', c.showIn.indexOf(sl)>=0?'true':'false');
+    b.textContent=({home:'首页',footer:'页脚',dock:'底栏'})[sl];
+    b.addEventListener('click',function(){
+      var i=c.showIn.indexOf(sl); if(i>=0) c.showIn.splice(i,1); else c.showIn.push(sl); save(); refresh()
+    }); sw.appendChild(b)
+  });
+  d.appendChild(sw); return d
+}
+
+/* SECTION: tab 内容条目 */
+function renderEntry(){
+  var p=el('section','panel'); p.appendChild(el('h2',null,'③  内容条目：书 / 唱片 / 项目（第 ③ 档 · 复用样式）'));
+  p.appendChild(el('p','hint','这些数组是可弹性的：多几本书、少几张唱片都行。正确做法是「复制一条现有模板再改字段」，不要手写新结构——字段名写错哈希锁校验不会提醒你，但渲染会缺一块。'));
+  ['books','records','projects'].forEach(function(list){
+    var blk=el('div');
+    var hd=el('h2',null, list==='books'?'书架 books':list==='records'?'唱片 / 声音档案 records':'项目 projects');
+    var sec=el('section','panel'); sec.appendChild(hd);
+    var add=el('button','btn','＋ 复制一条模板并新建');
+    add.addEventListener('click',function(){
+      var src=S.entries[list][0]; var n=mkEntry(list);
+      if(src){ Object.keys(n).forEach(function(k){ if(k!=='id') n[k]=src[k] }); n.title=''; if('album' in n) n.album=''; if('name' in n) n.name='' }
+      S.entries[list].push(n); save(); show('entry')
+    }); sec.appendChild(add);
+    var clearAll=el('button','btn','清空'); clearAll.style.marginLeft='6px';
+    clearAll.addEventListener('click',function(){ S.entries[list]=[]; save(); show('entry') }); sec.appendChild(clearAll);
+    S.entries[list].forEach(function(it, ix){ sec.appendChild(entryCard(list, it, ix)) });
+    if(!S.entries[list].length) sec.appendChild(el('p','hint','当前 0 条。留空是可以的（书架会显示空态），但一旦有条目，每条的链接与封面都必须真实存在。'));
+    blk.appendChild(sec); work.appendChild(blk)
+  });
+  var ap=el('section','panel'); ap.appendChild(el('h2',null,'文章清单（用于体检：题图 / 二级标题 / 出处）'));
+  var aadd=el('button','btn','＋ 登记一篇文章'); aadd.addEventListener('click',function(){ S.articles.push(mkArticle()); save(); show('entry') }); ap.appendChild(aadd);
+  S.articles.forEach(function(a, ix){
+    var d=el('div','card');
+    var g=el('div','grid g2');
+    var sl=el('input'); sl.value=a.slug; sl.placeholder='slug：thirteen-virtues-table';
+    sl.addEventListener('input',function(){ a.slug=sl.value; save(); refresh() });
+    g.appendChild(field('slug', sl));
+    var ti=el('input'); ti.value=a.title; ti.placeholder='文章标题';
+    ti.addEventListener('input',function(){ a.title=ti.value; save(); refresh() });
+    g.appendChild(field('标题', ti));
+    d.appendChild(g);
+    var chk=el('div','addbar');
+    [['cover','有 1200×675 题图'],['source','文末有出处段落']].forEach(function(c){
+      var b=el('button','pill'); b.type='button'; b.setAttribute('aria-pressed', a[c[0]]?'true':'false'); b.textContent=c[1];
+      b.addEventListener('click',function(){ a[c[0]]=!a[c[0]]; save(); show('entry') }); chk.appendChild(b)
+    });
+    var hb=el('select'); [1,2,3,4].forEach(function(n){ var o=el('option'); o.value=n; o.textContent='二级标题数：'+n; if(a.headings===n) o.selected=true; hb.appendChild(o) });
+    hb.addEventListener('change',function(){ a.headings=parseInt(hb.value,10); save(); refresh() }); chk.appendChild(hb);
+    var del=el('button','btn danger','删'); del.addEventListener('click',function(){ S.articles.splice(ix,1); save(); show('entry') }); chk.appendChild(del);
+    d.appendChild(chk); ap.appendChild(d)
+  });
+  ap.appendChild(el('p','hint','题图与出处是阻塞项；二级标题少于 2 个会导致文章页右侧导航尺不渲染（这条原来没写在文档里）。'))
+}
+function entryCard(list, it, ix){
+  var d=el('div','card');
+  var bar=el('div','bar'); bar.appendChild(el('span','ttl','#'+(ix+1)));
+  var acts=el('div','acts');
+  var cp=el('button','btn','复制'); cp.addEventListener('click',function(){ var n=JSON.parse(JSON.stringify(it)); n.id=uid(); S.entries[list].splice(ix+1,0,n); save(); show('entry') }); acts.appendChild(cp);
+  var del=el('button','btn danger','删'); del.addEventListener('click',function(){ S.entries[list].splice(ix,1); save(); show('entry') }); acts.appendChild(del);
+  bar.appendChild(acts); d.appendChild(bar);
+  var g=el('div','grid g3');
+  ENTRY_FIELDS[list].forEach(function(f){
+    var i=el('input'); i.value=it[f[0]]||''; i.placeholder=f[1];
+    if(f[2]==='num') i.type='number';
+    if(f[2]==='color') i.type='color';
+    i.addEventListener('input',function(){ it[f[0]]=i.value; save(); refresh() });
+    g.appendChild(field(f[1]+' · '+f[0], i))
+  });
+  d.appendChild(g); return d
+}
+
+/* SECTION: tab 开关 */
+function renderPref(){
+  var p=el('section','panel'); p.appendChild(el('h2',null,'④  显示开关与中性默认（第 ② 档）'));
+  p.appendChild(el('p','hint','一键场景 + 细项开关。不动它就长这样；动了就按你的选择导出。'));
+  var presets=el('div','addbar');
+  (function(){
+    var b=el('button','btn'); b.textContent='无 GitHub 账号（关掉热力图 / 量化数 / 把 GitHub 写进显式不要）';
+    b.addEventListener('click',function(){
+      S.prefs.graph=false; S.prefs.followers=false;
+      if(S.disabled.indexOf('github')<0) S.disabled.push('github');
+      save(); show('pref')
+    }); presets.appendChild(b)
+  })();
+  p.appendChild(presets);
+  var sws=[
+    ['graph','显示 GitHub 26 周贡献热力图与「次贡献」','没跑 GitHub 的人关掉，整块统计不渲染'],
+    ['followers','显示关注者 / Star 等社交量化数','默认关'],
+  ];
+  sws.forEach(function(s){
+    var d=el('div','card'); var row=el('div','bar'); row.appendChild(el('span',null,s[1]));
+    var b=el('button','pill'); b.type='button'; b.setAttribute('aria-pressed', S.prefs[s[0]]?'true':'false'); b.textContent=S.prefs[s[0]]?'开':'关';
+    b.addEventListener('click',function(){ S.prefs[s[0]]=!S.prefs[s[0]]; save(); show('pref') });
+    row.appendChild(b); d.appendChild(row); d.appendChild(el('p','hint',s[2])); p.appendChild(d)
+  });
+  var g=el('div','grid g3');
+  var wk=el('input'); wk.type='number'; wk.value=S.prefs.weeks;
+  wk.addEventListener('input',function(){ S.prefs.weeks=parseInt(wk.value,10)||26; save(); refresh() });
+  g.appendChild(field('热力图周数 weeks（模板默认 26）', wk));
+  var ym=el('select'); [['inherit','跟随今年'],['fixed','写死某一年']].forEach(function(o){ var e2=el('option'); e2.value=o[0]; e2.textContent=o[1]; if(S.prefs.yearMode===o[0]) e2.selected=true; ym.appendChild(e2) });
+  ym.addEventListener('change',function(){ S.prefs.yearMode=ym.value; save(); show('pref') });
+  g.appendChild(field('页脚版权年份策略', ym));
+  if(S.prefs.yearMode==='fixed'){
+    var yr=el('input'); yr.type='number'; yr.value=S.prefs.year;
+    yr.addEventListener('input',function(){ S.prefs.year=parseInt(yr.value,10)||1790; save(); refresh() });
+    g.appendChild(field('写死的年份', yr))
+  }
+  p.appendChild(g);
+  var ul=el('section','panel'); ul.appendChild(el('h2',null,'已确认保留的模板字样（.doctor-allow.json）'));
+  ul.appendChild(el('p','hint','例：llms.txt 里对模板来源的公开致谢。必须逐条写明文件、字样与原因，否则一律视为残留并阻塞构建。'));
+  var rows=el('div');
+  S.allow.forEach(function(a, ix){
+    var d=el('div','card'); var g2=el('div','grid g3');
+    var f1=el('input'); f1.value=a.file; f1.placeholder='lib/llms.ts'; f1.addEventListener('input',function(){ a.file=f1.value; save(); refresh() });
+    var f2=el('input'); f2.value=a.token; f2.placeholder='Dragon-01-you'; f2.addEventListener('input',function(){ a.token=f2.value; save(); refresh() });
+    var f3=el('input'); f3.value=a.reason; f3.placeholder='对模板来源的公开致谢，有意保留'; f3.addEventListener('input',function(){ a.reason=f3.value; save(); refresh() });
+    g2.appendChild(field('文件', f1)); g2.appendChild(field('字样', f2)); g2.appendChild(field('原因', f3));
+    var del=el('button','btn danger','移除'); del.addEventListener('click',function(){ S.allow.splice(ix,1); save(); show('pref') });
+    var bar=el('div','bar'); bar.appendChild(el('span','ttl','ALLOW #'+(ix+1))); bar.appendChild(del);
+    d.appendChild(bar); d.appendChild(g2); rows.appendChild(d)
+  });
+  var add=el('button','btn','＋ 新增一条保留声明'); add.addEventListener('click',function(){ S.allow.push({file:'',token:'',reason:''}); save(); show('pref') });
+  ul.appendChild(add); ul.appendChild(rows); work.appendChild(p); work.appendChild(ul)
+}
+
+/* SECTION: doctor rules（与 xh_doctor.mjs 同规则） */
+function check(){
+  var Q=[], E=[], N=[];
+  if(!S.name) Q.push(['identity.name','这位创作者对外使用的名字是什么？','brandConfig.name 为空']);
+  if(!S.enName || S.enName===S.name) Q.push(['identity.enName','他的英文名 / 拼音 / handle 是什么？','enName 缺失或与中文名相同']);
+  if(!S.tagline) Q.push(['identity.tagline','一句话身份宣言是什么？','tagline 为空']);
+  if(!S.city) Q.push(['identity.location','常驻城市与时区？页脚坐标印章还需经纬度','location 为空']);
+  if(!S.bio) Q.push(['identity.bio','3–4 段自我介绍（关于卡、页脚、llms.txt 共用）','bio 为空']);
+  if(!S.email) Q.push(['contact.email','页脚邮戳用的邮箱？没有就明确留空','email 为空']);
+  S.channels.forEach(function(c, ix){
+    if(c.kind==='external' && !c.href) E.push(['CHANNEL_NO_TARGET','渠道「'+(c.label||c.key)+'」标为跳转链接却没给 href','是链接就给完整 https://；是二维码就改成 qr-image 并上传图样']);
+    if(c.kind==='external' && c.href && !/^https?:\/\//i.test(c.href)) E.push(['BAD_URL','渠道「'+(c.label||c.key)+'」的 href 不是完整 URL','请以 https:// 开头']);
+    if(c.kind==='qr-image' && !c.image) E.push(['CHANNEL_NO_TARGET','渠道「'+(c.label||c.key)+'」要做浮显但没有图样','把二维码传到 public/images/ 后填 image']);
+    if(!c.showIn.length) E.push(['CHANNEL_ORPHAN','渠道「'+(c.label||c.key)+'」没有出现在任何位置','勾上首页 / 页脚 / 底栏至少一处']);
+  });
+  if(!S.disabled.indexOf && S.disabled.length) {}
+  ['wechat','xiaohongshu','github'].forEach(function(k){
+    var declared = k==='wechat' ? !!S.wechatName : S.channels.some(function(c){ return c.key===k });
+    if(declared && S.disabled.indexOf(k)<0 && !S.channels.some(function(c){ return c.key===k })) {
+      E.push(['CHANNEL_UNDECLARED','系统里提到 '+k+' 但渠道矩阵没有它，也没显式声明不要','要么加进渠道，要么勾「不要」'])
+    }
+  });
+  S.articles.forEach(function(a, ix){
+    var nm=a.title||('第'+(ix+1)+'篇');
+    if(!a.slug) E.push(['MISSING_SLUG',nm+' 没有 slug','slug 用英文小写连字符']);
+    if(!a.cover) E.push(['MISSING_ASSET',nm+' 缺 1200×675 题图','请提供题图或删掉该篇']);
+    if(!a.source) Q.push(['article.source:'+a.slug, nm+' 的事实来源是什么？文末要补一段「本篇底本与引文出处」','无出处段落']);
+    if(a.headings<2) Q.push(['article.headings:'+a.slug, nm+' 只有 '+a.headings+' 个二级标题，导航尺不会渲染，可否补到 2 个以上？','post-toc 需 >=2 landmark']);
+  });
+  ['books','records','projects'].forEach(function(list){
+    S.entries[list].forEach(function(it, ix){
+      var nm = it.title||it.album||it.name||('#'+(ix+1));
+      if(!nm) E.push(['EMPTY_ENTRY', list+' 第 '+(ix+1)+' 条没有名称','补名称或直接删除该条']);
+      if(!it.url) Q.push([list+'.url', list+' 第 '+(ix+1)+' 条（'+nm+'）的来源链接是什么？','url 为空']);
+      var img = it.cover||it.icon||it.art;
+      if(nm && !img) E.push(['MISSING_ASSET', list+' 第 '+(ix+1)+' 条（'+nm+'）没有封面/图标路径','上传到 public/images/ 并填路径']);
+      if(it.url && !/^https?:\/\//i.test(it.url)) E.push(['BAD_URL', list+' 第 '+(ix+1)+' 条链接不是完整 URL','请以 https:// 开头']);
+    });
+  });
+  if(!S.articles.length) E.push(['NO_CONTENT','一篇文章都没登记','他有没有可发布的原创文章？']);
+  var residue = ['芯火','Xinhuo','xinhuo','Dragon-01-you','来自07年','z-library'];
+  var all = JSON.stringify(S)+S.name+S.wechatName;
+  residue.forEach(function(r){
+    if(all.indexOf(r)>=0){
+      var allowed = S.allow.some(function(a){ return a.token===r && a.reason });
+      if(allowed) N.push('已确认保留：'+r+'（'+(S.allow.filter(function(a){return a.token===r})[0].reason)+'）');
+      else E.push(['TEMPLATE_RESIDUE','配置里仍含模板指纹「'+r+'','换成他自己的信息，或在白名单里写明保留原因'])
+    }
+  });
+  return {Q:Q, E:E, N:N, ok: !E.length && !Q.length}
+}
+function renderDoctor(){
+  var r=check(), ul=document.getElementById('issues'); ul.innerHTML='';
+  document.getElementById('docnt').textContent = r.ok ? 'PASS' : ('阻塞 '+r.E.length+' · 待补 '+r.Q.length);
+  r.E.forEach(function(e){
+    var li=el('li'); var c=el('span','code','✗ '+e[0]); li.appendChild(c);
+    li.appendChild(el('span','q', e[1])); li.appendChild(el('span','why','怎么解：'+e[2])); ul.appendChild(li)
+  });
+  r.Q.forEach(function(q){
+    var li=el('li','warn'); li.appendChild(el('span','code','? '+q[0]));
+    li.appendChild(el('span','q','要问本人：'+q[1])); li.appendChild(el('span','why','触发：'+q[2])); ul.appendChild(li)
+  });
+  r.N.forEach(function(n){ var li=el('li','ok'); li.appendChild(el('span','code','· 已确认')); li.appendChild(el('span','q',n)); ul.appendChild(li) });
+  if(r.ok){ var li=el('li','ok'); li.appendChild(el('span','code','✓ PASS')); li.appendChild(el('span','q','可以导出并提交，构建不会被拦。')); ul.appendChild(li) }
+}
+function renderPreview(){
+  var v=document.getElementById('prev'); v.innerHTML='';
+  v.appendChild(el('div','lbl','首页联系方式预览（数据拼接，中英文自适应）'));
+  var list=S.channels.filter(function(c){ return c.showIn.indexOf('home')>=0 && c.kind!=='email' });
+  var line=el('p'); line.style.margin='0';
+  line.textContent = list.length ? '可以在 ' : '';
+  list.forEach(function(c, i){
+    var a=el('a'); a.textContent=c.label||c.key; a.href='#'; a.style.pointerEvents='none'; a.title=(c.kind==='qr-image'?'点击浮显':c.kind==='external'?'跳转外链':'') + ' · '+c.icon;
+    line.appendChild(a);
+    if(i<list.length-2) line.appendChild(document.createTextNode('、'));
+    else if(i===list.length-2 && list.length>1) line.appendChild(document.createTextNode(' 和 '));
+  });
+  if(list.length) line.appendChild(document.createTextNode(' 找到我'));
+  if(S.email) line.appendChild(document.createTextNode('，也可以发邮件到 '+S.email));
+  v.appendChild(line);
+  var qr=S.channels.filter(function(c){ return c.kind==='qr-image' && c.showIn.indexOf('dock')>=0 })[0];
+  if(qr){
+    var d=el('div','sealselect'); var q=el('div','qr','QR'); d.appendChild(q);
+    var t=el('div'); t.appendChild(el('div','lbl','底栏浮层：'+(qr.dockLabel||qr.label)));
+    t.appendChild(el('div',null, qr.label||qr.key));
+    t.appendChild(el('div','hint', qr.hint||'（未填提示语）'));
+    d.appendChild(t); v.appendChild(d)
+  } else {
+    v.appendChild(el('p','hint','当前没有「二维码/印记」类渠道出现在底栏 → 底栏那枚按钮自动不渲染（原来这里会写死一个公众号按钮）。'))
+  }
+  var dead=S.channels.filter(function(c){ return c.kind==='external' && !c.href }).length;
+  var extra=el('p','hint'); extra.textContent='统计：渠道 '+S.channels.length+' · 书架 '+S.entries.books.length+' · 唱片 '+S.entries.records.length+' · 项目 '+S.entries.projects.length+' · 文章 '+S.articles.length+(dead?(' · 潜在死链 '+dead):' · 无死链');
+  v.appendChild(extra)
+}
+
+/* SECTION: export */
+function renderOut(){
+  var p=el('section','panel'); p.appendChild(el('h2',null,'⑤  导出（贴进仓库即可）'));
+  var r=check();
+  p.appendChild(el('p','hint', r.ok ? '体检通过：以下代码可直接放进仓库。' : '体检未通过（'+r.E.length+' 阻塞 / '+r.Q.length+' 待补）。导出仍可用，但提交后 pnpm doctor 会拦住构建。'));
+  var tb=el('div','exptabs'); var pre=el('pre','code');
+  var files=[
+    ['lib/channels.ts', genChannels],
+    ['lib/ui-labels.ts', genLabels],
+    ['lib/personal.ts 片段', genPersonal],
+    ['内容条目片段', genEntries],
+    ['.doctor-allow.json', genAllow],
+    ['给 AI 的执行说明', genTask]
+  ];
+  function pick(fn, btn){
+    Array.prototype.forEach.call(tb.querySelectorAll('button'), function(b){ b.classList.remove('dark') });
+    btn.classList.add('dark'); pre.textContent=fn(); save()
+  }
+  files.forEach(function(f, i){
+    var b=el('button','btn', f[0]);
+    b.addEventListener('click', function(){ pick(f[1], b) }); tb.appendChild(b)
+  });
+  p.appendChild(tb); p.appendChild(pre);
+  var dl=el('div','addbar');
+  var d1=el('button','btn dark','下载 channels.ts'); d1.addEventListener('click',function(){ download('channels.ts', genChannels()) }); dl.appendChild(d1);
+  var d2=el('button','btn','下载全部（单个 txt 汇总）'); d2.addEventListener('click',function(){
+    var all=files.map(function(f){ return '/* ===== '+f[0]+' ===== */\n'+f[1]() }).join('\n\n');
+    download('slot-kit-'+(S.name||'draft')+'.txt', all)
+  }); dl.appendChild(d2);
+  var cpy=el('button','btn','复制当前面板内容'); cpy.addEventListener('click',function(){
+    navigator.clipboard.writeText(pre.textContent).then(function(){ cpy.textContent='已复制' },function(){ cpy.textContent='复制失败，请手动选择' })
+  }); dl.appendChild(cpy);
+  var rst=el('button','btn','用富兰克林版做示例填充'); rst.addEventListener('click',fillSample); dl.appendChild(rst);
+  var wipe=el('button','btn danger','清空草稿'); wipe.addEventListener('click',function(){ localStorage.removeItem(LS); location.reload() }); dl.appendChild(wipe);
+  p.appendChild(dl);
+  p.appendChild(el('p','note','注意：面板生成的是「数据层」代码。K 内核（49 个哈希锁文件）不在面板可改范围内；若渲染形态不够用，需按执行说明里的两处组件补丁走 --allow-modified。'));
+  work.appendChild(p);
+  pick(genChannels, tb.querySelector('button'))
+}
+function q(v){ return String(v==null?'':v).replace(/'/g,"\\'") }
+function arr(a){ return '[' + a.map(function(x){ return "'"+x+"'" }).join(', ') + ']' }
+function genChannels(){
+  var body=S.channels.map(function(c){
+    var f=['    key: \''+q(c.key)+'\'','    label: \''+q(c.label)+'\'','    labelEn: \''+q(c.labelEn)+'\'','    kind: \''+c.kind+'\''];
+    if(c.href) f.push('    href: \''+q(c.href)+'\'');
+    if(c.image) f.push('    image: \''+q(c.image)+'\'');
+    if(c.hint) f.push('    hint: \''+q(c.hint)+'\'');
+    if(c.dockLabel) f.push('    dockLabel: \''+q(c.dockLabel)+'\'');
+    if(c.blurb) f.push('    blurb: \''+q(c.blurb)+'\'');
+    f.push('    icon: \''+c.icon+'\'');
+    if(c.tone) f.push('    tone: \''+q(c.tone)+'\'');
+    f.push('    showIn: '+arr(c.showIn));
+    if(c.kind==='github-heatmap') f.push('    weeks: '+S.prefs.weeks);
+    return '  {\n'+f.join(',\n')+'\n  }'
+  }).join(',\n');
+return "// 由配置面板导出 · "+new Date().toLocaleString('zh-CN')+"\n"+
+"import type { IconKey } from '~/lib/channel-icons'\nimport { brandConfig, personalInfo } from '~/lib/personal'\n\n"+
+"export type ChannelKind = 'qr-image' | 'external' | 'email' | 'github-heatmap'\nexport type ChannelSlot = 'home' | 'footer' | 'dock'\n\n"+
+"export interface Channel { key: string; label: string; labelEn: string; kind: ChannelKind; href?: string; image?: string; hint?: string; dockLabel?: string; dockLabelEn?: string; blurb?: string; icon: IconKey; tone?: string; showIn: ChannelSlot[]; weeks?: number }\n\n"+
+"export const channelPrefs = {\n  showContributionGraph: "+S.prefs.graph+",\n  contributionWeeks: "+S.prefs.weeks+",\n  showFollowerStats: "+S.prefs.followers+",\n  copyrightYear: "+(S.prefs.yearMode==='fixed'?S.prefs.year:"'inherit'")+" as 'inherit' | number,\n}\n\n"+
+"function legacyChannels(): Channel[] {\n  const list: Channel[] = []\n  if (personalInfo.weChatOfficial && personalInfo.weChatOfficialQr) list.push({ key: 'wechat', label: personalInfo.weChatOfficial, labelEn: 'WeChat Official', kind: 'qr-image', image: personalInfo.weChatOfficialQr, hint: '微信扫一扫 · 关注公众号', icon: 'wechat', tone: 'text-emerald-600 dark:text-emerald-400', showIn: ['home','footer','dock'] })\n  if (personalInfo.xiaoHongShu) list.push({ key: 'xiaohongshu', label: '小红书', labelEn: 'RED', kind: 'external', href: personalInfo.xiaoHongShu, icon: 'xiaohongshu', tone: 'text-rose-600 dark:text-rose-400', showIn: ['home','footer'] })\n  if (personalInfo.github || personalInfo.githubUser) list.push({ key: 'github', label: 'GitHub', labelEn: 'GitHub', kind: 'github-heatmap', href: personalInfo.github ? personalInfo.github + '?tab=repositories' : 'https://github.com/' + personalInfo.githubUser, icon: 'github', showIn: ['home','footer'], weeks: channelPrefs.contributionWeeks })\n  if (personalInfo.xiaoBaoTong) list.push({ key: 'xiaobaotong', label: '小报童', labelEn: 'Newsletter', kind: 'external', href: personalInfo.xiaoBaoTong, icon: 'xiaobaotong', showIn: ['footer'] })\n  if (personalInfo.email) list.push({ key: 'email', label: '邮箱', labelEn: 'Email', kind: 'email', href: 'mailto:' + personalInfo.email, icon: 'mail', showIn: ['home','footer'] })\n  return list\n}\n\n"+
+"export const extraChannels: Channel[] = [\n"+(body||'')+(!body?'':'')+"\n]\n\n"+
+"export const disabledChannels: string[] = "+arr(S.disabled)+";\n\n"+
+"export function getChannels(): Channel[] {\n  const merged = new Map<string, Channel>()\n  for (const c of legacyChannels()) merged.set(c.key, c)\n  for (const c of extraChannels) merged.set(c.key, { ...(merged.get(c.key) as Channel), ...c })\n  for (const k of disabledChannels) merged.delete(k)\n  return [...merged.values()].filter((c) => (c.kind === 'qr-image' ? !!c.image : !!c.href))\n}\n\nexport function channelsFor(slot: ChannelSlot): Channel[] { return getChannels().filter((c) => c.showIn.includes(slot)) }\n"}
+function genLabels(){
+  return "// 由配置面板导出 · 原 K 代码内写死的中文字样\nexport const uiLabels = {\n  dockQrButton: { zh: '公众号', en: 'WeChat' },\n  dockQrAria: { zh: '查看{channel}', en: 'View {channel}' },\n  dockQrSubTitle: { zh: '微信公众号', en: 'WeChat Official Account' },\n  newsletterComingSoon: { zh: '小报童', en: 'Newsletter', badge: null as null | { zh: string; en: string } },\n  contributions: { zh: '次贡献', en: 'contributions' },\n  followers: { zh: '关注者', en: 'followers' },\n}\n"
+}
+function genPersonal(){
+  var s = "// lib/personal.ts → brandConfig / personalInfo（只列面板可生成的字段，bio 等长文请人工补）\n"+
+"export const brandConfig: BrandConfig = {\n  name: '"+q(S.name)+"',\n  enName: '"+q(S.enName)+"',\n  tagline: '"+q(S.tagline)+"',\n"+
+"  bio: '"+q(S.bio||"（必填：3–4 段本人简介）")+"',\n  avatar: '/images/avatar.png',\n  headshotLight: '/images/headshot.jpg',\n  headshotDark: '/images/portrait-square.jpg',\n  poster: '/images/portrait-poster.png',\n"+
+"  location: '"+q(S.city)+"',\n  locationCoordinates: { lat: '"+q(S.lat)+"', lng: '"+q(S.lng)+"' },\n}\n\n"+
+"export const personalInfo = {\n  name: '"+q(S.name)+"',\n  enName: '"+q(S.enName)+"',\n  email: '"+q(S.email)+"',\n  handle: '"+q(S.handle||S.enName)+"',\n  githubUser: '',\n  github: '',\n  xiaoHongShu: '',\n  xiaoBaoTong: '',\n  weChatOfficial: '"+q(S.wechatName)+"',\n  weChatOfficialQr: '',\n}\n";
+  return s
+}
+function genEntries(){
+  function line(list){
+    var items=S.entries[list].map(function(it){
+      var ks=Object.keys(it).filter(function(k){ return k!=='id' && it[k]!=='' && it[k]!=null });
+      return '  {\n'+ks.map(function(k){
+        var v=it[k]; var num=(k==='year'||k==='coverWidth'||k==='coverHeight'||k==='spine');
+        return '    '+k+': '+(num?String(parseInt(v,10)||0):"'"+q(v)+"'")
+      }).join(',\n')+'\n  }'
+    }).join(',\n');
+    return "// "+list+"\nexport const "+list+": any[] = [\n"+(items||'')+"\n]\n"
+  }
+  return ['books','records','projects'].map(line).join('\n')
+}
+function genAllow(){ return JSON.stringify(S.allow.filter(function(a){return a.file&&a.token&&a.reason}), null, 2)+"\n" }
+function genTask(){
+  var r=check();
+  return "给执行 AI 的任务书（务必逐条做完并回传证据）\n\n"+
+"0. 前置：本项目 Node>=20、pnpm>=10；node_modules 与 pnpm store 需放在支持 SQLite 的磁盘（本沙箱 /root/userdata 挂载会让 git clone 与 pnpm install 报 disk I/O，改用 /tmp 即可）。\n"+
+"1. 装完依赖后先把 pnpm-workspace.yaml 的 allowBuilds.esbuild 改为 true（仓库里是未填完的占位文本），否则 esbuild 不装、vitest 起不来。\n"+
+"2. 单测必须用 NODE_ENV=development 跑：CI=true NODE_ENV=development pnpm vitest run（默认 production 下 React 不导出 act，会假红 12 项）。建议在 vitest.config.ts 的 test.env 里固化。\n"+
+"3. 覆盖文件：lib/channels.ts、lib/channel-icons.tsx、lib/ui-labels.ts（面板已生成）。\n"+
+"4. 应用四处 K 内核补丁（必须走 --allow-modified，并在报告里逐条列出）：\n"+
+"   a. components/social-cards.tsx：新增 ChannelCard（qr-image 走浮层 / external 走外链 / email 走邮戳 / github-heatmap 受 channelPrefs 开关控制）；WEEKS 改读 channelPrefs.contributionWeeks；'次贡献'与'关注者'文案改读 uiLabels；'Dragon-01-you' 兜底改 brandConfig.enName；xiaoHongShu 的 '#' 兜底改掉（不许留死链）。\n"+
+"   b. components/home-introduction.tsx：HomeContact 改为 channelsFor('home') 动态拼接中英文连接词，零渠道时整段不渲染。\n"+
+"   c. components/site-footer.tsx：联系树改为 channelsFor('footer')；删除写死的「小报童 · 筹备中」占位（改为 uiLabels.newsletterComingSoon.badge 控制）；版权年份读 channelPrefs.copyrightYear。\n"+
+"   d. components/bottom-dock.tsx：底栏二维码按钮改为 channelsFor('dock') 第一个 qr-image 渠道；无则整枚按钮不渲染；'微信公众号''微信扫一扫 · 关注公众号'等写死字样改读渠道字段或 uiLabels；注释里的「芯火印记」改掉。\n"+
+"   e. app/og/route.tsx：分享图页脚域名改 new URL(seo.url).host（原写死 xinhuo.ai）。\n"+
+"5. 把这三条测试断言从「具体数据」改为「结构不变量」：\n"+
+"   - tests/unit/social-cards.test.tsx：不得再断言 186 / 必须出现 href=\"#\"；GitHubCardBody 改为跟随 showContributionGraph 开关；底栏断言改为「有 qr-image 渠道才有按钮，且浮层出现该渠道图样」。\n"+
+"   - tests/unit/blog-features.test.tsx：不得再断言原站文章标题与年份 26，改为遍历 getAllPosts() 断言标题都在；ghost-folio 用正则匹配任意年份尾数。\n"+
+"   - lib/next-config.test.ts：不得再断言 ADMIN_EMAIL=owner@xinhuo.local，改为断言已设置 + 是合法邮箱 + 不含 xinhuo。\n"+
+"6. scripts/verify-public-discovery.mjs 里两处硬编码要拆：expectedSlugs 改为读 content/blog 目录；不得再断言 llms.ts 必须含「芯火」。\n"+
+"7. 接入体检硬门禁：把 xh_doctor.mjs 放进 scripts/，package.json 加 \"doctor\": \"node scripts/xh_doctor.mjs\"，并把它设为 prebuild；白名单文件 .doctor-allow.json 每条必须有 reason。\n"+
+"8. 内容层用面板导出的 books/records/projects 片段，条目一律「复制模板再改字段」；图片放 public/images/{books,records,projects,photos}/。\n"+
+"9. 每篇文章必须有：1200×675 cover.jpg、>=2 个二级标题、文末「本篇底本与引文出处」段落。缺标题会导致右侧导航尺不渲染（原仓库文档没写这条）。\n"+
+"10. 交付证据（缺一不可，只说「做完了」不算）：\n"+
+"    - CI=true pnpm typecheck → 无输出\n"+
+"    - CI=true NODE_ENV=development pnpm vitest run → 末行 Tests N passed (N)，0 failed\n"+
+"    - CI=true pnpm build → 全部路由 ○/●/ƒ 列出，无 error\n"+
+"    - node scripts/xh_doctor.mjs → 首行 ✅ doctor 通过\n"+
+"    - python3 scripts/xh_blog_cli.py verify-kernel --project-dir . --output .scratch/kernel.json --allow-modified <清单> → Success\n"+
+"    - 死链自证：抓 /、/blog、/projects、/photos、文章详情页，统计 a[href=\"#\"] 与 a[href=\"\"] 必须为 0\n"+
+"    - 截图：首页（明亮+暗黑）、首页整页（含书架与唱片架）、写作列表、文章详情、底栏浮层展开、页脚\n\n"+
+"当前配置体检状态：阻塞 "+r.E.length+" · 待补 "+r.Q.length+"\n"
+}
+function download(name, text){
+  var a=el('a'); a.href=URL.createObjectURL(new Blob([text],{type:'text/plain;charset=utf-8'})); a.download=name; document.body.appendChild(a); a.click(); a.remove()
+}
+function fillSample(){
+  S.name='富兰克林'; S.enName='Benjamin Franklin'; S.tagline='印刷匠 · 著述者 · 公共事务的仆人（1706—1790 · 费城）';
+  S.bio='我十岁离开学堂进兄长的印刷所做学徒；十七岁口袋里剩不到一便士，赤脚走进费城。此后以排字为业、以写作为业、以公共事务为业。';
+  S.city='费城 (UTC−5)'; S.lat='39.9526° N'; S.lng='75.1652° W'; S.email='printer@gazette.phl.example'; S.handle='B. Franklin';
+  S.wechatName=''; S.channels=[
+    mkChannel({key:'gazette-seal',label:'《公报》订阅印记',labelEn:'Gazette Subscription Seal',kind:'qr-image',image:'/images/gazette-seal.jpg',hint:'持此印记至费城邮局，每周二·五即可收到《公报》',icon:'newspaper',dockLabel:'订阅印记',blurb:'每周两期 · 远近各埠代售',showIn:['home','footer','dock']}),
+    mkChannel({key:'papers-archive',label:'《富兰克林文集》档案',labelEn:'The Papers of Benjamin Franklin',kind:'external',href:'https://founders.archives.gov/',icon:'archive',showIn:['home','footer']}),
+    mkChannel({key:'gutenberg',label:'公版全文（古腾堡计划）',labelEn:'Full Text · Project Gutenberg',kind:'external',href:'https://www.gutenberg.org/ebooks/20203',icon:'book',showIn:['footer']}),
+    mkChannel({key:'email',label:'邮箱',labelEn:'Email',kind:'email',icon:'mail',showIn:['home','footer']})
+  ];
+  S.disabled=['wechat','xiaohongshu','github','xiaobaotong'];
+  S.prefs={graph:false,weeks:26,followers:false,yearMode:'fixed',year:1790};
+  S.entries.books=[].concat([{id:uid(),title:'富兰克林自传',author:'本杰明·富兰克林',year:'1791',category:'自我记录',spineTitle:'自传',spineColor:'#583e2e',spineInk:'#f7f4ed',cover:'/images/books/autobiography.jpg',coverWidth:'900',coverHeight:'1200',url:'https://www.gutenberg.org/ebooks/20203',comment:'写给儿子的一封信，写了三十年没写完。'}]);
+  S.entries.records=[].concat([{id:uid(),album:'小提琴与诗篇调',artist:'约西亚·富兰克林（先父）',year:'1712',genre:'Psalm Tune',spineColor:'#583e2e',spineInk:'#f7f4ed',cover:'/images/records/father-psalm.jpg',url:'https://www.gutenberg.org/ebooks/20203',mood:'家里傍晚听',comment:'白日生意做完，晚间他便拉小提琴唱诗篇调。'}]);
+  S.entries.projects=[].concat([{id:uid(),name:'《穷理查年鉴》',nameEn:"Poor Richard's Almanack",year:'1732',domain:'philadelphia · publishing',url:'https://www.gutenberg.org/ebooks/43855',icon:'/images/projects/almanack.png',description:'以「理查·桑德斯」之名连出约二十五年，我在自传里记下：一年卖出近一万册。'}]);
+  S.articles=[{id:uid(),slug:'thirteen-virtues-table',title:'十三种美德，一张周历表',headings:3,cover:true,source:true},
+              {id:uid(),slug:'time-is-money-ledger',title:'时间就是金钱：一个印刷匠的账本',headings:3,cover:true,source:true}];
+  S.allow=[{file:'lib/llms.ts',token:'Dragon-01-you',reason:'对模板来源 xh-blog-workflow 的公开致谢，有意保留'}];
+  save(); show('id')
+}
+
+/* SECTION: init */
+document.getElementById('tabs').addEventListener('click', function(e){
+  var b=e.target.closest('button'); if(b) show(b.dataset.tab)
+});
+document.getElementById('stamp').textContent='本地草稿 · 数据不出浏览器 · ' + new Date().toLocaleString('zh-CN');
+if(!S.channels.length && !S.name && !localStorage.getItem(LS+'-seen')){ try{ localStorage.setItem(LS+'-seen','1') }catch(e){} }
+show(S.tab||'tier');
+</script>
+</body>
+</html>

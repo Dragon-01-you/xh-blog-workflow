@@ -260,6 +260,14 @@ def cmd_inspect_slots(args: argparse.Namespace) -> int:
                 "current_record_covers": record_covers,
                 "rule": "Elastic count! User can add/remove achievement books (战绩书) or favorite books & songs by providing title, link, and cover image, or keep defaults as placeholder.",
             },
+            "slot_9_site_metadata_and_seo": {
+                "files": ["lib/public-page-metadata.ts", "lib/feeds.ts", "lib/llms.ts", "lib/seo.ts"],
+                "rule": "Site metadata, OpenGraph titles, RSS branding, and LLM text specs automatically synced from brandConfig.",
+            },
+            "slot_10_social_and_github": {
+                "files": ["lib/social-live.ts", "lib/personal.ts"],
+                "rule": "GitHub handles and social media channels read dynamically from personalInfo.",
+            },
         },
     }
 
@@ -369,21 +377,21 @@ def main() -> int:
     p_boot.set_defaults(func=cmd_bootstrap)
 
     p_slots = subparsers.add_parser("inspect-slots", help="Inspect customizable dynamic V-slots and generate interview checklist")
-    p_slots.add_argument("--project-dir", required=True, help="Project directory to inspect")
-    p_slots.add_argument("--output", required=True, help="Output JSON file path")
+    p_slots.add_argument("--project-dir", default=".", help="Project directory to inspect")
+    p_slots.add_argument("--output", default=".scratch/slots-inspection.json", help="Output JSON file path")
     p_slots.set_defaults(func=cmd_inspect_slots)
 
     p_verify = subparsers.add_parser("verify-kernel", help="Verify K-code SHA-256 lock integrity and dynamic V-slot asset paths")
-    p_verify.add_argument("--project-dir", required=True, help="Project directory to verify")
-    p_verify.add_argument("--allow-modified", nargs="*", default=["components/home-introduction.tsx", "components/social-cards.tsx"], help="Files allowed to have text-slot modifications")
-    p_verify.add_argument("--output", required=True, help="Output JSON file path")
+    p_verify.add_argument("--project-dir", default=".", help="Project directory to verify")
+    p_verify.add_argument("--allow-modified", nargs="*", default=[], help="Files allowed to have text-slot modifications")
+    p_verify.add_argument("--output", default=".scratch/verify-kernel-report.json", help="Output JSON file path")
     p_verify.set_defaults(func=cmd_verify_kernel)
 
     p_snap = subparsers.add_parser("snapshot", help="Create an immutable git tag and snapshot archive")
-    p_snap.add_argument("--project-dir", required=True, help="Project directory")
+    p_snap.add_argument("--project-dir", default=".", help="Project directory")
     p_snap.add_argument("--tag", required=True, help="Git tag name (e.g. v1.0.0-snapshot-cao2)")
-    p_snap.add_argument("--message", required=True, help="Snapshot description message")
-    p_snap.add_argument("--output", required=True, help="Output JSON file path")
+    p_snap.add_argument("--message", default="Automated release snapshot", help="Snapshot description message")
+    p_snap.add_argument("--output", default=".scratch/snapshot-report.json", help="Output JSON file path")
     p_snap.set_defaults(func=cmd_snapshot)
 
     args = parser.parse_args()

@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
+    "doctor": "node scripts/xh_doctor.mjs",
     "test": "vitest run",
     "test:run": "vitest run",
     "test:unit": "vitest run",

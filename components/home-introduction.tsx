@@ -5,12 +5,14 @@ import clsx from 'clsx'
 
 import { HomeIntroReplay } from '~/components/home-intro-replay'
 import {
+  ChannelCard,
   EmailCard,
   GitHubCard,
   type GitHubSnapshot,
   WechatCard,
   XiaohongshuCard,
 } from '~/components/social-cards'
+import { channelsFor } from '~/lib/channels'
 import { T } from '~/lib/i18n'
 import { brandConfig, personalInfo } from '~/lib/personal'
 import bakedGithub from '~/content/github.json'
@@ -141,26 +143,25 @@ function DetailsPhrase({ children }: { children: React.ReactNode }) {
 }
 
 function HomeContact({ github }: { github?: GitHubSnapshot }) {
-  const ghData = github ?? (bakedGithub as GitHubSnapshot)
+  void github
+  const all = channelsFor('home')
+  const list = all.filter((c) => c.kind !== 'email')
+  const email = all.find((c) => c.kind === 'email')
+  const joiner = (i: number, n: number, lang: 'zh' | 'en') =>
+    i === 0 ? '' : i === n - 1 ? (lang === 'zh' ? ' 和 ' : ' and ') : lang === 'zh' ? '、' : ', '
+  const render = (lang: 'zh' | 'en') =>
+    list.map((c, i) => (
+      <React.Fragment key={c.key}>
+        {joiner(i, list.length, lang)}
+        <ChannelCard channel={c} className="home-contact-link" trigger={<T zh={c.label} en={c.labelEn} />} />
+      </React.Fragment>
+    ))
+  if (list.length === 0 && !email) return null
   return (
     <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
       <T
-        zh={
-          <>
-            可以在 <XiaohongshuCard triggerClassName="home-contact-link" />、
-            <GitHubCard data={ghData} triggerClassName="home-contact-link" /> 和
-            <WechatCard triggerClassName="home-contact-link" />找到我，也可以发邮件到{' '}
-            <EmailCard address={personalInfo.email} trigger={personalInfo.email} triggerClassName="home-contact-link" />。
-          </>
-        }
-        en={
-          <>
-            Find me on <XiaohongshuCard trigger="RED" triggerClassName="home-contact-link" />,{' '}
-            <GitHubCard data={ghData} triggerClassName="home-contact-link" /> and{' '}
-            <WechatCard trigger="WeChat" triggerClassName="home-contact-link" />, or email{' '}
-            <EmailCard address={personalInfo.email} trigger={personalInfo.email} triggerClassName="home-contact-link" />.
-          </>
-        }
+        zh={<>{list.length > 0 && <>可以在 {render('zh')} 找到我，</>}{email && <>也可以发邮件到 <ChannelCard channel={email} className="home-contact-link" />。</>}</>}
+        en={<>{list.length > 0 && <>Find me on {render('en')}. </>}{email && <>Or email <ChannelCard channel={email} className="home-contact-link" />.</>}</>}
       />
     </p>
   )

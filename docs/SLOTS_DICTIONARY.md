@@ -183,6 +183,62 @@ draft: false
 
 ---
 
+### 2.9 通用渠道矩阵 (`Channel` in `lib/channels.ts`)
+
+`getChannels(): Channel[]` 动态计算全站渠道列表。支持 4 种渠道形态，平台不设上限（微信、小红书、抖音、B站、Substack、播客、YouTube、X 等）：
+
+| 字段名称 | 类型 | 必填 | 说明 |
+|---|---|:---:|---|
+| `key` | `string` | 是 | 唯一渠道标识（如 `'wechat'`, `'douyin-qr'`, `'podcast'`） |
+| `label` | `string` | 是 | 渠道中文名称 |
+| `labelEn` | `string` | 是 | 渠道英文名称 |
+| `kind` | `'qr-image' \| 'external' \| 'email' \| 'github-heatmap'` | 是 | **形态决定交互**：`qr-image`（点击浮层显示二维码/图样）；`external`（文字外链跳转）；`email`（实体邮戳卡）；`github-heatmap`（热力图） |
+| `href` | `string` | 否 | `external` 与 `email` 必填（完整 https:// 或 mailto:） |
+| `image` | `string` | 否 | `qr-image` 必填（指向 `public/images/` 下真实文件） |
+| `hint` | `string` | 否 | `qr-image` 弹窗底部提示词（如 `'微信扫一扫 · 关注公众号'`） |
+| `dockLabel` | `string` | 否 | 底栏 Dock 气泡提示字（如 `'公众号'`） |
+| `blurb` | `string` | 否 | 弹窗副标题短文案 |
+| `icon` | `IconKey` | 是 | 关联图标 key（从 17 个预置图标库选取） |
+| `tone` | `string` | 否 | 图标强调色 class（如 `'text-emerald-600 dark:text-emerald-400'`） |
+| `showIn` | `ChannelSlot[]` | 是 | 展示位置数组：`['home', 'footer', 'dock']` |
+
+> 💡 **显式放弃渠道**：若创作者没有某些平台，将其 key 写进 `disabledChannels: string[]`（如 `['wechat', 'xiaohongshu']`），doctor 门禁将其视为创作者已确认，不再反复追问；同时底栏不会残留空白二维码按钮，全站绝不出现 `#` 死链。
+
+---
+
+### 2.10 渠道图标库 (`IconKey` in `lib/channel-icons.tsx`)
+
+内置 17 个高品质通用矢量图标，无需引入任何第三方图标包：
+`wechat`, `xiaohongshu`, `github`, `xiaobaotong`, `newspaper`, `mail`, `rss`, `book`, `archive`, `podcast`, `video`, `microblog`, `forum`, `scholar`, `store`, `photography`, `writing`, `community`, `link`。
+
+---
+
+### 2.11 界面文案与度量开关 (`lib/ui-labels.ts` & `channelPrefs`)
+
+- `uiLabels`: 抽取原焊死在组件内的文字（如底栏弹窗标题、关注者/次贡献字样）；
+- `channelPrefs`:
+  - `showContributionGraph: boolean`：是否开启 GitHub 26 周热力图（无代码记录创作者可关闭，不强制挂 0 贡献）；
+  - `contributionWeeks: number`：热力图展示周数（默认 26 周）；
+  - `showFollowerStats: boolean`：是否展示关注者计数；
+  - `copyrightYear: 'inherit' | number`：页脚版权年份（可跟随系统年份，也可为历史人物固定年份如 1790）。
+
+---
+
+### 2.12 换人硬门禁白名单 (`.doctor-allow.json`)
+
+针对有意保留的母版出处致谢（如 `lib/llms.ts` 中的母版开源致谢），显式登记在 `.doctor-allow.json` 中：
+```json
+[
+  {
+    "file": "lib/llms.ts",
+    "token": "Dragon-01-you",
+    "reason": "对母版工作流来源 xh-blog-workflow 的公开致谢，有意保留"
+  }
+]
+```
+
+---
+
 ## 3. 图片资产目录对照表 (Asset Directory Mapping)
 
 | 资产类型 | 存放物理路径 | 尺寸/比例推荐 | 用途与关联槽位 |
@@ -203,19 +259,25 @@ draft: false
 当完成槽位替换后，只需在终端依次运行以下命令，即可完成全面自检：
 
 ```bash
-# 1. 验证内核哈希防线未被破坏
+# 1. 运行换人硬门禁体检（阻断未填项、死链接与模板指纹残留）
+pnpm doctor
+
+# 2. 验证内核哈希防线未被破坏
 python scripts/xh_blog_cli.py verify-kernel
 
-# 2. 检查槽位变量完整性
+# 3. 检查槽位变量完整性
 python scripts/xh_blog_cli.py inspect-slots
 
-# 3. 运行 68 项自动化单元测试
+# 4. 运行 68 项自动化单元测试
 pnpm test
 
-# 4. 严格 TypeScript 类型检查
+# 5. 严格 TypeScript 类型检查
 pnpm exec tsc --noEmit
 
-# 5. 全量 SSG 静态路由编译构建
+# 6. 公开可发现性（SEO/RSS/OG/llms）自检
+pnpm verify:public-discovery
+
+# 7. 全量 SSG 静态路由编译构建
 pnpm build
 ```
 全流程绿灯通过后，即可安全发布上线！

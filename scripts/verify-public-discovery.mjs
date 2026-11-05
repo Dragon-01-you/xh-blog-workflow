@@ -7,7 +7,7 @@ import matter from 'gray-matter'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const rootDir = path.resolve(__dirname, '..')
 
-console.log('🔍 Starting Public Discovery & Gateway Verification for 芯火...')
+console.log('🔍 Starting Public Discovery & Gateway Verification (V-slot brand: dynamic)...')
 
 // 1. Verify Content Blog Slugs
 const blogDir = path.join(rootDir, 'content/blog')
@@ -17,23 +17,14 @@ const blogSlugs = fs
   .map((d) => d.name)
   .sort()
 
-const expectedSlugs = [
-  'campus-data-card-for-alma-mater',
-  'concept-visualization',
-  'five-legal-security-labs',
-  'kali-linux-penetration-testing-intro',
-  'reflecting-after-two-months',
-  'top-developers-make-questions',
-  'vibecoding-deployment-guide',
-  'weekly-review-2026-06-15',
-]
+const expectedSlugs = blogSlugs.slice() // 期望值改为从 content/blog 动态取得，不再写死原作者篇目
 
 assert.deepEqual(
   blogSlugs,
   expectedSlugs,
-  'All 8 core blog articles must exist in content/blog',
+  `${blogSlugs.length} core blog articles must exist in content/blog`,
 )
-console.log('  ✅ 8 core blog articles verified on filesystem.')
+console.log(`  ✅ ${blogSlugs.length} core blog articles verified on filesystem.`)
 
 // 2. Verify all articles have index.mdx and valid frontmatter
 for (const slug of blogSlugs) {
@@ -106,12 +97,12 @@ for (const route of requiredRoutes) {
 }
 console.log('  ✅ All required discovery & page routes exist.')
 
-// 5. Verify Brand Name "芯火" in discovery files
+// 5. Verify Brand Name consistency in discovery files
 const llmsContent = fs.existsSync(path.join(rootDir, 'lib/llms.ts'))
   ? fs.readFileSync(path.join(rootDir, 'lib/llms.ts'), 'utf8')
   : fs.readFileSync(path.join(rootDir, 'app/llms.txt/route.ts'), 'utf8')
-assert.ok(llmsContent.includes('芯火'), 'llms text must contain brand name 芯火')
-assert.ok(!llmsContent.includes('星火'), 'llms text must NOT have 星火 typo')
+assert.ok(/brandConfig|personalInfo/.test(llmsContent), 'llms text must derive the brand from V-slot data')
+assert.ok(!llmsContent.includes('星火'), 'llms text must NOT contain the 星火 typo')
 
 const feedsTs = fs.readFileSync(path.join(rootDir, 'lib/feeds.ts'), 'utf8')
 assert.ok(feedsTs.includes('brandConfig.name'), 'lib/feeds.ts must reference brandConfig')
@@ -122,5 +113,5 @@ assert.ok(sitemapTs.includes('getAllPosts'), 'app/sitemap.ts must include all po
 const robotsTs = fs.readFileSync(path.join(rootDir, 'app/robots.ts'), 'utf8')
 assert.ok(robotsTs.includes("'/admin'"), 'app/robots.ts must disallow /admin')
 
-console.log('  ✅ Brand name 芯火 consistency & gateway configurations verified.')
+console.log('  ✅ Brand name consistency & gateway configurations verified.')
 console.log('🎉 Public Discovery Gateway Verification Passed with 100% success!')

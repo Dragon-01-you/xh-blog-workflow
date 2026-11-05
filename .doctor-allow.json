@@ -1,0 +1,12 @@
+[
+  {
+    "file": "lib/llms.ts",
+    "token": "Dragon-01-you",
+    "reason": "对母版工作流来源 xh-blog-workflow 的公开致谢，有意保留（与 README 的致谢口径一致）"
+  },
+  {
+    "file": "lib/llms.ts",
+    "token": "芯火",
+    "reason": "对母版工作流来源 xh-blog-workflow 瑞士纸墨高保真博客工作流的公开致谢，有意保留"
+  }
+]

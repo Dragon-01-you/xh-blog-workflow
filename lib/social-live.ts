@@ -1,9 +1,9 @@
 import type { GitHubSnapshot } from '~/components/social-cards'
 import bakedGithub from '~/content/github.json'
-import { personalInfo } from '~/lib/personal'
+import { brandConfig, personalInfo } from '~/lib/personal'
 
 export async function getGitHub(): Promise<GitHubSnapshot> {
-  const githubUser = personalInfo.githubUser || personalInfo.handle || 'Dragon-01-you'
+  const githubUser = personalInfo.githubUser || personalInfo.handle || brandConfig.enName
 
   try {
     const controller = new AbortController()
@@ -17,7 +17,7 @@ export async function getGitHub(): Promise<GitHubSnapshot> {
         return r.json()
       }),
       fetch(`https://api.github.com/users/${githubUser}`, {
-        headers: { accept: 'application/vnd.github+json', 'user-agent': 'xinhuo.me' },
+        headers: { accept: 'application/vnd.github+json', 'user-agent': `xh-blog/${brandConfig.enName || 'runtime'}` },
         signal: controller.signal,
       }).then((r) => {
         if (!r.ok) throw new Error(`user ${r.status}`)

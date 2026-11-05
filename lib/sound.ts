@@ -31,6 +31,8 @@ export function soundEnabled(): boolean {
   }
 }
 
+export const isSoundEnabled = soundEnabled
+
 export function setSoundEnabled(on: boolean): void {
   inMemorySoundEnabled = on
   if (typeof window === 'undefined') return
@@ -127,7 +129,7 @@ export function playMechanicalSound(cue: MechanicalSoundCue = 'click'): void {
   }
 }
 
-export function playDockSound(): void {
+export function playDockSound(_cue?: string): void {
   playMechanicalSound('click')
 }
 

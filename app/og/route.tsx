@@ -1,7 +1,15 @@
 import { ImageResponse } from 'next/og'
 import { brandConfig } from '~/lib/personal'
+import { seo } from '~/lib/seo'
 
 export async function GET(request: Request): Promise<Response> {
+  const siteHost = (() => {
+    try {
+      return new URL(seo.url).host
+    } catch {
+      return 'xh-blog'
+    }
+  })()
   const { searchParams } = new URL(request.url)
   const title = searchParams.get('title') || brandConfig.name
   const description = searchParams.get('description') || brandConfig.tagline
@@ -58,7 +66,7 @@ export async function GET(request: Request): Promise<Response> {
           }}
         >
           <span>Swiss Paper &amp; Ink Design System</span>
-          <span>xinhuo.ai</span>
+          <span>{siteHost}</span>
         </div>
       </div>
     ),

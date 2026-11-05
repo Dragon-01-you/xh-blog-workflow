@@ -1,12 +1,17 @@
 'use client'
 
 import React from 'react'
+import clsx from 'clsx'
 import Image from 'next/image'
 
 import { ExternalLabel } from '~/components/external-mark'
 import { SitePreviewCard } from '~/components/preview-card-timing'
+import bakedGithub from '~/content/github.json'
+import { ChannelGlyph } from '~/lib/channel-icons'
+import { type Channel, channelPrefs } from '~/lib/channels'
 import { T } from '~/lib/i18n'
 import { brandConfig, personalInfo } from '~/lib/personal'
+import { uiLabels } from '~/lib/ui-labels'
 
 export interface SocialSnapshot {
   name: string
@@ -26,7 +31,7 @@ export interface GitHubSnapshot {
 }
 
 // heatmap shows recent 26 weeks (~180 days); stats show past year 150+
-const WEEKS = 26
+const WEEKS = channelPrefs.contributionWeeks ?? 26
 const DAYS = 7
 
 export const GLYPHS: Record<string, { path: string; color?: string }> = {
@@ -87,6 +92,14 @@ function Card({
 
 export function GitHubCardBody({ data }: { data: GitHubSnapshot }) {
   const levels = data.levels.slice(-WEEKS * DAYS)
+  if (!channelPrefs.showContributionGraph) {
+    return (
+      <span className="service-card-stat">
+        <Glyph service="github" />
+        <T zh="代码与开源记录" en="Code & open-source record" />
+      </span>
+    )
+  }
   return (
     <>
       <span className="contrib-grid" aria-hidden>
@@ -107,13 +120,13 @@ export function GitHubCardBody({ data }: { data: GitHubSnapshot }) {
       </span>
       <span className="service-card-stat">
         <span>
-          <b>{data.total.toLocaleString()}</b> <T zh="次贡献" en="contributions" />
+          <b>{data.total.toLocaleString()}</b> <T zh={uiLabels.contributions.zh} en={uiLabels.contributions.en} />
         </span>
-        {data.followers != null && (
+        {channelPrefs.showFollowerStats && data.followers != null && (
           <>
             <span aria-hidden>·</span>
             <span>
-              <b>{data.followers}</b> <T zh="关注者" en="followers" />
+              <b>{data.followers}</b> <T zh={uiLabels.followers.zh} en={uiLabels.followers.en} />
             </span>
           </>
         )}
@@ -132,7 +145,7 @@ export function GitHubCard({
   trigger?: React.ReactNode
   triggerClassName?: string
 }) {
-  const user = personalInfo.githubUser || personalInfo.handle || 'Dragon-01-you'
+  const user = personalInfo.githubUser || personalInfo.handle || brandConfig.enName
   const githubHref = personalInfo.github ? `${personalInfo.github}?tab=repositories` : `https://github.com/${user}?tab=repositories`
 
   return (
@@ -198,7 +211,7 @@ export function XiaohongshuCard({
   return (
     <Card
       trigger={trigger}
-      href={personalInfo.xiaoHongShu || '#'}
+      href={personalInfo.xiaoHongShu || '/'}
       className="link-card service-card xiaohongshu-card"
       triggerClassName={triggerClassName}
     >
@@ -311,5 +324,68 @@ export function WechatCard({
     >
       {trigger}
     </SitePreviewCard>
+  )
+}
+
+/* ===== V 槽位 #11 驱动的通用渠道卡（新增能力，不替换旧导出） ===== */
+export function ChannelCard({
+  channel,
+  className = 'footer-tree-link',
+  trigger,
+}: {
+  channel: Channel
+  className?: string
+  trigger?: React.ReactNode
+}) {
+  const label = trigger ?? <T zh={channel.label} en={channel.labelEn} />
+  if (channel.kind === 'qr-image') {
+    return (
+      <SitePreviewCard
+        triggerClassName={className}
+        closeDelay={120}
+        popupClassName="link-card wechat-popup-card"
+        side="top"
+        popup={
+          <div className="flex flex-col items-center text-center">
+            <span className="mb-2 flex items-center gap-2 text-left">
+              <ChannelGlyph icon={channel.icon} className={clsx('w-4 h-4', channel.tone)} />
+              <span className="text-sm font-semibold">{channel.label}</span>
+            </span>
+            <Image
+              src={channel.image!}
+              alt={`${channel.label} 图样`}
+              width={180}
+              height={180}
+              className="rounded-lg"
+              priority
+            />
+            <span className="mt-2 text-[11px] font-mono opacity-70">{channel.hint}</span>
+            {channel.blurb && <span className="text-[10px] opacity-55">{channel.blurb}</span>}
+          </div>
+        }
+      >
+        {label}
+      </SitePreviewCard>
+    )
+  }
+  if (channel.kind === 'email') {
+    return (
+      <EmailCard
+        address={channel.href!.replace(/^mailto:/, '')}
+        trigger={label}
+        triggerClassName={className}
+      />
+    )
+  }
+  if (channel.kind === 'github-heatmap' && channelPrefs.showContributionGraph) {
+    return <GitHubCard data={bakedGithub as GitHubSnapshot} trigger={trigger} triggerClassName={className} />
+  }
+  return (
+    <a href={channel.href} target="_blank" rel="noopener noreferrer" className={className}>
+      <span className="inline-flex items-center gap-1">
+        <ChannelGlyph icon={channel.icon} className={clsx('w-3.5 h-3.5', channel.tone)} />
+        {label}
+      </span>
+    </a>
   )
 }

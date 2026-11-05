@@ -2,7 +2,9 @@
   {
     "slot_id": "slot_1_identity_and_location",
     "name": "Identity & Location",
-    "target_files": ["lib/personal.ts"],
+    "target_files": [
+      "lib/personal.ts"
+    ],
     "description": "Full name, English handle, timezone, city, title, bio and personal brand declaration."
   },
   {
@@ -19,49 +21,105 @@
   {
     "slot_id": "slot_3_home_intro_phrases",
     "name": "Homepage Intro Phrases",
-    "target_files": ["lib/personal.ts"],
+    "target_files": [
+      "lib/personal.ts"
+    ],
     "description": "Hero section identity declarations, roles, tech stacks, and philosophical positioning."
   },
   {
     "slot_id": "slot_4_social_cards_elastic",
     "name": "Social Networks & Links",
-    "target_files": ["lib/personal.ts"],
+    "target_files": [
+      "lib/personal.ts"
+    ],
     "description": "WeChat official account, Xiaohongshu, GitHub, and email contact coordinates."
   },
   {
     "slot_id": "slot_5_experience_timeline",
     "name": "Career & Experience Timeline",
-    "target_files": ["lib/personal.ts"],
+    "target_files": [
+      "lib/personal.ts"
+    ],
     "description": "Chronological milestones, education, projects, and personal achievements."
   },
   {
     "slot_id": "slot_6_original_articles",
     "name": "Original MDX Blog Articles",
-    "target_files": ["content/blog"],
+    "target_files": [
+      "content/blog"
+    ],
     "description": "Markdown/MDX posts with frontmatter metadata, reading time, tags, and 1200x675 covers."
   },
   {
     "slot_id": "slot_7_projects_and_photos",
     "name": "Projects Showcase & Photo Grid",
-    "target_files": ["lib/projects.ts", "lib/photos.ts"],
+    "target_files": [
+      "lib/projects.ts",
+      "lib/photos.ts"
+    ],
     "description": "Featured projects, GitHub repository metadata, and high-resolution personal photography."
   },
   {
     "slot_id": "slot_8_bookshelf_and_vinyl_records",
     "name": "Bookshelf & Vinyl Records",
-    "target_files": ["lib/content.ts", "public/images/books", "public/images/records"],
+    "target_files": [
+      "lib/personal.ts (books, records)",
+      "public/images/books",
+      "public/images/records"
+    ],
     "description": "Curated reading lists, favorite albums, and aesthetic culture artifacts."
   },
   {
     "slot_id": "slot_9_site_metadata_and_seo",
     "name": "Site Metadata & SEO OpenGraph",
-    "target_files": ["lib/public-page-metadata.ts", "lib/feeds.ts", "lib/llms.ts", "lib/seo.ts"],
+    "target_files": [
+      "lib/public-page-metadata.ts",
+      "lib/feeds.ts",
+      "lib/llms.ts",
+      "lib/seo.ts"
+    ],
     "description": "Page titles, meta descriptions, OpenGraph text, RSS generator branding, and LLM discoverability index."
   },
   {
     "slot_id": "slot_10_social_and_github",
     "name": "Social Networks & GitHub Handles",
-    "target_files": ["lib/social-live.ts", "lib/personal.ts"],
+    "target_files": [
+      "lib/social-live.ts",
+      "lib/personal.ts"
+    ],
     "description": "Live GitHub contribution graph fetch handle, profile links, and platform configurations."
+  },
+  {
+    "slot_id": "slot_11_channel_matrix",
+    "name": "Channel Matrix (any platform, any count)",
+    "target_files": [
+      "lib/channels.ts"
+    ],
+    "description": "Elastic contact channels. kind: qr-image (hover popup, e.g. WeChat/Douyin QR) | external (jump link) | email | github-heatmap. Missing href/image => not rendered at all (no dead links). disabledChannels is the explicit opt-out the doctor requires."
+  },
+  {
+    "slot_id": "slot_12_icon_library",
+    "name": "Channel Icon Library",
+    "target_files": [
+      "lib/channel-icons.tsx"
+    ],
+    "description": "Pick-one-of-N icons; template defaults ship for every kind, so choosing nothing still renders."
+  },
+  {
+    "slot_id": "slot_13_ui_labels_and_metrics",
+    "name": "UI Labels & Metric Switches",
+    "target_files": [
+      "lib/ui-labels.ts",
+      "lib/channels.ts (channelPrefs)"
+    ],
+    "description": "Formerly hard-coded strings inside K-code (dock button label, coming-soon badge, contributions/followers wording, copyright year) plus toggles for quantitative badges."
+  },
+  {
+    "slot_id": "slot_14_doctor_allowlist",
+    "name": "Acknowledged Template Residue",
+    "target_files": [
+      ".doctor-allow.json"
+    ],
+    "description": "Explicit, reasoned allowlist for intentional attribution strings; anything not listed blocks the build."
   }
 ]

@@ -8,158 +8,182 @@ description: >-
   isolated subagent TDD execution, two-axis code review, and git snapshot tagging.
 ---
 
-# XH-Blog-Workflow (芯火全栈网站热插拔生产工作流 · V1 低定制 1:1 复刻版)
+# XH-Blog-Workflow (芯火全栈网站热插拔生产工作流 · 终极加固版)
 
 ## Overview
 
-`xh-blog-workflow` 将「芯火」经过实战验证的个人品牌站（基于 `cali.so` 6,972 行 CSS 与 WebGPU 着色器底盘）封装为一套**零走样、按序推进、自动盘问变量的标准化生产工作流**。
+`xh-blog-workflow` 将「芯火」经过实战检验的高级个人品牌站（基于 `cali.so` 6,972 行 CSS、半色调网点、WebGPU 着色器底盘与物理弹簧微交互）封装为一套**零走样、按序推进、三层责任隔离、四重截停确认的标准化生产工作流**。
 
-它直接内化并定制了 Matt Pocock 的工程链条（环境建制 → 沙箱点火 → 轮次盘问与领域建模 → 生成 `spec.md` 总考卷 → 拆分垂直槽位工单并贴 5 大分诊标签 → 独立子智能体 TDD 施工 → 双轴代码审查与真机快照定格），无需用户手动记忆或逐个触发被禁用的斜杠命令。
+它彻底解决了以往复刻过程中经常出现的「暗桩硬编码」、「删减文章或唱片测试崩溃」、「无公众号/推特出现 `#` 死链」、「AI 擅自手写简化组件丢失原版质感」等顽疾。任何人（无论是技术极客、历史学者、还是跨赛道创作者）都能通过本工作流在 10 分钟内完成 100% 真实资产换血，同时保持母版像素级视觉水准。
 
-核心设计哲学：**锁死固定 K 代码（Kernel），只向用户盘问并热插拔动态 V 槽位（Variables），确保任何人使用本工作流复刻出的效果与母版 100% 一致，绝不让 AI 重新手写简化组件。**
+---
 
-## Dependencies
+## 核心架构：三层职责划分 (Three Responsibility Tiers)
 
-本工作流内化并协同以下已安装的技能（执行对应阶段时自动遵循其规范）：
+本工作流采用严格的不可变基础设施思想，将整个仓库分为清晰的三层：
 
-- `grilling` & `domain-modeling`：用于在 Stage 3 主动向用户发起轮次式变量采访，并同步沉淀 `GLOSSARY.md` 与 `docs/adr/`。
-- `tdd`：用于在 Stage 6 指导子智能体在预设公共接缝（Seam）上执行「红 → 绿」测试驱动换血。
-- `code-review`：用于在 Stage 7 派发两个并行子智能体分别执行 **Standards（规范与 K 代码零篡改审查）** 与 **Spec（需求与真机视觉还原审查）**。
-
-## Quick Start
-
-当用户说「用 `xh-blog-workflow` 帮我做一个个人网站」或「按芯火博客工作流初始化新站点」时，严格按以下顺序启动 Stage 1：
-
-```bash
-uv run C:/Users/ASUS/.gemini/config/skills/xh-blog-workflow/scripts/xh_blog_cli.py bootstrap \
-  --target-dir "./my-brand-site" \
-  --output "./my-brand-site/.scratch/bootstrap-report.json"
+```
+┌─────────────────────────────────────────────────────────────┐
+│ 1. K-Code Kernel (49 个固定内核文件 · SHA-256 物理加锁)     │
+│    app/globals.css (6,972 行), WebGPU 着色器, 弹簧动效,     │
+│    半调网点图像着色器, 基础布局骨架, 路由框架               │
+├─────────────────────────────────────────────────────────────┤
+│ 2. V-Slots (14 个动态槽位 · 纯数据与静态素材热插拔)         │
+│    personal.ts, projects.ts, photos.ts, content/blog/,      │
+│    public/images/* (头像/照片/二维码/封面/黑胶)             │
+├─────────────────────────────────────────────────────────────┤
+│ 3. A-Code Automation & Gates (全自动化保障与硬门禁)         │
+│    pnpm doctor, verify-kernel, test:smoke, vitest (68 项),  │
+│    verify:public-discovery, slot-config-panel.html          │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-## Utility Scripts
+1. **K-Code Kernel（固定内核 · 49 个文件）**：
+   - 受 `.kernel-lock.json`（LF 换行符归一化 SHA-256 哈希）物理锁死。
+   - 严禁任何 AI 重新手写或简化组件；一旦哈希不匹配，CI 与门禁立即红灯阻断。
+2. **V-Slots（动态槽位 · 14 项配置）**：
+   - 包含品牌基础信息、弹性渠道矩阵、个人简介、真实履历、原创文章、实战项目、精选相册、3D 战绩书架与黑胶唱片。
+   - 所有槽位支持自由增减、按需开启/关闭，无任何硬编码残留。
+3. **A-Code Automation & Gates（自动化防线与硬门禁）**：
+   - 涵盖从环境初始化、交互式盘问、预检体检（Doctor）、TDD 单元测试到全量 SSG 编译与公共发现协议（RSS/Sitemap/llms.txt）校验的完整工具链。
 
-本技能自带确定性防呆 CLI 脚本 `scripts/xh_blog_cli.py`（所有输出均写入 `--output` 指定的文件，避免刷屏污染上下文）：
+---
 
-### 1. `bootstrap` — 环境检测、目录初始化与 K 代码哈希加锁
-检查本地 `node`、`pnpm`、`git` 环境；若目标目录为空，自动从黄金母版（`site-2`）拷入完整代码，初始化 Git、`.env.local`、`.scratch/blog-v1/issues/`、`AGENTS.md` 与 `docs/agents/`，并对全部固定 K 代码生成 `.kernel-lock.json`（SHA-256 指纹锁）。
+## 四大截停确认门禁 (Human-in-the-Loop Interception Gates)
 
-```bash
-uv run C:/Users/ASUS/.gemini/config/skills/xh-blog-workflow/scripts/xh_blog_cli.py bootstrap \
-  --target-dir "<目标项目路径>" \
-  --output "<目标项目路径>/.scratch/bootstrap-report.json"
+为了防止 AI 闭门造车或擅自替用户做决策，工作流在四个关键阶段设立了**必须向用户主动截停、确认后才可继续**的硬门禁：
+
+```mermaid
+flowchart TD
+    S1["Stage 1: 环境建制与 K 锁"] --> S2["Stage 2: 沙箱点火与母版运行"]
+    S2 --> G1{"【门禁 1】画像与槽位初筛截停"}
+    G1 -- 用户确认画像与资产范围 --> S3["Stage 3: 轮次式盘问与领域建模"]
+    S3 --> G2{"【门禁 2】渠道矩阵与外部依赖自检"}
+    G2 -- 用户确认渠道开关与链接 --> S4["Stage 4 & 5: 合成 Spec 与分诊工单"]
+    S4 --> S6["Stage 6: 独立子智能体 TDD 换血"]
+    S6 --> G3{"【门禁 3】Doctor 体检与素材深度校验"}
+    G3 -- pnpm doctor 0 告警 & 确认素材 --> S7["Stage 7: 双轴审查与真机截图"]
+    S7 --> G4{"【门禁 4】离场视觉验收与一键发布"}
+    G4 -- 用户确认效果无误 --> Release["Git Snapshot & 生产部署"]
 ```
 
-### 2. `inspect-slots` — 扫描 8 大动态 V 槽位并生成待提问清单
-扫描当前项目中的可定制槽位（身份、头像、导语、社交卡、履历、文章、项目、书架与黑胶），输出结构化 JSON 供 AI 在 Stage 3 向用户提问。
+### 门禁 1：创作者画像与槽位范围初筛 (Persona & Slot Scoping)
+- **触发时机**：Stage 2 沙箱点火成功，用户在 `http://localhost:3000` 看到母版初始运行后。
+- **截停动作**：
+  1. 向用户展示《14 个 V 槽位清单》与《3 种典型画像参考》（芯火/富兰克林/陈拾光）。
+  2. 询问用户属于哪一类赛道，以及是否有特殊缺失项（如：无国内公众号、无博客文章、无代表作等）。
+- **通过条件**：用户明确确认自己的画像定位与本次换血的槽位范围。
 
+### 门禁 2：渠道矩阵与外部依赖自检 (Channel Matrix & Dead Links)
+- **触发时机**：Stage 3 收集完社交渠道信息后，生成 `spec.md` 之前。
+- **截停动作**：
+  1. 梳理用户填写的渠道列表，检查是否有暂未开通或无需展示的渠道。
+  2. 严正声明：**不展示的渠道直接剔除，严禁用 `#` 死链或虚假账号填补**。
+  3. 若用户有专属微信公众号二维码，确认图片文件命名（如 `wechat-qr.jpg`）与弹窗文案；若无公众号，底栏 Dock 弹窗按钮自动无感隐藏。
+- **通过条件**：用户确认渠道启用清单（`channels`）与禁用清单（`disabledChannels`）。
+
+### 门禁 3：Doctor 全站体检与资产深度校验 (Pre-flight Doctor & Integrity)
+- **触发时机**：Stage 6 子智能体完成数据与素材替换之后，进入最终构建与评审之前。
+- **截停动作**：
+  1. 运行 `pnpm run doctor`，自动检查：
+     - 必填品牌槽位（中文名、英文名、Bio、坐标、头像等）是否完备。
+     - 是否残留模板违禁词（如已退役邮箱、非官方盗版库链接 `z-library`、母版残留 `cali.so`、`you19827801947` 等）。
+     - Markdown 文章是否少于 2 篇、文章内二级标题是否 `>= 2`。
+     - 图片资源是否在 `public/` 目录下真实存在且非 0 字节。
+  2. 若有任何一项不通过，向用户报备红灯项并自动修复，修复完成后才可放行。
+- **通过条件**：`pnpm run doctor` 退出码为 `0`。
+
+### 门禁 4：离场视觉验收与一键发布 (Exit Acceptance & Release)
+- **触发时机**：Stage 7 真机截图（首页亮/暗色、文章页、项目页、相册页、Dock 栏）生成后。
+- **截停动作**：
+  1. 向用户输出生成的真机截图路径与对比报告。
+  2. 请用户在真实浏览器中打开 `http://localhost:3000` 检查：
+     - 首屏肖像网点显影与点击弹窗是否流畅。
+     - 底部 Dock 栏小图标是否为本人高清原色头像。
+     - 社交卡片悬浮与点击是否符合预期。
+- **通过条件**：用户回复「验收通过」后，执行 `snapshot` 打 Tag 并交付上线。
+
+---
+
+## 弹性全渠道矩阵 (Elastic Channel Matrix)
+
+针对不同创作者的社交资产差异（如技术极客偏好 GitHub/RSS/Email；跨赛道作者偏好小红书/即刻/微信公众号；海外学者偏好 Google Scholar/Podcast/X），母版在 `lib/channels.ts` 中封装了通用渠道矩阵：
+
+| 渠道 Key | 默认渲染类型 (`kind`) | 专属微交互 / 行为 |
+| :--- | :--- | :--- |
+| `wechat` | `qr-image` | 点击触发底栏网点质感悬浮弹窗展示二维码，不跳出当前页 |
+| `github` | `github-heatmap` | 自动请求公共 API 渲染 26 周实时绿格热力图与年度 Contributions |
+| `email` | `email` | 渲染为经典瑞士航空贴票信封卡片，点击唤起系统邮件客户端 |
+| `xiaobaotong` | `external` | 悬浮高亮，支持配置为「筹备中」徽章状态 |
+| `xiaohongshu` | `external` | 专属矢量红书图标，安全在新标签页打开 |
+| `bilibili` / `youtube` | `external` | 视频流媒体专属矢量图标 |
+| `rss` / `podcast` | `external` | 订阅流与声音播客专属矢量卡片 |
+| `scholar` / `store` | `external` | 学术引用或独立创作者小店外部直达 |
+
+> [!TIP]
+> 任何渠道只要未配置 URL、设置了 `disabled: true`，或加入 `disabledChannels: ['wechat']`，组件将 100% 自动优雅剪裁，**绝对不会在页面上留下空白占位或 `#` 死链**。
+
+---
+
+## 三大真实落地场景对标 (Persona Case Studies)
+
+| 维度 | 场景 1：母版·芯火 (Xinhuo) | 场景 2：先驱·富兰克林 (Benjamin Franklin) | 场景 3：工程师·陈拾光 (Shiguang Chen) |
+| :--- | :--- | :--- | :--- |
+| **赛道定位** | 07年大专生 · AI自学与个人成长 | 18世纪博学家 · 启蒙主义作家与印刷商 | 95后系统工程师 · 开源架构与极客生活 |
+| **英文名 / 坐标** | `xinhuo` · 广东深圳 (114.05, 22.54) | `franklin` · 费城 (75.16, 39.95) | `shiguang` · 浙江杭州 (120.15, 30.28) |
+| **首屏肖像风格** | 现代极简半调网点 + 原色圆形头像 | 经典历史蚀刻网点油画 + 印刷机 Favicon | 极客工位半调写真 + 终端字符 Favicon |
+| **渠道矩阵配置** | 微信公众号(弹窗) + 邮箱 + 小红书 + 小报童(筹备中) | 印刷所工坊公告 + 羊皮纸邮件信箱 | GitHub(26周热力图) + 个人邮件 + RSS订阅流 (彻底禁用微信) |
+| **代表作项目** | 网站设计工作流、个人自学沉淀知识库 | 避雷针、双焦点眼镜、富兰克林炉设计图纸 | 高性能网关、分布式锁库、Markdown 增强插件 |
+| **战绩书架与黑胶** | 《纳瓦尔宝典》、《穷查理宝典》等实用成长书 | 《自然哲学的数学原理》、《商业论》等古典名著 | 《Designing Data-Intensive Applications》、《深入理解计算机系统》 |
+| **原创文章篇数** | 8 篇深度个人成长与 AI 实践长文 | 4 篇穷理查年鉴节选与科学论文 | 5 篇底层架构实战与代码重构笔记 |
+
+---
+
+## 极速操作指南 (Step-by-Step Execution)
+
+### 1. 启动与预检体检
 ```bash
-uv run C:/Users/ASUS/.gemini/config/skills/xh-blog-workflow/scripts/xh_blog_cli.py inspect-slots \
-  --project-dir "<目标项目路径>" \
-  --output "<目标项目路径>/.scratch/slots-inspection.json"
+# 运行体检脚本（在任何阶段均可执行，秒级发现缺项与模板残留）
+pnpm run doctor
 ```
 
-### 3. `verify-kernel` — 校验 K 代码零篡改与动态槽位图片完整性
-在子智能体完成槽位换血后运行，校验 `app/globals.css`（6,972行）与 `components/*` 是否被篡改，并检查所有配置的本地图片路径是否真实存在。
+### 2. 本地零代码可视化配置面板
+如果你希望通过图形界面直接修改槽位配置，可在浏览器中双击打开：
+`docs/slot-config-panel.html`
+- 实时编辑 14 个动态槽位。
+- 一键导入/导出 `.slots.json`。
+- 一键复制格式化配置代码直接粘贴至 `lib/personal.ts`。
 
+### 3. 全套严苛自动化门禁验证
 ```bash
-uv run C:/Users/ASUS/.gemini/config/skills/xh-blog-workflow/scripts/xh_blog_cli.py verify-kernel \
-  --project-dir "<目标项目路径>" \
-  --output "<目标项目路径>/.scratch/verify-kernel-report.json"
-```
+# 1. 验证 49 个 K 代码文件哈希未被篡改
+python tests/test_smoke.py
 
-### 4. `snapshot` — 定格里程碑 Git 标签与真机截图归档
-在全量测试与真机截图通过后，自动提交代码、打下带注释的 Git 标签（如 `v1.0.0-snapshot-cao2`），并准备 `snapshots/<tag>/` 归档目录。
+# 2. 运行 68 项单元与集成测试（涵盖弹性渠道、书架、项目、文章等）
+pnpm test
 
-```bash
-uv run C:/Users/ASUS/.gemini/config/skills/xh-blog-workflow/scripts/xh_blog_cli.py snapshot \
-  --project-dir "<目标项目路径>" \
-  --tag "v1.0.0-snapshot-cao2" \
-  --message "完成 1:1 复刻与真实个人资产换血" \
-  --output "<目标项目路径>/.scratch/snapshot-report.json"
+# 3. TypeScript 静态类型完整性检查
+pnpm exec tsc --noEmit
+
+# 4. 全站 SSG 静态生成与构建（生成 22 个静态路由）
+pnpm build
+
+# 5. 公开发现协议全量自检（验证 /sitemap.xml, /feed.xml, /llms.txt）
+pnpm verify:public-discovery
 ```
 
 ---
 
-## Workflow (严格按序执行的 7 大阶段)
+## 根因反思与防复发铁律 (Root Cause Analysis & Guardrails)
 
-> [!IMPORTANT]
-> **严禁跳步或打乱顺序！** 绝不允许在一开始还没检查环境、还没初始化目录和启动沙箱时就去问用户需求。必须严格按 Stage 1 → Stage 7 顺序执行。
+在多轮迭代中出现「换人测试挂掉」、「部分文案依然写死」的核心原因总结如下：
 
-### Stage 1: 环境自检、目录初始化与工程规矩建制 (Environment & Repo Bootstrap)
-- **固定不变量 (Fixed)**：Node.js / pnpm / Git 基础依赖；`AGENTS.md`、`docs/handoff.md`、`docs/agents/issue-tracker.md`、`docs/agents/triage-labels.md`（5 大状态标签：`needs-triage`、`needs-info`、`ready-for-agent`、`ready-for-human`、`wontfix`）、`docs/agents/domain.md`。
-- **变量 (Variable)**：目标项目文件夹路径（`--target-dir`）、工单存放方式（默认本地 `.scratch/blog-v1/issues/`）。
-- **AI 自动执行**：
-  1. 运行 `xh_blog_cli.py bootstrap` 完成环境检测、母版拷入、Git 初始化、`.env.local` 创建与 `.kernel-lock.json` K 代码哈希加锁。
-  2. 阅读项目根目录下的 `AGENTS.md` 与 `docs/handoff.md`。
-- **人工确认**：若目标目录非空，由用户确认直接在当前目录进行还是新建目录。
-
-### Stage 2: K 代码物理锁死与沙箱常驻点火 (Kernel Lock & Sandbox Boot)
-- **固定不变量 (Fixed)**：全部 K 代码（`app/globals.css` 6,972 行、WebGPU 着色器、半调网点与点击显影原图、弹簧动效、路由结构）。
-- **变量 (Variable)**：本地预览端口号（默认 `3000`）。
-- **AI 自动执行**：
-  1. 若 `node_modules` 不存在，运行 `pnpm install`。
-  2. 在后台以常驻模式（Daemon）启动预览服务器（`pnpm dev --port 3000` 或 `pnpm start --port 3000`）。
-  3. 确认 `http://localhost:3000` 正常响应后，告知用户沙箱已点火就绪。
-- **人工确认**：用户可在浏览器打开 `http://localhost:3000` 看到母版初始运行效果。
-
-### Stage 3: 主动提问采集 8 大动态 V 槽位与领域建模 (Interactive Grilling & Domain Modeling)
-- **固定不变量 (Fixed)**：8 大槽位的数据契约（Schema）与自适应显隐逻辑。
-- **变量 (Variable)**：用户的个人真实资产（有则填、支持自由增删数量、没有的平台或暂缺的素材自动隐藏或占位）。
-- **AI 自动执行**：
-  1. 运行 `xh_blog_cli.py inspect-slots` 获取当前槽位状态。
-  2. **主动发起轮次式盘问**（内化 `grilling` 技能格式 `❓ Q1 ... ➡️ 推荐方案`，每次只问 3~4 个问题，分 2 轮问完 8 大槽位）：
-     - **第 1 轮（身份、头像图标与社交触达）**：
-       - **槽位 1（身份与坐标）**：品牌名/署名、英文名、所在城市与经纬度？
-       - **槽位 2（双轨图像）**：① 首屏人像照片（亮色 `headshot.jpg` / 暗色 `portrait-square.jpg`，默认报纸网点 + 点击还原真彩原图）；② 底部 Dock 栏与网页 Favicon 专属小图标（`avatar.png`，默认使用原色高清圆形头像）？
-       - **槽位 3（首屏宣言）**：身份短语（带动态笔记本星芒 SVG）、匠心短语（带逐字弹簧跳动，如「刚刚好」）、3~4 段个人简介？
-       - **槽位 4（社交卡片自适应槽）**：哪些平台要展示？（`GitHub` 填用户名自动出 26 周热力图；`邮箱` 填地址自动出贴票航空信封；`公众号` 提供二维码图 `wechat-qr.jpg` 点击直接弹窗不外跳；`小红书` 填链接直跳；`小报童` 若暂无链接自动渲染为「筹备中」纯文本或直接不展示；**没有的平台如推特/油管一律不展示，绝不硬切**）。
-     - **第 2 轮（履历、原创文章、代表作与战绩书架/唱片）**：
-       - **槽位 5（真实履历 `experiences`）**：真实的起始年份、阶段角色与经历描述？（严禁编造年份）
-       - **槽位 6（原创文章 `content/blog/`）**：放入哪几篇本人原创文章？（支持任意篇数，提供 Markdown 原文与配图即可，绝不混入他人文章）
-       - **槽位 7（代表作项目 `projects` 与相册 `photos`）**：展示哪几个真实 GitHub/实战项目？相册是否有精选成果图？（若暂无则设为空数组 `[]`，优雅展示暗房空状态）
-       - **槽位 8（3D 书架/战绩书 `books` 与黑胶唱片 `records`）**：是否要增删或替换几本「战绩书/珍藏书」或「常听唱片」？（支持自由增删数量，用户只需提供名称、跳转链接和封面图；若暂不提供则保留默认精选占位）。
-  3. 根据用户回答，同步更新 `GLOSSARY.md`（写入品牌词铁律）与 `docs/adr/`，生成《真实个人变量核验表》。
-- **人工确认**：用户回答问题、上传头像/二维码/文章素材，并确认《真实个人变量核验表》无误。
-
-### Stage 4: 合成热插拔总考卷 (Spec Synthesis - 内化 `/to-spec`)
-- **固定不变量 (Fixed)**：规格书标准模板（Problem Statement、Solution、User Stories、Implementation Decisions、Testing Seams、Out of Scope）。
-- **变量 (Variable)**：Stage 3 锁定的用户真实资产清单。
-- **AI 自动执行**：
-  1. 将确认后的变量合成为 `.scratch/blog-v1/spec.md`，贴上 `ready-for-agent` 标签。
-  2. 明确锁定三大测试接缝（Seam）：① K 代码哈希零篡改；② 个人数据与本地图片/文章文件 100% 真实存在；③ 全路由 SSG 编译与公开检索路由（`/sitemap.xml`、`/feed.xml`、`/llms.txt`）正常。
-- **人工确认**：向用户展示 `spec.md` 摘要。
-
-### Stage 5: 拆分垂直槽位工单并分诊贴标签 (Slot Ticketing & Triage - 内化 `/to-tickets` & `/triage`)
-- **固定不变量 (Fixed)**：**严禁按 UI 组件拆工单**（防止子智能体重写组件），固定按数据槽位拆分为 3 张标准工单：
-  - `01-identity-avatar-and-social-slots.md`（身份、双轨头像图标、首屏导语、社交卡片与真实履历换血）
-  - `02-original-blog-articles-and-covers.md`（本人原创文章 MDX 转换、1200×675 封面与视图过渡映射换血）
-  - `03-projects-bookshelf-vinyl-and-photos.md`（真实项目、3D 书架/战绩书、黑胶唱片与相册画廊换血）
-- **变量 (Variable)**：每张工单的具体验收数据条目，以及工单的状态标签（素材齐全贴 `ready-for-agent`；用户暂缺某项素材贴 `needs-info` 并做安全占位）。
-- **AI 自动执行**：在 `.scratch/blog-v1/issues/` 下生成 3 张工单文件并向用户汇报分诊状态。
-- **人工确认**：确认工单拆分与标签状态，批准启动子智能体施工。
-
-### Stage 6: 派发独立子智能体隔离 TDD 施工 (Isolated Subagent TDD Execution)
-- **固定不变量 (Fixed)**：主会话零代码污染原则；TDD「先红后绿」规则；K 代码只读禁令。
-- **变量 (Variable)**：4 个动态 V 槽位目录/文件中的数据更新。
-- **AI 自动执行**：
-  1. 主智能体调用 `invoke_subagent` 派发独立子智能体（Subagents）并行执行 `ready-for-agent` 工单。
-  2. 子智能体先更新 `tests/unit/` 中的预期断言（红灯），再修改 `lib/personal.ts`、`lib/projects.ts`、`lib/photos.ts`、`content/blog/` 与 `public/images/` 让测试变绿（`pnpm test` & `pnpm typecheck` & `pnpm build`）。
-  3. 主智能体运行 `xh_blog_cli.py verify-kernel` 校验 K 代码哈希未受损且所有图片路径有效。
-- **人工确认**：无需人工写代码，等待子智能体完工汇报。
-
-### Stage 7: 双轴审查、真机截图与版本快照沉淀 (Dual Review & Snapshot Lock)
-- **固定不变量 (Fixed)**：Standards + Spec 双轴独立审查门禁；全页面真机截图脚本 `scripts/take-screenshots.mjs`；Git Tag 快照格式。
-- **变量 (Variable)**：快照标签名（如 `v1.0.0-snapshot-cao2`）与用户的最终视觉微调意见。
-- **AI 自动执行**：
-  1. 派发两个只读子智能体并行执行 `code-review`（**Standards 审查员**检查 K 代码锁与代码规范；**Spec 审查员**对照 `spec.md` 检查每项个人资产是否准确落地）。
-  2. 重启生产预览服务并运行 `node scripts/take-screenshots.mjs`，生成首页（亮/暗）、文章页、项目页、相册页与 Dock 栏实机截图。
-  3. 运行 `xh_blog_cli.py snapshot` 打下 Git 里程碑标签，并将截图归档至 `snapshots/<tag>/`，更新 `docs/handoff.md`。
-- **人工确认**：用户查看真机截图与 `http://localhost:3000` 实机效果，验收通过后定格为可随时回退的基线版本。
-
----
-
-## Common Mistakes
-
-1. **未配环境先问需求**：跳过 Stage 1 & 2 直接向用户提问，导致连目录和沙箱都没跑起来，顺序混乱。**必须先跑 `bootstrap` 和沙箱点火，再进入 Stage 3 提问。**
-2. **让子智能体重写 K 代码组件**：在工单里要求子智能体“实现某组件”或“修改 `globals.css`”，导致丢失原版 6,972 行 CSS 或 WebGPU 着色器。**第一套工作流严禁触碰 K 代码，结束后必须跑 `verify-kernel` 校验哈希。**
-3. **硬塞用户没有的平台或编造假数据**：当用户没有小报童链接、没有推特或未提供某年履历时，AI 擅自填 `#` 死链或编造 2022–2023 假年份。**必须严格遵循“有则填、无则隐藏或纯文本占位、书架/文章/项目数量弹性适配”原则。**
+1. **根因一：假解耦（测试用例硬编码业务数据）**
+   - *教训*：测试中直接 `expect(publishedPostSlugs.length).toBe(8)` 或断言 `records.length === 6`，导致换人后删减文章或黑胶时测试必崩。
+   - *铁律*：**所有测试只验证契约不变性（如 `posts.length >= 1`，每个项目必须具备 `title/href/desc`），绝不允许对内容绝对数量做硬编码断言。**
+2. **根因二：静态假设（误以为所有创作者都用同一种社交工具）**
+   - *教训*：海外用户或纯技术人员根本没有微信公众号或小红书，原本硬编码的弹窗逻辑导致页面必须挂一个假的二维码或者 `#` 死链。
+   - *铁律*：**必须通过 `lib/channels.ts` 的弹性渠道矩阵管理所有外部链接，任何缺失项一律无感自动隐藏，绝不向 UI 输出 `#` 死链。**
+3. **根因三：缺乏前置把关人（Pre-flight Gatekeeper）**
+   - *教训*：以前只有在最后的 `pnpm build` 或手工点进页面时才发现图片 404 或留有母版遗留文案。
+   - *铁律*：**引入 `pnpm run doctor` 门禁，在代码进入构建前做 100% 静态扫描，阻断一切违规违禁项。**

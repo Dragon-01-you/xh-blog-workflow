@@ -4,6 +4,7 @@ import React from 'react'
 import Link from 'next/link'
 import { FooterClock } from '~/components/footer-clock'
 import {
+  ChannelCard,
   EmailCard,
   GitHubCard,
   type GitHubSnapshot,
@@ -14,6 +15,7 @@ import { brailleText } from '~/lib/braille'
 import { T } from '~/lib/i18n'
 import { brandConfig, personalInfo } from '~/lib/personal'
 import bakedGithub from '~/content/github.json'
+import { channelsFor, channelPrefs } from '~/lib/channels'
 
 function Tree({
   zh,
@@ -39,7 +41,7 @@ export function SiteFooter({
 }: {
   github?: GitHubSnapshot
 } = {}) {
-  const currentYear = new Date().getFullYear()
+  const currentYear = channelPrefs.copyrightYear === 'inherit' ? new Date().getFullYear() : channelPrefs.copyrightYear
   const ghData = github ?? (bakedGithub as GitHubSnapshot)
 
   return (
@@ -47,27 +49,11 @@ export function SiteFooter({
       <div className="hairline-top grid grid-cols-2 gap-x-6 gap-y-8 pt-8 sm:grid-cols-3">
         {/* Contact Links */}
         <Tree zh="联系" en="contact">
-          <li>
-            <WechatCard trigger={<T zh="公众号" en="WeChat" />} />
-          </li>
-          <li>
-            {/* 小报童当前由于无真实链接，按规则渲染为纯文本并标记「筹备中」，严禁渲染带 # 的死链接或外跳箭头 */}
-            <span className="footer-tree-link inline-flex items-center gap-1.5 opacity-65 cursor-default select-none">
-              <T zh="小报童" en="Newsletter" />
-              <span className="text-[10px] font-mono px-1 py-0.2 rounded bg-[var(--muted)] text-[var(--muted-foreground)] border border-[var(--border)]">
-                <T zh="筹备中" en="WIP" />
-              </span>
-            </span>
-          </li>
-          <li>
-            <XiaohongshuCard trigger={<T zh="小红书" en="RED" />} />
-          </li>
-          <li>
-            <GitHubCard data={ghData} trigger="GitHub" />
-          </li>
-          <li>
-            <EmailCard address={personalInfo.email} trigger={<T zh="邮箱" en="Email" />} />
-          </li>
+          {channelsFor('footer').map((c) => (
+            <li key={c.key}>
+              <ChannelCard channel={c} trigger={<T zh={c.label} en={c.labelEn} />} />
+            </li>
+          ))}
         </Tree>
 
         {/* Navigation Index */}
