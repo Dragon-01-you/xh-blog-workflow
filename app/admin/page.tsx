@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PixelCluster } from '~/components/pixel-cluster'
 import { AdminAuthGate } from '~/components/admin-auth-gate'
+import { AdminDashboardTabs } from '~/components/admin-dashboard-tabs'
 import { T } from '~/lib/i18n'
 import { getAllPosts } from '~/lib/content'
 import { books, brandConfig, personalInfo, records } from '~/lib/personal'
@@ -68,6 +69,19 @@ export default function AdminPage(): React.JSX.Element {
   const totalWords = posts.reduce((sum, p) => sum + p.bodyUnits, 0)
   const totalReadingMinutes = posts.reduce((sum, p) => sum + p.readingMinutes, 0)
 
+  const initialBrand = {
+    name: brandConfig.name,
+    enName: brandConfig.enName,
+    tagline: brandConfig.tagline,
+    bio: brandConfig.bio,
+    location: brandConfig.location,
+    lat: brandConfig.locationCoordinates?.lat || '',
+    lng: brandConfig.locationCoordinates?.lng || '',
+    email: personalInfo.email,
+    handle: personalInfo.handle,
+    weChatOfficial: personalInfo.weChatOfficial || '',
+  }
+
   return (
     <AdminAuthGate>
       <div className="mx-auto w-full max-w-[37.5rem] px-6 py-6 pb-16 space-y-10">
@@ -87,8 +101,12 @@ export default function AdminPage(): React.JSX.Element {
         <PixelCluster variant={6} className="shrink-0" />
       </div>
 
-      {/* Section 1: 内容资产总览 */}
-      <section className="space-y-3">
+      <AdminDashboardTabs
+        initialBrand={initialBrand}
+        metricsContent={
+          <>
+            {/* Section 1: 内容资产总览 */}
+            <section className="space-y-3">
         <div className="flex items-center justify-between text-xs font-mono text-[var(--muted-foreground)] uppercase tracking-wider">
           <span>01 // 内容资产汇总 (Content Metrics)</span>
           <span>COUNT</span>
@@ -205,6 +223,9 @@ export default function AdminPage(): React.JSX.Element {
           />
         </ul>
       </section>
+      </>
+      }
+      />
     </div>
   </AdminAuthGate>
   )

@@ -114,6 +114,11 @@ pnpm dev
 > ```
 > Running `pnpm start` directly on modified source files without re-building causes Next.js client chunk hash mismatches (404 Not Found errors). For local iterative development, always prefer `pnpm dev` with instant HMR.
 
+### Admin Console & Daily Content Sync Guide
+
+- **Live Operational Dashboard**: Visit [`/admin`](http://localhost:3000/admin) in your browser (protected by a secure passcode gate, customizable via `NEXT_PUBLIC_ADMIN_PASSWORD` in `.env.local`). Features full asset metrics, a live slot editor, and GitOps sync instructions.
+- **Daily Maintenance Guide**: How to publish new posts, update bio/books, and sync changes automatically via Git continuous deployment: 👉 [**`docs/DAILY_UPDATE_AND_SYNC_GUIDE.md`**](docs/DAILY_UPDATE_AND_SYNC_GUIDE.md).
+
 ### Advanced Slot Management & Snapshot Releases
 
 ```bash

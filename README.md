@@ -115,6 +115,11 @@ pnpm dev
 > ```
 > 若在修改代码后直接运行 `pnpm start`，Next.js 会继续读取旧的打包产物，导致客户端加载时 chunk 哈希不匹配报 404 错误。本地开发调试推荐直接使用 `pnpm dev`（自带实时 HMR 热更新）。
 
+### 站长控制台与日常更新同步指引 (Admin & Daily Sync)
+
+- **线上运维控制台**：浏览器直接访问 [`/admin`](http://localhost:3000/admin)（受安全口令保护，默认口令可在 `.env.local` 中通过 `NEXT_PUBLIC_ADMIN_PASSWORD` 自定义）。包含全站指标巡检大盘、在线槽位极速编辑台与日常同步流程指引。
+- **日常维护与发布全指南**：发新文章怎么发？修改个人资料怎么生效？如何通过 GitOps 自动同步推送到线上公网？请查阅官方手册：👉 [**`docs/DAILY_UPDATE_AND_SYNC_GUIDE.md`**](docs/DAILY_UPDATE_AND_SYNC_GUIDE.md)。
+
 ### 纯静态本地可视配置面板 (Interactive Slot Panel)
 
 为了让不熟悉 TypeScript 代码的创作者能够直观配置，本项目内置了单文件纯静态可视化配置面板：

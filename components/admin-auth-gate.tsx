@@ -123,7 +123,7 @@ export function AdminAuthGate({ children }: AdminAuthGateProps): React.JSX.Eleme
               autoFocus
               value={inputCode}
               onChange={(e) => setInputCode(e.target.value)}
-              placeholder="请输入管理口令 (默认: xinhuo2026)"
+              placeholder="••••••••••••"
               className="w-full px-3 py-2 text-sm font-mono border border-[var(--border)] rounded bg-[var(--background)] text-[var(--foreground)] placeholder-[var(--muted-foreground)] outline-none focus:border-[var(--signal)] transition-colors"
             />
           </div>
@@ -151,8 +151,9 @@ export function AdminAuthGate({ children }: AdminAuthGateProps): React.JSX.Eleme
           </div>
         </form>
 
-        <div className="border-t border-[var(--border)] pt-3 text-[10px] text-[var(--muted-foreground)] font-mono">
-          Tip: 可在 <code>.env.local</code> 中配置 <code>NEXT_PUBLIC_ADMIN_PASSWORD</code> 自定义口令。
+        <div className="border-t border-[var(--border)] pt-3 text-[10px] text-[var(--muted-foreground)] font-mono flex items-center justify-between">
+          <span>安全凭证受端对端本地会话保护</span>
+          <span>Swiss Paper &amp; Ink OS</span>
         </div>
       </div>
     </div>
