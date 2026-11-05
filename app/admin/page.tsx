@@ -2,6 +2,7 @@ import React from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PixelCluster } from '~/components/pixel-cluster'
+import { AdminAuthGate } from '~/components/admin-auth-gate'
 import { T } from '~/lib/i18n'
 import { getAllPosts } from '~/lib/content'
 import { books, brandConfig, personalInfo, records } from '~/lib/personal'
@@ -68,7 +69,8 @@ export default function AdminPage(): React.JSX.Element {
   const totalReadingMinutes = posts.reduce((sum, p) => sum + p.readingMinutes, 0)
 
   return (
-    <div className="mx-auto w-full max-w-[37.5rem] px-6 py-6 pb-16 space-y-10">
+    <AdminAuthGate>
+      <div className="mx-auto w-full max-w-[37.5rem] px-6 py-6 pb-16 space-y-10">
       {/* Header */}
       <div className="flex items-center justify-between gap-4 border-b border-[var(--border)] pb-4">
         <div>
@@ -204,5 +206,6 @@ export default function AdminPage(): React.JSX.Element {
         </ul>
       </section>
     </div>
+  </AdminAuthGate>
   )
 }

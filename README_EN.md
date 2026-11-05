@@ -204,11 +204,11 @@ Media assets are organized across `public/images/` and `content/blog/`. When cus
 </div>
 
 <div align="center">
-  <img src="assets/cases/franklin/04-channel-matrix-flex.png" alt="Channel Matrix Adaptation" width="48%"/>
-  <img src="assets/cases/franklin/06-footer-no-deadlinks.png" alt="Footer Decoupled Zero Deadlinks" width="48%"/>
+  <img src="assets/cases/franklin/05-doctor-check-passed.png" alt="Franklin Doctor Check Passed" width="48%"/>
+  <img src="assets/cases/franklin/06-footer-no-deadlinks.png" alt="Franklin Footer Decoupled Zero Deadlinks" width="48%"/>
 </div>
 <div align="center">
-  <p><em>Left: Elastic channel matrix supports external links & modal stamps; Right: Footer completely decoupled with zero dead # links</em></p>
+  <p><em>Left: Running pnpm run doctor confirms 0 violations and 0 template residue; Right: Footer completely decoupled with zero modern social residue and zero # deadlinks</em></p>
 </div>
 
 ---

@@ -9,7 +9,7 @@
     "app/blog/page.tsx": "e3280b4e5d27c7f9e313ebb5091a89ff01b3c3bd215d32ad53084365745eb0a2",
     "app/projects/page.tsx": "cfc4362ef0cf68689861911fa8d5a790ae85b07d5a3569a0adc5a14003ce7bc6",
     "app/photos/page.tsx": "38d887504faf2de061c25f2566ecd05973878966480ea824a9688b9fd0341144",
-    "app/admin/page.tsx": "3ad8c192e8a9cd88e83e599a577509f8c80da0b15cf687956563bd393262bb4f",
+    "app/admin/page.tsx": "ae5b1d5e7613fa4868a2b96ae2e62f103513fac00b14a8f911261bfc89576122",
     "app/feed.xml/route.ts": "bdb85a0c1be4a4ab3e18019f4ca0404fa8ec4b4ce382e898b75252b88297180a",
     "app/llms.txt/route.ts": "d33bf1568a35c85c6d3889abbe3849f999967dcc77c7681c6a77cacabc61cc4e",
     "app/og/route.tsx": "6b6a452730572a87b2c3c772d55357970d0ec472f66f28f88e35dce903bfb32d",

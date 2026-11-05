@@ -254,11 +254,11 @@ python scripts/xh_blog_cli.py snapshot --tag v1.0.0-my-brand
 </div>
 
 <div align="center">
-  <img src="assets/cases/franklin/04-channel-matrix-flex.png" alt="渠道矩阵多形态弹性适配" width="48%"/>
-  <img src="assets/cases/franklin/06-footer-no-deadlinks.png" alt="页脚彻底解耦零死链" width="48%"/>
+  <img src="assets/cases/franklin/05-doctor-check-passed.png" alt="富兰克林通过 pnpm doctor 综合体检" width="48%"/>
+  <img src="assets/cases/franklin/06-footer-no-deadlinks.png" alt="富兰克林页脚彻底解耦零死链" width="48%"/>
 </div>
 <div align="center">
-  <p><em>左：渠道矩阵支持外链直跳与二维码印记弹窗双形态；右：页脚彻底解耦，无写死小报童，无 # 死链</em></p>
+  <p><em>左：运行 pnpm run doctor 验证 0 违规、0 模板残留；右：页脚彻底解耦，富兰克林无任何现代自媒体残留，无 # 死链</em></p>
 </div>
 
 ---

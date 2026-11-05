@@ -38,37 +38,47 @@
   <p><em>图 1-3：底栏印记浮层弹出体验（无外部页面跳出）</em></p>
 </div>
 
-### 4. 渠道矩阵多形态与国内主流社交适配
-无论是历史古典场景，还是现代国内自媒体场景（如抖音、B站、视频号），渠道矩阵均支持 **「外链直达」** 与 **「二维码印记弹窗」** 双重交互形态：
-
-<div align="center">
-  <img src="../assets/cases/franklin/04-channel-matrix-flex.png" alt="渠道矩阵多形态" width="90%"/>
-  <p><em>图 1-4：通用渠道矩阵的多形态弹性适配</em></p>
-</div>
-
-### 5. `pnpm run doctor` 构建前秒级体检通过
+### 4. `pnpm run doctor` 构建前秒级体检通过
 在执行生产打包前，运行体检脚本自动发现违规项并验证通过，确保 0 违禁词、0 遗留暗桩：
 
 <div align="center">
   <img src="../assets/cases/franklin/05-doctor-check-passed.png" alt="Doctor 体检通过" width="90%"/>
-  <p><em>图 1-5：pnpm run doctor 前置综合体检全绿通过</em></p>
+  <p><em>图 1-4：pnpm run doctor 前置综合体检全绿通过</em></p>
 </div>
 
-### 6. 页脚彻底解耦 · 零写死占位与零死链
-彻底消除了原版组件中写死的小报童与无效 `#` 锚点，页脚依据创作者启用的渠道弹性排列：
+### 5. 页脚彻底解耦 · 零写死占位与零死链
+彻底消除了原版组件中写死的小报童与无效 `#` 锚点，页脚依据创作者启用的渠道弹性排列（无任何现代社交残留）：
 
 <div align="center">
   <img src="../assets/cases/franklin/06-footer-no-deadlinks.png" alt="页脚彻底解耦" width="90%"/>
-  <p><em>图 1-6：富兰克林页脚实机渲染（无小报童硬编码，零死链）</em></p>
+  <p><em>图 1-5：富兰克林页脚实机渲染（无小报童硬编码，零死链）</em></p>
 </div>
 
-### 7. 暗黑模式下的温润蚀刻质感
+### 6. 暗黑模式下的温润蚀刻质感
 在全黑暗调模式下，半调网点与铜版画质感完美呈现：
 
 <div align="center">
   <img src="../assets/cases/franklin/07-footer-dark-theme.png" alt="暗黑页脚" width="90%"/>
-  <p><em>图 1-7：富兰克林暗黑模式下的页脚与底盘质感</em></p>
+  <p><em>图 1-6：富兰克林暗黑模式下的页脚与底盘质感</em></p>
 </div>
+
+---
+
+## 装修工具链演示：纯静态可视化配置面板 (Slot Config Panel)
+
+> 💡 **特别说明与勘误**：  
+> 富兰克林（1706—1790）是 18 世纪历史人物，**绝无任何现代短视频或社交账号**。  
+> 下图展示的是通用可视化装修面板（[`docs/slot-config-panel.html`](slot-config-panel.html)）在为**现代自媒体创作者**配置时的功能演示（以短视频平台为例，展示如何自由切换「主页外链」与「二维码浮层」两种形态）：
+
+<div align="center">
+  <img src="../assets/cases/franklin/04-channel-matrix-flex.png" alt="通用可视化面板短视频双形态演示" width="90%"/>
+  <p><em>图 2-1：纯静态可视化配置面板（docs/slot-config-panel.html）针对现代自媒体创作者的双形态支持</em></p>
+</div>
+
+- **形态 A（外链直达 `external`）**：填入创作者主页链接，在首页与页脚渲染为文字外链；
+- **形态 B（二维码印记浮层 `qr-image`）**：填入二维码图片路径，渲染为底栏按钮，点击弹出半调网点扫码浮层；
+- **形态 C（彻底关闭）**：对于富兰克林等历史人物或无该平台的创作者，直接在 `disabledChannels` 中剔除，全站自动优雅隐身，绝不渲染任何 `#` 死链。
+
 
 ---
 
