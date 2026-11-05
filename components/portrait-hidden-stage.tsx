@@ -16,7 +16,7 @@ const TOUCH_REVEAL_MS = 2600
 
 export function PortraitHiddenStage({
   children,
-  label = `${brandConfig.name}的半色调网点肖像舞台`,
+  label = `${brandConfig.name}的半色调网点肖像。点击切换隐藏等高线舞台`,
   className,
   onClick,
 }: Readonly<{

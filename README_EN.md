@@ -126,6 +126,24 @@ python scripts/xh_blog_cli.py inspect-slots --output .scratch/my-slots.json
 python scripts/xh_blog_cli.py snapshot --tag v1.0.0-my-brand
 ```
 
+### Asset Directory Mapping Table
+
+Media assets are organized across `public/images/` and `content/blog/`. When customizing for your brand, place your assets according to this table:
+
+| Asset Type | File Path | Recommended Dimensions | Usage & Slot Mapping |
+|---|---|---|---|
+| **Brand Avatar/IP** | `public/images/avatar.png` | 1:1 Square (≥ 512×512) | WeChat modal, bottom dock favicon, mail seal (`lib/personal.ts`) |
+| **Light Portrait** | `public/images/headshot.jpg` | 3:4 or 1:1 (≥ 800×1066) | Hero section portrait in Light Mode (`lib/personal.ts`) |
+| **Dark Square Portrait**| `public/images/portrait-square.jpg` | 1:1 Square (≥ 800×800) | Dark mode halftone shader print (`components/halftone-portrait.tsx`) |
+| **WeChat Official QR** | `public/images/wechat-qr.jpg` | 1:1 Square (≥ 400×400) | Social cards & bottom dock QR modal (`components/social-cards.tsx`) |
+| **Book Covers** | `public/images/books/<name>.jpg` | 3:4 Classic Book Ratio | 3D interactive bookshelf covers (`lib/personal.ts` -> `books`) |
+| **Vinyl Record Covers** | `public/images/records/<name>.jpg`| 1:1 Square Album Ratio | Vinyl player sleeves & rotational light (`lib/personal.ts` -> `records`) |
+| **Darkroom Photos** | `public/images/photos/<name>.jpg` | High-res original aspect | Darkroom masonry gallery & doorway cards (`lib/photos.ts`) |
+| **Blog Article Covers** | `content/blog/<slug>/cover.jpg` | 16:9 Ratio (1200×675) | Blog post cards & OG social share images (`content/blog/`) |
+
+> 📖 **Full Slots Reference**: For detailed field definitions, TypeScript types, and UI mapping, see [Dynamic V-Slots Full Reference Dictionary (docs/SLOTS_DICTIONARY.md)](docs/SLOTS_DICTIONARY.md).
+
+
 ---
 
 ## How It Works & Architecture

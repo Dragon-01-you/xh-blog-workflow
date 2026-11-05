@@ -20,7 +20,7 @@ function markdownLink(label: string, url: string, note: string): string {
 export function buildLlmsText(): string {
   const posts = getAllPosts()
 
-  return [
+  const lines: (string | null | undefined)[] = [
     `# ${brandConfig.name} (${brandConfig.enName})`,
     '',
     `> ${brandConfig.tagline}。${brandConfig.bio}`,
@@ -28,9 +28,9 @@ export function buildLlmsText(): string {
     '## 核心原则与站点架构',
     '',
     `- 站点主理人：${brandConfig.name} (${brandConfig.enName})`,
-    `- 微信公众号：「${personalInfo.weChatOfficial}」`,
-    `- GitHub：${personalInfo.github}`,
-    `- 坐标：${brandConfig.location}`,
+    personalInfo.weChatOfficial ? `- 微信公众号：「${personalInfo.weChatOfficial}」` : null,
+    personalInfo.github ? `- GitHub：${personalInfo.github}` : null,
+    brandConfig.location ? `- 坐标：${brandConfig.location}` : null,
     '- 设计系统：瑞士纸墨设计系统（Swiss Paper & Ink）、严格网格排版与确定性认知资产',
     '',
     '## 核心栏目 (Core Sections)',
@@ -94,5 +94,11 @@ export function buildLlmsText(): string {
       '开放爬取公域路由并保护内部后台',
     ),
     '',
-  ].join('\n')
+    '## 关于本站工作流母版',
+    '',
+    '- 本站基于 [xh-blog-workflow](https://github.com/Dragon-01-you/xh-blog-workflow) 瑞士纸墨高保真个人博客工作流构建。',
+    '',
+  ]
+
+  return lines.filter((line): line is string => line !== null && line !== undefined).join('\n')
 }

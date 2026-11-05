@@ -102,7 +102,10 @@ describe('Subagent 2: Micro-interactions & Social Cards 1:1 Verification', () =>
       )
 
       const user = personalInfo.githubUser || personalInfo.handle || 'Dragon-01-you'
-      expect(html).toContain(`href="https://github.com/${user}?tab=repositories"`)
+      const expectedHref = personalInfo.github
+        ? `${personalInfo.github}?tab=repositories`
+        : `https://github.com/${user}?tab=repositories`
+      expect(html).toContain(`href="${expectedHref}"`)
     })
 
     it('XiaohongshuCardBody renders brand name and engagement statistics', () => {
@@ -194,7 +197,7 @@ describe('Subagent 2: Micro-interactions & Social Cards 1:1 Verification', () =>
       container.remove()
     })
 
-    it('SiteFooter renders clean contact items without fake X/Twitter/YouTube links and handles Xiaobaotong as WIP', () => {
+    it('SiteFooter renders clean contact items without fake X/Twitter/YouTube links and handles external links safely', () => {
       const html = renderToString(
         <LanguageProvider defaultLanguage="zh">
           <SiteFooter />
@@ -206,14 +209,14 @@ describe('Subagent 2: Micro-interactions & Social Cards 1:1 Verification', () =>
       expect(html).not.toContain('twitter.com')
       expect(html).not.toContain('youtube.com')
 
-      // Xiaobaotong rendered as WIP text without dead hash link
-      expect(html).toContain('小报童')
-      expect(html).toContain('筹备中')
+      // Never render dead placeholder links
       expect(html).not.toContain('href="#"')
       expect(html).not.toContain('href=""')
 
       // Real targets are present
-      expect(html).toContain(personalInfo.github)
+      if (personalInfo.github) {
+        expect(html).toContain(personalInfo.github)
+      }
       if (personalInfo.xiaoHongShu) {
         expect(html).toContain(personalInfo.xiaoHongShu)
       }

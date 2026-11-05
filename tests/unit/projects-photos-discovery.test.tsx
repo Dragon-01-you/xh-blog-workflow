@@ -88,16 +88,17 @@ describe('Issue 05 & 06: Projects, Photos & Discovery Gateways', () => {
     })
 
     it('computes deterministic tilt angles between -2 and 2 degrees', () => {
-      for (const photo of photos) {
-        const tilt = tiltFromSlug(photo.id)
+      const sampleIds = photos.length > 0 ? photos.map((p) => p.id) : ['photo-sample-1', 'photo-sample-2']
+      for (const id of sampleIds) {
+        const tilt = tiltFromSlug(id)
         expect(tilt).toBeGreaterThanOrEqual(-2)
         expect(tilt).toBeLessThanOrEqual(2)
       }
     })
 
     it('renders darkroom empty state when photos list is empty, and masonry when populated', () => {
-      // 1. Verify empty darkroom state
-      const emptyWallHtml = renderToStaticMarkup(<PublishedPhotoWall photos={photos} />)
+      // 1. Verify empty darkroom state with empty fixture
+      const emptyWallHtml = renderToStaticMarkup(<PublishedPhotoWall photos={[]} />)
       expect(emptyWallHtml).toContain('darkroom-empty-state')
       expect(emptyWallHtml).toContain('暗房冲印整理中')
 
@@ -124,7 +125,7 @@ describe('Issue 05 & 06: Projects, Photos & Discovery Gateways', () => {
   })
 
   describe('3. Public Discovery Gateway: Sitemap & Robots (Issue 06)', () => {
-    it('sitemap includes base sections and all 8 published post slugs', () => {
+    it('sitemap includes base sections and all published post slugs', () => {
       const sitemapEntries = sitemap()
       const urls = sitemapEntries.map((e) => e.url)
 
@@ -134,7 +135,7 @@ describe('Issue 05 & 06: Projects, Photos & Discovery Gateways', () => {
       expect(urls.some((u) => u.endsWith('/photos'))).toBe(true)
 
       const posts = getAllPosts()
-      expect(posts.length).toBe(8)
+      expect(posts.length).toBeGreaterThanOrEqual(1)
       for (const post of posts) {
         expect(urls.some((u) => u.includes(`/blog/${post.slug}`))).toBe(true)
       }

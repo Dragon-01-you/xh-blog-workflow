@@ -10,6 +10,12 @@ export interface BrandConfig {
   bioEn: string
   heroIntroZh?: string
   heroIntroEn?: string
+  sectionIntroBlog?: string
+  sectionIntroBlogEn?: string
+  sectionIntroProjects?: string
+  sectionIntroProjectsEn?: string
+  sectionIntroPhotos?: string
+  sectionIntroPhotosEn?: string
   avatar: string
   headshotLight: string
   headshotDark: string

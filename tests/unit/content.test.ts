@@ -10,17 +10,6 @@ import {
 } from '~/lib/content'
 
 describe('文章数据管线与 PostRail 迷你标尺目录 (Issue 04 Seam)', () => {
-  const EXPECTED_SLUGS = [
-    'reflecting-after-two-months',
-    'concept-visualization',
-    'top-developers-make-questions',
-    'vibecoding-deployment-guide',
-    'weekly-review-2026-06-15',
-    'five-legal-security-labs',
-    'kali-linux-penetration-testing-intro',
-    'campus-data-card-for-alma-mater',
-  ] as const
-
   it('1. getAllPosts() 返回已发布文章，且包含全部必须字段', () => {
     const posts = getAllPosts()
     expect(posts.length).toBeGreaterThan(0)

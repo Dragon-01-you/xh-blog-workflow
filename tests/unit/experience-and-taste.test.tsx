@@ -168,7 +168,7 @@ describe('03: Home Experience, VinylShelf & 3D Bookshelf', () => {
       container.remove()
     })
 
-    it('renders 6 vinyl records with sliding/rotating disc, mood annotation, and smooth navigation', () => {
+    it('renders vinyl records with sliding/rotating disc, mood annotation, and smooth navigation', () => {
       act(() => {
         root.render(
           <LanguageProvider defaultLanguage="zh">
@@ -178,10 +178,10 @@ describe('03: Home Experience, VinylShelf & 3D Bookshelf', () => {
       })
 
       const triggers = container.querySelectorAll<HTMLButtonElement>('.vinyl-trigger')
-      expect(triggers.length).toBe(6)
+      expect(triggers.length).toBe(records.length)
 
       // Initial active record (middle one)
-      const initialIndex = Math.floor(records.length / 2) // index 3: 解药
+      const initialIndex = Math.floor(records.length / 2)
       const initialRecord = records[initialIndex]
       expect(triggers[initialIndex].getAttribute('aria-pressed')).toBe('true')
 
@@ -207,7 +207,7 @@ describe('03: Home Experience, VinylShelf & 3D Bookshelf', () => {
         )
       })
 
-      const nextIndex = (initialIndex + 1) % records.length // index 4: 追梦赤子心
+      const nextIndex = (initialIndex + 1) % records.length
       const nextRecord = records[nextIndex]
       expect(triggers[nextIndex].getAttribute('aria-pressed')).toBe('true')
       expect(container.querySelector('.vinyl-annotation')?.textContent).toContain(nextRecord.album)
@@ -232,7 +232,7 @@ describe('03: Home Experience, VinylShelf & 3D Bookshelf', () => {
       container.remove()
     })
 
-    it('renders 8 books with 3D spines, draws out selected book with cover and reading comment', () => {
+    it('renders books with 3D spines, draws out selected book with cover and reading comment', () => {
       act(() => {
         root.render(
           <LanguageProvider defaultLanguage="zh">
@@ -242,28 +242,30 @@ describe('03: Home Experience, VinylShelf & 3D Bookshelf', () => {
       })
 
       const bookButtons = container.querySelectorAll<HTMLButtonElement>('.book3')
-      expect(bookButtons.length).toBe(8)
+      expect(bookButtons.length).toBe(books.length)
 
-      // Initially, book 0 (乔布斯传) is open
+      // Initially, book 0 is open
       expect(bookButtons[0].getAttribute('aria-pressed')).toBe('true')
       const annotation = container.querySelector('.shelf-annotation')
       expect(annotation).not.toBeNull()
       expect(annotation?.textContent).toContain(books[0].title)
       expect(annotation?.textContent).toContain(books[0].comment)
 
-      // External link to z-library
+      // External link matches book.url
       const link = annotation?.querySelector('a') ?? annotation
-      expect(link?.getAttribute('href')).toMatch(/^https:\/\/z-library\.sk\/s\//)
+      expect(link?.getAttribute('href')).toBe(books[0].url)
 
-      // Click on book 1 (原则)
-      act(() => {
-        bookButtons[1].click()
-      })
+      // Click on book 1 if multiple books exist
+      if (books.length > 1) {
+        act(() => {
+          bookButtons[1].click()
+        })
 
-      expect(bookButtons[1].getAttribute('aria-pressed')).toBe('true')
-      expect(bookButtons[0].getAttribute('aria-pressed')).toBe('false')
-      expect(container.querySelector('.shelf-annotation')?.textContent).toContain(books[1].title)
-      expect(container.querySelector('.shelf-annotation')?.textContent).toContain(books[1].comment)
+        expect(bookButtons[1].getAttribute('aria-pressed')).toBe('true')
+        expect(bookButtons[0].getAttribute('aria-pressed')).toBe('false')
+        expect(container.querySelector('.shelf-annotation')?.textContent).toContain(books[1].title)
+        expect(container.querySelector('.shelf-annotation')?.textContent).toContain(books[1].comment)
+      }
     })
   })
 })

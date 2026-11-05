@@ -48,8 +48,8 @@ describe('02: Home Hero, HalftonePortrait & NavCards (Issue 02)', () => {
         <HalftonePortrait
           srcLight="/images/headshot.jpg"
           srcDark="/images/portrait-square.jpg"
-          alt="芯火的半色调网点肖像"
-          altEn="Xinhuo halftone portrait"
+          alt={`${brandConfig.name}的半色调网点肖像`}
+          altEn={`${brandConfig.enName} halftone portrait`}
         />
       )
 
@@ -57,7 +57,7 @@ describe('02: Home Hero, HalftonePortrait & NavCards (Issue 02)', () => {
       expect(html).toContain('/images/headshot.jpg')
       expect(html).toContain('/images/portrait-square.jpg')
       expect(html).toContain('role="img"')
-      expect(html).toContain('aria-label="芯火的半色调网点肖像"')
+      expect(html).toContain(`aria-label="${brandConfig.name}的半色调网点肖像"`)
       expect(html).toContain('data-real-photo')
     })
 
@@ -73,8 +73,8 @@ describe('02: Home Hero, HalftonePortrait & NavCards (Issue 02)', () => {
           <HalftonePortrait
             srcLight="/images/headshot.jpg"
             srcDark="/images/portrait-square.jpg"
-            alt="芯火的肖像"
-            altEn="Xinhuo's portrait"
+            alt={`${brandConfig.name}的肖像`}
+            altEn={`${brandConfig.enName}'s portrait`}
             onToggleStage={onToggle}
             onClick={onClick}
           />
@@ -126,8 +126,8 @@ describe('02: Home Hero, HalftonePortrait & NavCards (Issue 02)', () => {
             <HalftonePortrait
               srcLight="/images/headshot.jpg"
               srcDark="/images/portrait-square.jpg"
-              alt="芯火的肖像"
-              altEn="Xinhuo's portrait"
+              alt={`${brandConfig.name}的肖像`}
+              altEn={`${brandConfig.enName}'s portrait`}
             />
           )
         })

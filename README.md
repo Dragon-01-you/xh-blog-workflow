@@ -126,6 +126,24 @@ python scripts/xh_blog_cli.py inspect-slots --output .scratch/my-slots.json
 python scripts/xh_blog_cli.py snapshot --tag v1.0.0-my-brand
 ```
 
+### 图片资产目录对照表 (Asset Directory Mapping)
+
+站点的图片资产分为 7 类，存放于 `public/images/` 与 `content/blog/` 中。替换为创作者自己的资产时，请对照下表放置：
+
+| 资产类型 | 存放物理路径 | 尺寸/比例推荐 | 用途与关联槽位 |
+|---|---|---|---|
+| **品牌头像/IP标** | `public/images/avatar.png` | 1:1 正方形 (建议 ≥ 512×512) | 微信弹窗、底栏 Favicon、邮件印章 (`lib/personal.ts`) |
+| **明亮主肖像** | `public/images/headshot.jpg` | 3:4 或 1:1 竖构图 (≥ 800×1066) | 首页明亮模式主写真 (`lib/personal.ts`) |
+| **暗色方肖像** | `public/images/portrait-square.jpg` | 1:1 正方形 (≥ 800×800) | 首页暗黑半色调网点着色器 (`components/halftone-portrait.tsx`) |
+| **公众号二维码** | `public/images/wechat-qr.jpg` | 1:1 正方形 (≥ 400×400) | 社交卡片与底栏微信弹窗 (`components/social-cards.tsx`) |
+| **书籍封面库** | `public/images/books/<name>.jpg` | 3:4 经典书封比例 | 3D 立体抽书架封面 (`lib/personal.ts` -> `books`) |
+| **黑胶唱片封套** | `public/images/records/<name>.jpg` | 1:1 正方形封套 | 黑胶唱片架封套与旋转光影 (`lib/personal.ts` -> `records`) |
+| **影廊胶片照片** | `public/images/photos/<name>.jpg` | 原图高保真 (支持横竖构图) | 胶片影廊墙暗房展示与首页扇形门卡 (`lib/photos.ts`) |
+| **文章封面题图** | `content/blog/<slug>/cover.jpg` | 16:9 比例 (推荐 1200×675) | 博客文章封面、OG 社交流水线图片 (`content/blog/`) |
+
+> 📖 **完整槽位字典**：详细的字段定义、类型与展示位置请参阅 [动态 V 槽位全景数据字典 (docs/SLOTS_DICTIONARY.md)](docs/SLOTS_DICTIONARY.md)。
+
+
 ---
 
 ## 工作原理与架构

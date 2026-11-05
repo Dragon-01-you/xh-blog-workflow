@@ -8,18 +8,32 @@ const POSTS_DIR = path.join(process.cwd(), 'content/blog')
 export const POST_ARTICLE_START_ID = 'post-article-start'
 export const TICKS_BETWEEN_LANDMARKS = 3
 
-export const publishedPostSlugs = [
-  'reflecting-after-two-months',
-  'concept-visualization',
-  'top-developers-make-questions',
-  'vibecoding-deployment-guide',
-  'weekly-review-2026-06-15',
-  'five-legal-security-labs',
-  'kali-linux-penetration-testing-intro',
-  'campus-data-card-for-alma-mater',
-] as const
+function getScannedPostSlugs(): string[] {
+  if (typeof process === 'undefined' || !fs.existsSync(POSTS_DIR)) {
+    return [
+      'reflecting-after-two-months',
+      'concept-visualization',
+      'top-developers-make-questions',
+      'vibecoding-deployment-guide',
+      'weekly-review-2026-06-15',
+      'five-legal-security-labs',
+      'kali-linux-penetration-testing-intro',
+      'campus-data-card-for-alma-mater',
+    ]
+  }
+  try {
+    return fs
+      .readdirSync(POSTS_DIR, { withFileTypes: true })
+      .filter((dirent) => dirent.isDirectory() && fs.existsSync(path.join(POSTS_DIR, dirent.name, 'index.mdx')))
+      .map((dirent) => dirent.name)
+  } catch {
+    return []
+  }
+}
 
-export type PublishedPostSlug = (typeof publishedPostSlugs)[number]
+export const publishedPostSlugs = getScannedPostSlugs()
+
+export type PublishedPostSlug = string
 
 const frontmatterSchema = z.object({
   title: z.string().min(1),
@@ -204,7 +218,7 @@ export function bodyStats(body: string) {
 }
 
 export function isPublishedPostSlug(slug: string): boolean {
-  return (publishedPostSlugs as readonly string[]).includes(slug)
+  return getScannedPostSlugs().includes(slug)
 }
 
 export function isPostSlug(slug: string): boolean {

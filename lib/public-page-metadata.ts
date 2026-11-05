@@ -16,37 +16,37 @@ export const publicPageMetadata = {
   blog: {
     zh: {
       title: '写作',
-      description: '深度思考与公开记录，关于 AI 工作流、知识沉淀工程与敏捷实践。',
-      ogDescription: `${brandConfig.name}关于设计、工程、AI 工作流与敏捷实践的深度思考。`,
+      description: brandConfig.sectionIntroBlog || `${brandConfig.name}的深度思考与公开记录。`,
+      ogDescription: brandConfig.sectionIntroBlog || `${brandConfig.name}的深度思考与公开记录。`,
     },
     en: {
       title: 'Writing',
-      description: 'Essays and reflections on AI workflows, knowledge architecture, and agile productivity.',
-      ogDescription: `Essays by ${brandConfig.enName} on AI workflows, knowledge architecture, and agile productivity.`,
+      description: brandConfig.sectionIntroBlogEn || `Essays and reflections by ${brandConfig.enName}.`,
+      ogDescription: brandConfig.sectionIntroBlogEn || `Essays and reflections by ${brandConfig.enName}.`,
     },
   },
   photos: {
     zh: {
       title: '相册',
-      description: '在工作、生活与创作中留下的一些瞬间与影像记录。',
-      ogDescription: `${brandConfig.name}在工作、生活与创作中留下的一些瞬间与影像记录。`,
+      description: brandConfig.sectionIntroPhotos || `${brandConfig.name}在工作、生活与创作中留下的一些瞬间与影像记录。`,
+      ogDescription: brandConfig.sectionIntroPhotos || `${brandConfig.name}在工作、生活与创作中留下的一些瞬间与影像记录。`,
     },
     en: {
       title: 'Photos',
-      description: 'Captured moments and visual records across work, life, and creation.',
-      ogDescription: `Moments ${brandConfig.enName} has kept from work, life, and everywhere in between.`,
+      description: brandConfig.sectionIntroPhotosEn || `Moments ${brandConfig.enName} has kept from work, life, and everywhere in between.`,
+      ogDescription: brandConfig.sectionIntroPhotosEn || `Moments ${brandConfig.enName} has kept from work, life, and everywhere in between.`,
     },
   },
   projects: {
     zh: {
       title: '项目',
-      description: '这些年构建的 AI 工业管线、知识库系统与开源工程实践。有些实用，有些探索，每一个都认真做过。',
-      ogDescription: `${brandConfig.name}构建的 AI 工业管线、知识库系统与开源工程实践。`,
+      description: brandConfig.sectionIntroProjects || `${brandConfig.name}构建的代表作品、工具系统与开源实践。`,
+      ogDescription: brandConfig.sectionIntroProjects || `${brandConfig.name}构建的代表作品、工具系统与开源实践。`,
     },
     en: {
       title: 'Projects',
-      description: 'AI pipelines, knowledge systems, and open-source workflows built over the years. Some practical, some exploratory, all crafted with care.',
-      ogDescription: 'Products, pipelines, and open-source tools made with care.',
+      description: brandConfig.sectionIntroProjectsEn || `Products, systems, and open-source workflows crafted by ${brandConfig.enName}.`,
+      ogDescription: brandConfig.sectionIntroProjectsEn || `Products, systems, and open-source workflows crafted by ${brandConfig.enName}.`,
     },
   },
   admin: {
