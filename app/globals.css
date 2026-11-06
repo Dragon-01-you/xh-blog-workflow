@@ -3704,6 +3704,16 @@ a:focus-visible .external-label .external-mark {
   text-decoration: none;
 }
 
+.bookshelf-room .shelf-annotation {
+  height: auto;
+  min-height: 3.5rem;
+  margin-top: 1.25rem;
+  max-width: 38rem;
+  width: auto;
+  z-index: 2;
+  padding: 0 1rem;
+}
+
 .shelf-annotation::before {
   content: '';
   position: absolute;

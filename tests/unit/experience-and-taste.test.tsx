@@ -214,22 +214,7 @@ describe('03: Home Experience, VinylShelf & 3D Bookshelf', () => {
       expect(container.querySelector('.vinyl-annotation')?.textContent).toContain(nextRecord.mood)
     })
 
-    it('integrates Braun Hi-Fi Minimalist Turntable with tonearm, strobe dots, and RPM controls', () => {
-      act(() => {
-        root.render(
-          <LanguageProvider defaultLanguage="zh">
-            <VinylShelf />
-          </LanguageProvider>
-        )
-      })
 
-      const turntable = container.querySelector('.braun-turntable-chassis')
-      expect(turntable).not.toBeNull()
-      expect(turntable?.textContent).toContain('BRAUN AUDIO 310')
-      expect(turntable?.textContent).toContain('TONEARM MECHANISM')
-      expect(turntable?.textContent).toContain('33 ⅓')
-      expect(turntable?.textContent).toContain('45')
-    })
   })
 
   describe('4. Bookshelf (04 // 珍藏书架 3D 抽书立体书架)', () => {

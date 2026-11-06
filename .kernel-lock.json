@@ -3,7 +3,7 @@
   "template_source": "E:\\芯火知识库\\芯火知识库\\个人知识库\\01-当前任务\\网站设计工作流\\site-2",
   "kernel_file_count": 49,
   "files": {
-    "app/globals.css": "5774abd1a65b245cd198b5557f46fd945dac0d54966a1802bc7657ce7db5edba",
+    "app/globals.css": "b150ff668a35ff58d103e33a1878ae3f11df3382e9edd40121a6dafc86e2d394",
     "app/layout.tsx": "df9b6be60da5ad5cc1619c5650d4f2c25337c4d1a3f6d2e595d47ddeef1bac43",
     "app/page.tsx": "831c33b34881ef8f65aeab55caa78c5d073836befa239e7e95ff56deeb57190a",
     "app/blog/page.tsx": "e3280b4e5d27c7f9e313ebb5091a89ff01b3c3bd215d32ad53084365745eb0a2",
@@ -47,7 +47,7 @@
     "components/site-footer.tsx": "d184e51cae3474f55cba2967c1c7875571cd17d87638114c640fe1e25d64e416",
     "components/social-cards.tsx": "626d8dea518d3d497bb811ec7de97f8cc2dfe7236c4ff488967ab2ba134e8f52",
     "components/social-preview-card.tsx": "bf729811c71e48aec6e689e40fd5b855e31a58ae47285ff157407fa54baf8ccc",
-    "components/vinyl-shelf.tsx": "7711cd6be95197ad644418cec5ea511f60b4a6d82cec35461a01e0cf08e28b0b",
+    "components/vinyl-shelf.tsx": "7a5295606c9b5ca56c258484f4a3a5c182af685c15decbe1970b0af7be3e2c6f",
     "components/writing-ink-field.tsx": "13268ddb677dfa8160393bddf10d1c9a6700160c4748e103fed66278e4406ec0",
     "components/zoom-image.tsx": "88245ce8e4cf0e89e0d27b1c823f93d00ebd7141bae717fdb3c4897106b2569e",
     "components/use-hidden-shader-field.ts": "4e43b262d03409fdfc49bff4fe2fab308f26c22d20b6b1bc9c52039f1a111cb4",

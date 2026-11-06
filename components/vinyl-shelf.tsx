@@ -5,7 +5,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { flushSync } from 'react-dom'
 
 import { ExternalLabel } from './external-mark'
-import { BraunVinylTurntable } from './braun-vinyl-turntable'
 import { localize, useLocale } from '~/lib/locale-client'
 import { records, type Record_ } from '~/lib/personal'
 import { T } from '~/lib/i18n'
@@ -753,8 +752,6 @@ export function VinylShelf() {
           </p>
         </div>
 
-        {/* Braun Hi-Fi Minimalist Turntable Player */}
-        <BraunVinylTurntable record={activeRecord} />
       </div>
     </section>
   )
