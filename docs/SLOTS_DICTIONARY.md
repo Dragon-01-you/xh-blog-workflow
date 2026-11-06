@@ -268,7 +268,7 @@ python scripts/xh_blog_cli.py verify-kernel
 # 3. 检查槽位变量完整性
 python scripts/xh_blog_cli.py inspect-slots
 
-# 4. 运行 68 项自动化单元测试
+# 4. 运行 74 项自动化单元测试
 pnpm test
 
 # 5. 严格 TypeScript 类型检查

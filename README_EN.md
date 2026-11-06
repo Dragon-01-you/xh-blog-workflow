@@ -163,7 +163,7 @@ Media assets are organized across `public/images/` and `content/blog/`. When cus
 |---|---|---|---|
 | **Tier 1: K-Code Frozen Core** | SHA-256 offline hash locks guarding design foundations | `globals.css` (6,972 lines), WebGPU shaders, bottom dock physics, halftone component | 49 critical files zero modifications (100% hash match) |
 | **Tier 2: Dynamic V-Slot Hot-Swap** | Data-driven configuration and media asset injection | `.slots.json`, `lib/personal.ts`, `lib/projects.ts`, `content/blog/`, `public/images/` | Zero core code touched, instantaneous personal updates |
-| **Tier 3: Deterministic Verification** | Multi-level engineering defenses preventing broken code | Vitest test suites, TypeScript strict mode, Next.js 15.3 SSG compile scripts | 68/68 tests passing, 22 static routes zero 404s |
+| **Tier 3: Deterministic Verification** | Multi-level engineering defenses preventing broken code | Vitest test suites, TypeScript strict mode, Next.js 15.3 SSG compile scripts | 74/74 tests passing, 21 static routes zero 404s |
 
 ---
 
@@ -176,8 +176,8 @@ Media assets are organized across `public/images/` and `content/blog/`. When cus
 | **Animation & Micro-interactions** | Framer Motion + Custom Spring Damping Physics | Parallax scrolling, floating magnetic bottom dock, haptic spring recoil |
 | **Shader Rendering** | WebGPU Shader Fields (Ink / Portrait / Blueprint) | Hardware-accelerated dynamic grain and fluid light with graceful fallback |
 | **Halftone Portrait** | Halftone Shader Print + High-Res Photo Toggle | Click to toggle between Swiss classic halftone print and full-color photograph |
-| **Unit Test Coverage** | Vitest 3.0 + @testing-library/react | Thorough component and utility coverage; 68 tests running in ~1.4s |
-| **Static Routes Pre-rendered** | 22 SSG routes generated at build time | Home, Articles, Article Details, Projects, Film Gallery, Admin Dashboard |
+| **Unit Test Coverage** | Vitest 3.0 + @testing-library/react | Thorough component and utility coverage; 74 tests running in ~1.4s |
+| **Static Routes Pre-rendered** | 21 SSG routes generated at build time | Home, Articles, Article Details, Projects, Film Gallery, Admin Dashboard |
 
 ---
 
@@ -188,7 +188,7 @@ Media assets are organized across `public/images/` and `content/blog/`. When cus
 | **Visual Fidelity** | Easy to corrupt delicate CSS rules | Generic flat layout, lacking tactile character | **1:1 Swiss paper & ink, halftone shaders, paper shadows** |
 | **Modification Safety** | High risk; one `div` edit breaks three pages | Easy to edit, but lacks regression protection | **49 K-code files SHA-256 locked; zero contamination** |
 | **Variable Isolation** | Hardcoded across dozens of `.tsx` files | Basic `config.json` | **8 structured V-slots (`.slots.json`) ready for AI workflows** |
-| **Verification & Rollback** | No automated tests; manual visual inspection | Basic linting at most | **68 unit tests + 22 SSG routes + one-click semantic snapshots** |
+| **Verification & Rollback** | No automated tests; manual visual inspection | Basic linting at most | **74 unit tests + 21 SSG routes + one-click semantic snapshots** |
 | **Attribution & Ethics** | Often concealed or miscredited | Vague licensing | **Transparent attribution to Cali Castle; ethical & respected** |
 
 ---
@@ -198,7 +198,7 @@ Media assets are organized across `public/images/` and `content/blog/`. When cus
 > 🖼️ **Visual Proof over Plain Text**: This project rejects empty claims. Below are real screenshots capturing the live visual fidelity of the master baseline (Xinhuo) and a historical polymath (Benjamin Franklin). For the full screenshot gallery, see [**`docs/SHOWCASE.md`**](docs/SHOWCASE.md).
 
 ### Case 1: Polymath & Public Servant · Benjamin Franklin
-> **Verification Context**: 18th-century historic figure without modern social media (no WeChat, no Xiaohongshu, no GitHub). 49 K-code files 100% intact, 68/68 unit tests passing, 22 SSG routes generated.
+> **Verification Context**: 18th-century historic figure without modern social media (no WeChat, no Xiaohongshu, no GitHub). 49 K-code files 100% intact, 74/74 unit tests passing, 21 SSG routes generated.
 
 <div align="center">
   <img src="assets/cases/franklin/02-home-channels.png" alt="Franklin Hero Channels" width="48%"/>
@@ -234,7 +234,7 @@ Media assets are organized across `public/images/` and `content/blog/`. When cus
   <img src="assets/cases/xinhuo/05-projects-grid.png" alt="Projects Grid" width="48%"/>
 </div>
 <div align="center">
-  <p><em>Left: 8 long-form articles dynamically grouped by year with reading times; Right: Curated project cards with GitHub metrics</em></p>
+  <p><em>Left: 6 long-form articles dynamically grouped by year with reading times; Right: Curated project cards with GitHub metrics</em></p>
 </div>
 
 ---
@@ -310,7 +310,7 @@ No, it is completely safe to ignore. Next.js 15 includes cross-platform WASM fal
 - [x] 1:1 Swiss paper-and-ink aesthetic and 6,972-line `globals.css` port
 - [x] 49 K-code architectural files locked with SHA-256 hashes
 - [x] 8 dynamic V-slot definitions and metadata specification
-- [x] 68/68 Vitest unit test suite coverage
+- [x] 74/74 Vitest unit test suite coverage
 - [x] Bilingual documentation, CI matrix, and community governance files
 - [x] High-resolution childhood IP avatar system with halftone shader toggle
 - [ ] Interactive web-based slot configuration dashboard for non-technical users

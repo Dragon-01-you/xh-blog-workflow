@@ -35,5 +35,5 @@
 3. **只改 V 槽位**：更新 `lib/personal.ts`、`lib/projects.ts`、`lib/photos.ts` 与 `content/blog/`；
 4. **弹性渠道**：在 `lib/channels.ts` 中只保留真实存在的渠道，绝不产生 `#` 死链；
 5. **门禁自愈**：构建前必须执行 `pnpm run doctor`，若有红灯依据体检字典立即自愈；
-6. **全量闭环**：确保 `python tests/test_smoke.py`、`pnpm test` (68/68)、`pnpm verify:public-discovery` 与 `pnpm build` (22/22 SSG) 100% 绿灯。
+6. **全量闭环**：确保 `python tests/test_smoke.py`、`pnpm test` (74/74)、`pnpm verify:public-discovery` 与 `pnpm build` (21/21 SSG) 100% 绿灯。
 

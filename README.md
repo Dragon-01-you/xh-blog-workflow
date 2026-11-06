@@ -173,7 +173,7 @@ python scripts/xh_blog_cli.py snapshot --tag v1.0.0-my-brand
 |---|---|---|---|
 | **第 1 层：K 代码冷冻内核** | SHA-256 离线哈希锁，严格锁定底层视觉系统 | `globals.css` (6,972行)、WebGPU 着色器、底栏弹簧动画、半色调肖像核心组件 | 49 个关键文件零修改（哈希比对通过） |
 | **第 2 层：V 槽位动态热插拔** | 纯数据驱动，仅通过配置表与媒体库注入品牌资产 | `.slots.json`、`lib/personal.ts`、`lib/projects.ts`、`lib/channels.ts`、`content/blog/`、`public/images/` | 零代码污染，个人信息与文章即时替换 |
-| **第 3 层：确定性自动化验收** | 多维工程防线，杜绝任何未检出的断裂代码入库 | Vitest 单元测试、TypeScript 严格模式、Next.js 15.3 SSG、`xh_doctor.mjs` 硬门禁 | 68/68 测试全绿，22 静态路由零 404，doctor 零阻塞 |
+| **第 3 层：确定性自动化验收** | 多维工程防线，杜绝任何未检出的断裂代码入库 | Vitest 单元测试、TypeScript 严格模式、Next.js 15.3 SSG、`xh_doctor.mjs` 硬门禁 | 74/74 测试全绿，21 静态路由零 404，doctor 零阻塞 |
 
 ### 三档权责分层模型 (Three Responsibility Tiers)
 
@@ -226,8 +226,8 @@ python scripts/xh_blog_cli.py snapshot --tag v1.0.0-my-brand
 | **动效与微交互** | Framer Motion + 自定义弹簧阻尼模型 | 视差滚动、Bottom Dock 磁吸悬浮、物理回弹 |
 | **着色器渲染** | WebGPU Shader 字段 (Ink/Portrait/Blueprint) | 软硬件级光影渐变，GPU 硬件加速且优雅降级 |
 | **半色调肖像** | Halftone Shader Print + 真实肖像双向切换 | 点击即时在瑞士古典网点印刷与原色写真之间无缝穿梭 |
-| **单元测试套件** | Vitest 3.0 + @testing-library/react | 覆盖核心微交互组件与工具函数，68 项测试秒级完成 |
-| **路由与页面量** | 22 条 SSG 静态路由完全独立预渲染 | 首页、长文库、文章详情、开源项目、胶片影廊、管理后台 |
+| **单元测试套件** | Vitest 3.0 + @testing-library/react | 覆盖核心微交互组件与工具函数，74 项测试秒级完成 |
+| **路由与页面量** | 21 条 SSG 静态路由完全独立预渲染 | 首页、长文库、文章详情、开源项目、胶片影廊、管理后台 |
 
 ---
 
@@ -238,7 +238,7 @@ python scripts/xh_blog_cli.py snapshot --tag v1.0.0-my-brand
 | **视觉品质** | 极易改坏复杂 CSS，丢失微妙质感 | 样式扁平通用，缺乏独特性与文化厚度 | **1:1 完整保留瑞士纸墨、网点着色器与纸质阴影** |
 | **修改安全感** | 提心吊胆，改动一个 `div` 崩三个页面 | 虽容易改动，但无法防范误删 | **49 个 K 代码 SHA-256 刚性锁死，任何污染秒级拦截** |
 | **变量管理** | 散落在数十个 `.tsx` 文件中搜索替换 | 大多仅支持简单 `config.json` | **8 大维度严密插槽体系 (`.slots.json`)，支持 AI 辅助提取** |
-| **验证与回滚** | 无自动化测试，纯肉眼排查 | 通常仅有简单的 ESLint 校验 | **68 个单元测试 + 22 路由 SSG 编译 + 一键语义快照** |
+| **验证与回滚** | 无自动化测试，纯肉眼排查 | 通常仅有简单的 ESLint 校验 | **74 个单元测试 + 21 路由 SSG 编译 + 一键语义快照** |
 | **致谢与规范** | 经常遮掩来源或被误当纯原创 | 开源协议模糊 | **完全透明公开致谢 Cali Castle，合规且受人尊敬** |
 
 ---
@@ -248,7 +248,7 @@ python scripts/xh_blog_cli.py snapshot --tag v1.0.0-my-brand
 > 🖼️ **真实截图视觉呈现**：本项目拒绝“纯文本自吹”，以下呈现母版（芯火）与公版历史人物（本杰明·富兰克林）在实际换血中生成的真实全屏/局部视觉截图。完整实测图集与更多人物请参阅专用图鉴文档：👉 [**`docs/SHOWCASE.md`**](docs/SHOWCASE.md)。
 
 ### 案例 1：公版历史学者与博学家 · 本杰明·富兰克林 (Benjamin Franklin)
-> **测试环境与规格**：18 世纪历史人物，无微信/小红书/GitHub，仅有出版物与手信信箱。49 个 K-code 文件零篡改，68 项单测全绿，SSG 22 路由静态编译通过。
+> **测试环境与规格**：18 世纪历史人物，无微信/小红书/GitHub，仅有出版物与手信信箱。49 个 K-code 文件零篡改，74 项单测全绿，SSG 21 路由静态编译通过。
 
 <div align="center">
   <img src="assets/cases/franklin/02-home-channels.png" alt="富兰克林首屏联系方式由渠道矩阵拼接" width="48%"/>
@@ -284,7 +284,7 @@ python scripts/xh_blog_cli.py snapshot --tag v1.0.0-my-brand
   <img src="assets/cases/xinhuo/05-projects-grid.png" alt="精选代表作项目网格" width="48%"/>
 </div>
 <div align="center">
-  <p><em>左：8 篇原创长文按年份动态归档与阅读时长计算；右：精选代表作项目卡片与 GitHub 热度矩阵</em></p>
+  <p><em>左：6 篇原创长文按年份动态归档与阅读时长计算；右：精选代表作项目卡片与 GitHub 热度矩阵</em></p>
 </div>
 
 ---
@@ -361,7 +361,7 @@ python scripts/xh_blog_cli.py verify-kernel --allow-modified components/social-c
 - [x] 1:1 瑞士纸墨经典设计与 6,972 行 `globals.css` 深度适配
 - [x] 49 个核心 K 代码工程文件 SHA-256 哈希防线锁定
 - [x] 8 组 V 槽位动态热插拔与元数据规范设计
-- [x] 68/68 Vitest 单元测试覆盖
+- [x] 74/74 Vitest 单元测试覆盖
 - [x] 双语文档、CI 矩阵与全套开源社区规范文件配置
 - [x] 原色童年 IP 统一品牌标与双轨肖像着色器交互
 - [ ] 针对非技术创作者的 Web 端交互式插槽配置面板

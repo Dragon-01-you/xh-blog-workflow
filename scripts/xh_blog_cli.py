@@ -16,7 +16,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-DEFAULT_MASTER_TEMPLATE = r"e:\芯火知识库\芯火知识库\个人知识库\01-当前任务\网站设计工作流\site-2"
+DEFAULT_MASTER_TEMPLATE = str(Path(__file__).resolve().parent.parent)
 
 # Fixed K-Code (Kernel) globs relative to the project root that AI must NEVER rewrite in V1 (Low-Customization 1:1 mode)
 KERNEL_GLOBS = [

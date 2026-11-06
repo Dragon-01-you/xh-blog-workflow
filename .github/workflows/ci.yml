@@ -39,7 +39,8 @@ jobs:
           cat << 'EOF' > .env.local
           PUBLIC_SITE_URL=http://127.0.0.1:3000
           SITE_URL=http://127.0.0.1:3000
-          ADMIN_EMAIL=owner@xinhuo.local
+          ADMIN_EMAIL=creator@example.com
+          ADMIN_PASSWORD=ci_test_secure_password_2026
           AMA_ENCRYPTION_KEY=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
           RATE_LIMIT_HASH_KEY=AgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgI=
           DATABASE_URL=postgresql://runtime:runtime@127.0.0.1:5432/xinhuo_local
@@ -55,8 +56,8 @@ jobs:
       - name: TypeScript Typecheck
         run: pnpm exec tsc --noEmit
 
-      - name: Run Vitest Unit Tests (68/68)
+      - name: Run Vitest Unit Tests (74/74)
         run: pnpm test:run
 
-      - name: Next.js Static Site Build (22 SSG Routes)
+      - name: Next.js Static Site Build (21 SSG Routes)
         run: pnpm build

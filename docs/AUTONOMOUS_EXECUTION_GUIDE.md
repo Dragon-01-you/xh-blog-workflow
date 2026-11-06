@@ -142,7 +142,7 @@ pnpm run doctor
 |---|---|---|
 | `MISSING_FIELD: brandConfig.name is empty` | 缺少中文品牌名 | 在 `lib/personal.ts` 中补齐 `name` 字段 |
 | `TEMPLATE_RESIDUE: contains z-library` | 书籍链接残留非官方盗版库链接 | 将链接替换为豆瓣官方地址（`https://book.douban.com/subject/...`） |
-| `TEMPLATE_RESIDUE: contains you19827801947` | 残留母版测试邮箱 | 替换为被测人物的真实邮箱或公开邮件 |
+| `TEMPLATE_RESIDUE: contains retired-email` | 残留母版测试邮箱 | 替换为被测人物的真实邮箱或公开邮件 |
 | `TEMPLATE_MASTER_IMAGE_NOT_REPLACED` | 肖像/二维码素材 SHA-256 与芯火母版相同 | 必须提供新创作者的真实肖像或二维码图片替换，严禁遗留母版面容 |
 | `PLACEHOLDER_SOLID_IMAGE` | 图片体积过小（< 3KB 或 < 1.5KB），疑似纯色伪图 | 必须提供真实的摄影作品或高保真设计封面图，严禁纯色图块混入 |
 | `identity.timezone` | 常驻地城市或 IANA 时区缺失 | 在 `lib/personal.ts` 中补齐 `timezone`、`timezoneLabel` 与 `city` |
@@ -164,22 +164,22 @@ python tests/test_smoke.py
 # 5.2 TypeScript 严格类型检查
 pnpm exec tsc --noEmit
 
-# 5.3 68 项单元与集成契约测试
+# 5.3 74 项单元与集成契约测试
 pnpm test
 
 # 5.4 公开发现网关协议校验 (Sitemap / RSS / llms.txt)
 pnpm verify:public-discovery
 
-# 5.5 全站生产 SSG 静态编译 (生成 22 条静态路由)
+# 5.5 全站生产 SSG 静态编译 (生成 21 条静态路由)
 pnpm build
 ```
 
 > **通过标准**：
 > 1. Smoke test: `All smoke tests passed (4/4)`
 > 2. TypeScript: `0 errors`
-> 3. Vitest: `8 passed (8), 68 passed (68)`
+> 3. Vitest: `10 passed (10), 74 passed (74)`
 > 4. Verify discovery: `🎉 Public Discovery Gateway Verification Passed with 100% success!`
-> 5. Build: `Generating static pages (22/22) ✓`
+> 5. Build: `Generating static pages (21/21) ✓`
 
 ---
 

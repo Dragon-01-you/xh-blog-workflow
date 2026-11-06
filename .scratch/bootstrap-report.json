@@ -1,7 +1,7 @@
 {
   "status": "bootstrapped",
-  "target_dir": "E:\\芯火知识库\\芯火知识库\\个人知识库\\01-当前任务\\网站设计工作流\\site-2",
-  "template_dir": "E:\\芯火知识库\\芯火知识库\\个人知识库\\01-当前任务\\网站设计工作流\\site-2",
+  "target_dir": ".",
+  "template_dir": ".",
   "environment": {
     "node": {
       "ok": true,
@@ -17,7 +17,7 @@
     }
   },
   "copied_top_level_items": 0,
-  "kernel_lock_file": "E:\\芯火知识库\\芯火知识库\\个人知识库\\01-当前任务\\网站设计工作流\\site-2\\.kernel-lock.json",
+  "kernel_lock_file": ".\\.kernel-lock.json",
   "kernel_file_count": 49,
   "dynamic_slots": [
     "lib/personal.ts",

@@ -6,10 +6,13 @@ const fs = require('fs');
   const videoDir = path.resolve(__dirname, 'raw_recordings');
   if (!fs.existsSync(videoDir)) fs.mkdirSync(videoDir, { recursive: true });
 
-  const browser = await chromium.launch({
-    headless: true,
-    executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
-  });
+  const launchOptions = { headless: true };
+  if (process.env.CHROME_PATH) {
+    launchOptions.executablePath = process.env.CHROME_PATH;
+  } else if (process.platform === 'win32' && fs.existsSync('C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe')) {
+    launchOptions.executablePath = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
+  }
+  const browser = await chromium.launch(launchOptions);
 
   const context = await browser.newContext({
     viewport: { width: 1440, height: 900 },

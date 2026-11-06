@@ -33,7 +33,7 @@ description: >-
 │    public/images/* (头像/照片/二维码/封面/黑胶)             │
 ├─────────────────────────────────────────────────────────────┤
 │ 3. A-Code Automation & Gates (全自动化保障与硬门禁)         │
-│    pnpm doctor, verify-kernel, test:smoke, vitest (68 项),  │
+│    pnpm doctor, verify-kernel, test:smoke, vitest (74 项),  │
 │    verify:public-discovery, slot-config-panel.html          │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -87,7 +87,7 @@ flowchart TD
 - **截停动作**：
   1. 运行 `pnpm run doctor`，自动检查：
      - 必填品牌槽位（中文名、英文名、Bio、坐标、头像等）是否完备。
-     - 是否残留模板违禁词（如已退役邮箱、非官方盗版库链接 `z-library`、母版残留 `cali.so`、`you19827801947` 等）。
+     - 是否残留模板违禁词（如已退役邮箱、非官方盗版库链接 `z-library`、母版残留 `cali.so`、退役私人账号等）。
      - Markdown 文章是否少于 2 篇、文章内二级标题是否 `>= 2`。
      - 图片资源是否在 `public/` 目录下真实存在且非 0 字节。
   2. 若有任何一项不通过，向用户报备红灯项并自动修复，修复完成后才可放行。
@@ -159,13 +159,13 @@ pnpm run doctor
 # 1. 验证 49 个 K 代码文件哈希未被篡改
 python tests/test_smoke.py
 
-# 2. 运行 68 项单元与集成测试（涵盖弹性渠道、书架、项目、文章等）
+# 2. 运行 74 项单元与集成测试（涵盖弹性渠道、书架、项目、文章等）
 pnpm test
 
 # 3. TypeScript 静态类型完整性检查
 pnpm exec tsc --noEmit
 
-# 4. 全站 SSG 静态生成与构建（生成 22 个静态路由）
+# 4. 全站 SSG 静态生成与构建（生成 21 个静态路由）
 pnpm build
 
 # 5. 公开发现协议全量自检（验证 /sitemap.xml, /feed.xml, /llms.txt）

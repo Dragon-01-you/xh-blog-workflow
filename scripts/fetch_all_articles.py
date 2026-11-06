@@ -5,10 +5,10 @@ import io
 import re
 from PIL import Image, ImageFilter, ImageEnhance, ImageDraw, ImageFont
 
-SRC_DIR = r"e:\芯火知识库\芯火知识库\个人知识库\02-资产\公众号发布库"
-SITE2_DIR = r"e:\芯火知识库\芯火知识库\个人知识库\01-当前任务\网站设计工作流\site-2"
+SRC_DIR = os.environ.get("SRC_DIR", os.path.join(os.getcwd(), "source-articles"))
+SITE2_DIR = os.environ.get("SITE2_DIR", os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 BLOG_DIR = os.path.join(SITE2_DIR, "content", "blog")
-ASSETS_DIR = os.path.join(SRC_DIR, "素材")
+ASSETS_DIR = os.path.join(SRC_DIR, "assets")
 
 HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
 

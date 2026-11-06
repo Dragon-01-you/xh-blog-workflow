@@ -1,10 +1,11 @@
 import { chromium } from '@playwright/test';
 import path from 'path';
 
-const brainDir = 'C:/Users/ASUS/.gemini/antigravity/brain/be3451dc-1e2a-4ca9-af26-2ff90e1829b8';
+const brainDir = process.env.SCREENSHOT_OUT_DIR || path.join(process.cwd(), '.scratch', 'screenshots');
 
 async function main() {
-  const browser = await chromium.launch({ channel: 'msedge', headless: true });
+  const channel = process.env.PLAYWRIGHT_CHANNEL;
+  const browser = await chromium.launch({ ...(channel ? { channel } : {}), headless: true });
   const context = await browser.newContext({
     viewport: { width: 1280, height: 960 },
     deviceScaleFactor: 2,

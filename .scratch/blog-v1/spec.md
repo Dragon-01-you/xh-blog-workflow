@@ -4,7 +4,7 @@
 - **品牌名称规范**：草字头「**芯火**」（Xinhuo），严禁出现“星火”！
 - **微信公众号**：来自07年的芯火
 - **GitHub**：`https://github.com/Dragon-01-you` (`Dragon-01-you`)
-- **真实联系邮箱**：`you19827801947@qq.com`
+- **真实联系邮箱**：`creator@example.com`
 - **小红书**：`https://xhslink.cn/o/74Svva7m0kZ`
 - **真实时间轴**：2025 – 2026（2007 年生，2025 年进入江西工业工程职业技术学院网络安全专业）
 
