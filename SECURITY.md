@@ -14,5 +14,5 @@
 如果你在 **xh-blog-workflow** 中发现了任何安全漏洞（包括依赖漏洞、敏感数据暴露风险或 XSS 注入风险）：
 
 - **请勿** 直接在公开 Issue 中报告！
-- 请发送私密邮件至项目维护者邮箱：`you19827801947@qq.com` 或通过 GitHub Security Advisory 提交私密报告。
+- 请发送私密邮件至项目安全邮箱：`security@example.com` 或直接通过 GitHub Security Advisory 提交私密报告。
 - 我们会在 48 小时内确认报告，并在验证后发布修复补丁与安全公告。

@@ -12,7 +12,7 @@
 
 [![CI](https://github.com/Dragon-01-you/xh-blog-workflow/actions/workflows/ci.yml/badge.svg)](https://github.com/Dragon-01-you/xh-blog-workflow/actions)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Tests](https://img.shields.io/badge/tests-68%2F68%20passing-brightgreen.svg)](https://github.com/Dragon-01-you/xh-blog-workflow/actions)
+[![Tests](https://img.shields.io/badge/tests-74%2F74%20passing-brightgreen.svg)](https://github.com/Dragon-01-you/xh-blog-workflow/actions)
 [![Node](https://img.shields.io/badge/node-%3E%3D20-green.svg)](https://nodejs.org)
 [![Next.js](https://img.shields.io/badge/Next.js-15.3-black.svg)](https://nextjs.org)
 [![Tailwind](https://img.shields.io/badge/TailwindCSS-v4-38bdf8.svg)](https://tailwindcss.com)
@@ -42,7 +42,7 @@ Every creator dreams of owning a museum-grade personal blog with warm paper-and-
 | 1 | Will customizing content break delicate styles and animations? | **Never**. `.kernel-lock.json` enforces SHA-256 integrity on 49 K-code files, immediately aborting builds on unauthorized tampering. |
 | 2 | Can I publish long-form original essays with custom covers? | Seamless built-in MDX content pipeline with 1200×675 covers, reading time calculation, syntax highlighting, and dynamic slug routing. |
 | 3 | How do I update my avatar or project showcase? | Brand variables are isolated into 8 V-slots (`.slots.json` and `lib/` configs); edit once, instant hot-swap across the entire site. |
-| 4 | How do I verify the site is bug-free before going live? | 68 Vitest unit tests, strict TypeScript 5.8 checks, 22-route full SSG compilation, and public discovery verification. |
+| 4 | How do I verify the site is bug-free before going live? | 74 Vitest unit tests, strict TypeScript 5.8 checks, 21-route full SSG compilation, and public discovery verification. |
 | 5 | What if I try bold experiments and need to roll back? | Native `xh-blog snapshot` CLI tags deterministic Git releases with one-click safe rollback guarantees. |
 
 ---

@@ -55,7 +55,7 @@
 |---|---|:---:|---|---|
 | `name` | `string` | 是 | `'芯火'` | 品牌/主理人名 |
 | `enName` | `string` | 是 | `'Xinhuo'` | 英文名 |
-| `email` | `string` | 是 | `'you19827801947@qq.com'` | 个人联络邮箱（首页邮件戳、社交卡片、后台） |
+| `email` | `string` | 是 | `'creator@example.com'` | 个人联络邮箱（首页邮件戳、社交卡片、后台） |
 | `handle` | `string` | 是 | `'Dragon-01-you'` | 社交网名 / GitHub Handle |
 | `githubUser` | `string` | 是 | `'Dragon-01-you'` | GitHub 用户名（用于抓取热力图 Contribution Graph） |
 | `github` | `string` | 否 | `'https://github.com/Dragon-01-you'` | 完整 GitHub 主页 URL（若无则不渲染外链卡片） |

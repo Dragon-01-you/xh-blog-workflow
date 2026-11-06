@@ -31,14 +31,14 @@ export interface BrandConfig {
 }
 
 export const brandConfig: BrandConfig = {
-  name: '芯火',
-  enName: 'Xinhuo',
-  tagline: '07 年自学者 ·「AI 生产力 + 认知复利」· 公众号「来自07年的芯火」',
-  taglineEn: 'Self-taught builder born in 2007 · AI Productivity & Personal Leverage · Author of "来自07年的芯火"',
-  bio: '痴迷于探索 AI 时代的个人杠杆与认知演进，坚信“行动是最好的自我重构”。公众号「来自07年的芯火」主笔，专注于构建实用自学工作流与敏捷开源工具。在这里通过公开记录与真实交付，探索年轻人打破被动路径、用现代技术自主进化的可能。',
-  bioEn: 'Obsessed with exploring cognitive compound interest, personal leverage, and modern AI agency. Author of "来自07年的芯火". Committed to authentic action, open-source tools, and helping curious minds escape default paths through deliberate practice.',
-  heroIntroZh: '一名专注于「AI 生产力 + 认知复利」的 07 年自学者；',
-  heroIntroEn: 'a self-taught explorer born in 2007 focused on personal leverage and AI workflows. ',
+  name: '创作者',
+  enName: 'Creator',
+  tagline: '数字创作者 ·「AI 生产力 + 认知复利」· 开源工作流探索者',
+  taglineEn: 'Digital Creator · AI Productivity & Personal Leverage',
+  bio: '一名专注于用 AI 工具链与终身自学重塑个人认知的数字创作者。在这里真实记录实用自学工作流、敏捷开发交付与工具构建。',
+  bioEn: 'A digital creator obsessed with exploring AI-driven workflows, personal leverage, and continuous self-education.',
+  heroIntroZh: '一名专注于「AI 生产力 + 认知复利」的数字创作者；',
+  heroIntroEn: 'a digital creator focused on AI workflows and personal leverage. ',
   avatar: '/images/avatar.png',
   headshotLight: '/images/headshot.jpg',
   headshotDark: '/images/portrait-square.jpg',
@@ -54,15 +54,15 @@ export const brandConfig: BrandConfig = {
 }
 
 export const personalInfo = {
-  name: '芯火',
-  enName: 'Xinhuo',
-  email: 'you19827801947@qq.com',
-  handle: 'Dragon-01-you',
-  githubUser: 'Dragon-01-you',
-  github: 'https://github.com/Dragon-01-you',
-  xiaoHongShu: 'https://xhslink.cn/o/74Svva7m0kZ',
+  name: '创作者',
+  enName: 'Creator',
+  email: 'creator@example.com',
+  handle: 'creator',
+  githubUser: 'creator',
+  github: 'https://github.com',
+  xiaoHongShu: 'https://www.xiaohongshu.com',
   xiaoBaoTong: '', // 仅做字样展示，后续有真实专栏时再接入跳转
-  weChatOfficial: '来自07年的芯火',
+  weChatOfficial: '创作者笔记',
   weChatOfficialQr: '/images/wechat-qr.jpg',
 }
 
@@ -93,21 +93,21 @@ export interface Experience {
 
 export const experience: Experience[] = [
   {
-    company: '芯火知识库 & AI 全栈工作流',
-    companyEn: 'Xinhuo Knowledge Base & AI Full-Stack Workflows',
+    company: '个人知识库 & AI 全栈工作流',
+    companyEn: 'Knowledge Base & AI Full-Stack Workflows',
     role: '主理人 & 实用开源工具构建者',
     roleEn: 'Founder & Pragmatic Tooling Builder',
     from: 2026,
-    url: 'https://github.com/Dragon-01-you',
+    url: 'https://github.com',
   },
   {
-    company: '大专自学与成长实践',
-    companyEn: 'College Self-Learning & Personal Growth',
-    role: '创办「来自07年的芯火」· 聚焦 AI 赋能与专科生自学成长',
-    roleEn: 'Founder of "来自07年的芯火" · AI-empowered Self-learning',
+    company: '自学与数字化成长实践',
+    companyEn: 'Continuous Learning & Growth Practice',
+    role: '自学探索者 · 聚焦 AI 赋能与敏捷知识沉淀',
+    roleEn: 'Explorer · AI-empowered Self-learning',
     from: 2025,
     to: 2026,
-    url: 'https://github.com/Dragon-01-you',
+    url: 'https://github.com',
   },
 ]
 

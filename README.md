@@ -12,7 +12,7 @@
 
 [![CI](https://github.com/Dragon-01-you/xh-blog-workflow/actions/workflows/ci.yml/badge.svg)](https://github.com/Dragon-01-you/xh-blog-workflow/actions)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Tests](https://img.shields.io/badge/tests-68%2F68%20passing-brightgreen.svg)](https://github.com/Dragon-01-you/xh-blog-workflow/actions)
+[![Tests](https://img.shields.io/badge/tests-74%2F74%20passing-brightgreen.svg)](https://github.com/Dragon-01-you/xh-blog-workflow/actions)
 [![Node](https://img.shields.io/badge/node-%3E%3D20-green.svg)](https://nodejs.org)
 [![Next.js](https://img.shields.io/badge/Next.js-15.3-black.svg)](https://nextjs.org)
 [![Tailwind](https://img.shields.io/badge/TailwindCSS-v4-38bdf8.svg)](https://tailwindcss.com)
@@ -42,7 +42,7 @@
 | 1 | 我想把内容换成自己的，会不会改坏别人的精致排版和动画？ | **绝对不会**。通过 `.kernel-lock.json` 对 49 个 K 代码文件加盖 SHA-256 哈希锁，任何核心篡改都会立刻阻断构建。 |
 | 2 | 我的微信公众号长文和原创图文怎么无缝接入？ | 内置全真 MDX 内容流水线，支持 1200×675 题图、阅读时长计算、代码高亮与动态 Slug 路由。 |
 | 3 | 如果我想换回原色头像或添加新的项目卡片，需要改几处？ | 变量完全抽离至 8 组 V 槽位（`.slots.json` 与 `lib/` 配置文件），单点替换，全站毫秒级热生效。 |
-| 4 | 网站改完后，怎么确保上线前没有任何暗坑和断裂？ | 内置 68 个 Vitest 单元测试、TypeScript 5.8 严格检查、22 条路由 SSG 全量静态编译与公开发现校验。 |
+| 4 | 网站改完后，怎么确保上线前没有任何暗坑和断裂？ | 内置 74 个 Vitest 单元测试、TypeScript 5.8 严格检查、21 条路由 SSG 全量静态编译与公开发现校验。 |
 | 5 | 我以后如果想尝试更激进的大改动，改崩了能退回来吗？ | 原生支持 `xh-blog snapshot`，自动生成带语义标签的 Git 快照，随时一键无损回滚。 |
 
 ---

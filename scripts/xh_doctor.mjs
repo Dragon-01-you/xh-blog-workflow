@@ -50,9 +50,9 @@ const allow = (() => { try { return JSON.parse(fs.readFileSync(path.join(root, '
 const isAllowed = (file, token) => allow.some((a) => a.file === file && a.token === token)
 const notes = []
 
-// If creator is switching away from master template (name !== '芯火'), enforce strict residue zero-tolerance:
-const isTemplateOwner = (name === '芯火')
-const 指纹 = isTemplateOwner ? ['z-library'] : ['芯火', 'Xinhuo', 'xinhuo', 'Dragon-01-you', '来自07年', 'z-library']
+// If creator is switching away from master template, enforce strict residue zero-tolerance:
+const isTemplateOwner = (name === '创作者' || name === 'Creator' || name === '芯火')
+const 指纹 = isTemplateOwner ? ['z-library'] : ['创作者', 'Demo Creator', 'z-library']
 
 if (!isTemplateOwner && location && (!timezone || !city)) {
   ask('identity.timezone', `创作者常驻「${location}」，对应的 timezone（如 America/Los_Angeles）与 city（如 Cupertino）是什么？（页脚机械时钟需要精准运转）`, 'brandConfig.timezone 或 city 缺失')

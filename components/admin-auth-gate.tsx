@@ -16,14 +16,30 @@ export function AdminAuthGate({ children }: AdminAuthGateProps): React.JSX.Eleme
 
   useEffect(() => {
     setMounted(true)
-    try {
-      const stored = sessionStorage.getItem('xh_admin_auth')
-      if (stored === 'unlocked') {
-        setIsUnlocked(true)
-      }
-    } catch {
-      // sessionStorage unavailable
-    }
+    fetch('/api/admin/verify')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && data.authenticated) {
+          setIsUnlocked(true)
+        } else {
+          setIsUnlocked(false)
+          try {
+            sessionStorage.removeItem('xh_admin_auth')
+          } catch {
+            // Ignore storage error
+          }
+        }
+      })
+      .catch(() => {
+        try {
+          const stored = sessionStorage.getItem('xh_admin_auth')
+          if (stored === 'unlocked') {
+            setIsUnlocked(true)
+          }
+        } catch {
+          // sessionStorage unavailable
+        }
+      })
   }, [])
 
   const handleUnlock = async (e: React.FormEvent) => {
@@ -55,12 +71,7 @@ export function AdminAuthGate({ children }: AdminAuthGateProps): React.JSX.Eleme
         setErrorMessage(data.error || '管理口令不匹配，访问被拒绝。请重试。')
       }
     } catch {
-      // In isolated test/offline environment without API route, support direct local pass if in act
-      if (typeof window !== 'undefined' && 'IS_REACT_ACT_ENVIRONMENT' in window) {
-        setIsUnlocked(true)
-      } else {
-        setErrorMessage('网络或服务器连接失败，请稍后重试。')
-      }
+      setErrorMessage('网络或服务器连接失败，请稍后重试。')
     } finally {
       setIsSubmitting(false)
     }
