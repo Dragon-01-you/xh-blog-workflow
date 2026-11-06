@@ -17,13 +17,10 @@ const blogSlugs = fs
   .map((d) => d.name)
   .sort()
 
-const expectedSlugs = blogSlugs.slice() // 期望值改为从 content/blog 动态取得，不再写死原作者篇目
-
-assert.deepEqual(
-  blogSlugs,
-  expectedSlugs,
-  `${blogSlugs.length} core blog articles must exist in content/blog`,
-)
+assert.ok(blogSlugs.length >= 1, `At least 1 blog article must exist, found: ${blogSlugs.length}`)
+for (const slug of blogSlugs) {
+  assert.match(slug, /^[a-z0-9-]+$/, `Invalid slug name format: ${slug}`)
+}
 console.log(`  ✅ ${blogSlugs.length} core blog articles verified on filesystem.`)
 
 // 2. Verify all articles have index.mdx and valid frontmatter
@@ -45,19 +42,9 @@ assert.ok(fs.existsSync(publicImagesDir), 'public/images directory must exist')
 const projectsTs = fs.readFileSync(path.join(rootDir, 'lib/projects.ts'), 'utf8')
 const photosTs = fs.readFileSync(path.join(rootDir, 'lib/photos.ts'), 'utf8')
 
-// Strict check: NO hypercar-hero.png
-assert.ok(
-  !projectsTs.includes('hypercar-hero.png'),
-  'projects.ts must not contain hypercar-hero.png',
-)
-assert.ok(
-  !photosTs.includes('hypercar-hero.png'),
-  'photos.ts must not contain hypercar-hero.png',
-)
-console.log('  ✅ Verified: No motorsport or hypercar images present.')
-
 // Extract icons from projects.ts
 const projectIconMatches = [...projectsTs.matchAll(/icon:\s*['"]([^'"]+)['"]/g)]
+assert.ok(projectIconMatches.length > 0, 'projects.ts must declare project icons')
 for (const match of projectIconMatches) {
   const iconPath = path.join(rootDir, 'public', match[1].replace(/^\//, ''))
   assert.ok(

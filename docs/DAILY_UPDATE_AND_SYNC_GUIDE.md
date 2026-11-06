@@ -123,7 +123,7 @@ flowchart LR
 
 在项目根目录的 `.env.local` 文件中添加或修改：
 ```bash
-NEXT_PUBLIC_ADMIN_PASSWORD=设置你自己的复杂口令
+ADMIN_PASSWORD=设置你自己的复杂口令
 ```
 保存后重新执行 `pnpm build` 并推送，新口令立即生效。
 </details>

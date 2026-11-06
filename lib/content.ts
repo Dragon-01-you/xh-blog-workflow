@@ -16,8 +16,6 @@ function getScannedPostSlugs(): string[] {
       'top-developers-make-questions',
       'vibecoding-deployment-guide',
       'weekly-review-2026-06-15',
-      'five-legal-security-labs',
-      'kali-linux-penetration-testing-intro',
       'campus-data-card-for-alma-mater',
     ]
   }

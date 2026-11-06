@@ -193,30 +193,16 @@ describe('Issue 05 & 06: Projects, Photos & Discovery Gateways', () => {
     })
   })
 
-  describe('6. Local Passwordless Admin Overview (Issue 06)', () => {
-    it('renders passwordless overview with content metrics and health checks', () => {
+  describe('6. Protected Admin Area & Security Gate (Issue 06)', () => {
+    it('protects AdminPage during SSR so sensitive dashboard is never leaked in unauthenticated HTML', () => {
       const html = renderToStaticMarkup(<AdminPage />)
 
-      // Verify no login prompt, direct access
-      expect(html).toContain('运营监控概览 (免密沙盒)')
-      expect(html).not.toContain('Password')
-      expect(html).not.toContain('登录密码')
-
-      // Assert metrics display
-      const posts = getAllPosts()
-      expect(html).toContain(`${posts.length} 篇`)
-      expect(html).toContain(`${projects.length} 个`)
-      expect(html).toContain(`${photos.length} 张`)
-      expect(html).toContain(`${books.length} 本`)
-      expect(html).toContain(`${records.length} 首`)
-
-      // Assert social channels and endpoints
-      expect(html).toContain(personalInfo.handle)
-      expect(html).toContain(personalInfo.email)
-      expect(html).toContain(personalInfo.weChatOfficial)
-      expect(html).toContain('/feed.xml')
-      expect(html).toContain('/sitemap.xml')
-      expect(html).toContain('/llms.txt')
+      // Verify server-side security gate challenge is rendered, not the raw dashboard
+      expect(html).toContain('站长控制台 · 访问受限')
+      expect(html).toContain('Protected Admin Area')
+      expect(html).not.toContain('运营监控概览 (免密沙盒)')
+      expect(html).toContain('管理口令')
+      expect(html).toContain('验证并解锁 (Unlock)')
     })
   })
 

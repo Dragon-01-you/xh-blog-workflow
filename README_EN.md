@@ -116,7 +116,7 @@ pnpm dev
 
 ### Admin Console & Daily Content Sync Guide
 
-- **Live Operational Dashboard**: Visit [`/admin`](http://localhost:3000/admin) in your browser (protected by a secure passcode gate, customizable via `NEXT_PUBLIC_ADMIN_PASSWORD` in `.env.local`). Features full asset metrics, a live slot editor, and GitOps sync instructions.
+- **Live Operational Dashboard**: Visit [`/admin`](http://localhost:3000/admin) in your browser (protected by a secure passcode gate, customizable via `ADMIN_PASSWORD` in `.env.local`). Features full asset metrics, a live slot editor, and GitOps sync instructions.
 - **Daily Maintenance Guide**: How to publish new posts, update bio/books, and sync changes automatically via Git continuous deployment: 👉 [**`docs/DAILY_UPDATE_AND_SYNC_GUIDE.md`**](docs/DAILY_UPDATE_AND_SYNC_GUIDE.md).
 
 ### Advanced Slot Management & Snapshot Releases

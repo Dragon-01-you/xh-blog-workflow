@@ -12,12 +12,8 @@ function postTransitionId(slug: string): string {
       return 'p04'
     case 'weekly-review-2026-06-15':
       return 'p05'
-    case 'five-legal-security-labs':
-      return 'p06'
-    case 'kali-linux-penetration-testing-intro':
-      return 'p07'
     case 'campus-data-card-for-alma-mater':
-      return 'p08'
+      return 'p06'
     default: {
       let hash = 0
       for (let i = 0; i < slug.length; i++) hash = (hash * 31 + slug.charCodeAt(i)) | 0
